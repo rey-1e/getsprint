@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target) {
                 // Accounting for the fixed navbar height
                 const navHeight = navbar.offsetHeight;
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight + 80;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight + 50;
                 
                 window.scrollTo({
                     top: targetPosition,
