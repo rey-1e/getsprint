@@ -1,79 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Sticky Navbar styling based on scroll state
-    const navbar = document.getElementById('navbar');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
 
-    // 2. Intersection Observer for Scroll Animations
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.08
-    };
+  // 1. Mail Delivery & Feedback Engine
+  const feedbackForm = document.getElementById('feedbackForm');
+  const feedbackEmail = document.getElementById('feedbackEmail');
+  const feedbackMessage = document.getElementById('feedbackMessage');
+  const feedbackSubmitBtn = document.getElementById('feedbackSubmitBtn');
+  const formFeedback = document.getElementById('formFeedback');
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); 
-            }
-        });
-    }, observerOptions);
+  if (feedbackForm && feedbackEmail && feedbackMessage && formFeedback) {
+    feedbackForm.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-    const scrollElements = document.querySelectorAll('.scroll-trigger');
-    scrollElements.forEach(el => observer.observe(el));
+      const emailVal = feedbackEmail.value.trim();
+      const messageVal = feedbackMessage.value.trim();
 
-    // 3. Perfect Smooth Scroll targeting with dynamic offset height adjustments
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
+      if (emailVal && messageVal) {
+        // Change button state to signify network transmission activity
+        const originalBtnText = feedbackSubmitBtn.textContent;
+        feedbackSubmitBtn.textContent = "Sending Feedback...";
+        feedbackSubmitBtn.disabled = true;
+
+        // AJAX Delivery via FormSubmit
+        fetch("https://formsubmit.co/ajax/kanaderaj1216@gmail.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            email: emailVal,
+            message: messageVal,
+            _subject: "Sprint extension — New User Feedback"
+          })
+        })
+        .then(response => {
+          if (response.ok) {
+            // Success State handling
+            formFeedback.classList.remove('hidden');
+            feedbackForm.reset();
             
-            // If the hash is just "#", scroll gracefully to top
-            if (targetId === '#') {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                return;
-            }
-
-            const target = document.querySelector(targetId);
-            if (target) {
-                const navHeight = navbar.offsetHeight;
-                // Calculate position relative to document, accounting for the persistent header height plus a comfortable vertical buffer
-                const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 12;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
+            // Revert feedback message toast after 5 seconds
+            setTimeout(() => {
+              formFeedback.classList.add('hidden');
+            }, 5000);
+          } else {
+            alert("Unable to route form submission. Please try again.");
+          }
+        })
+        .catch(err => {
+          console.error("Transmission error:", err);
+          alert("Network failure. Please review your internet connection and try again.");
+        })
+        .finally(() => {
+          // Revert button text and interactive state
+          feedbackSubmitBtn.textContent = originalBtnText;
+          feedbackSubmitBtn.disabled = false;
         });
+      }
     });
+  }
 
-    // 4. Custom Mockup Tab Interactions (Post-Submission Feature Mockup)
-    const subTabs = document.querySelectorAll('.sub-tab');
-    const subPanes = document.querySelectorAll('.submission-pane');
+  // 2. Interactive Panel Custom Tabs (Diagnostic Feature Spec Visualizer)
+  const subTabs = document.querySelectorAll('.sub-tab');
+  const subPanes = document.querySelectorAll('.submission-pane');
 
+  if (subTabs.length > 0 && subPanes.length > 0) {
     subTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            subTabs.forEach(t => t.classList.remove('active'));
-            subPanes.forEach(p => p.classList.remove('active'));
+      tab.addEventListener('click', () => {
+        // Reset active structures
+        subTabs.forEach(t => t.classList.remove('active'));
+        subPanes.forEach(p => p.classList.remove('active'));
 
-            tab.classList.add('active');
-            const targetPaneId = `pane-${tab.getAttribute('data-tab')}`;
-            const targetPane = document.getElementById(targetPaneId);
-            if (targetPane) {
-                targetPane.classList.add('active');
-            }
-        });
+        // Assign active values to target tab
+        tab.classList.add('active');
+        const targetPaneId = `pane-${tab.getAttribute('data-tab')}`;
+        const targetPane = document.getElementById(targetPaneId);
+        if (targetPane) {
+          targetPane.classList.add('active');
+        }
+      });
     });
+  }
 });

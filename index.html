@@ -1,65 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LeetCode Sprint — Supercharge Your LeetCode Grind</title>
-  <meta name="description" content="A lightweight Chrome extension for LeetCode. Real-time complexity analysis, interactive debugging, premium company tags, and true ELO ratings.">
+  <title>LeetCode Sprint</title>
+  <meta name="description" content="Stop paying $35/mo. Access real-time complexity analysis, verified company tags, local debug states, and true ELO difficulty ratings inside your browser.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="page-home">
 
-  <!-- Background Ambient Gradients -->
+  <!-- Soft Ambient Glows -->
   <div class="bg-glow blob-top"></div>
   <div class="bg-glow blob-middle"></div>
 
-  <!-- Navigation -->
+  <!-- Main Navigation -->
   <nav id="navbar">
     <div class="nav-container">
-      <a href="#" class="brand">
+      <a href="index.html" class="brand">
         <div class="logo-box">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <span class="brand-text">Sprint<span class="accent">.</span></span>
       </a>
       <div class="nav-links">
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#how-it-works" class="nav-link">Workflow</a>
-        <a href="#support" class="nav-link">Support</a>
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="features.html" class="nav-link">Features</a>
+        <a href="support.html" class="nav-link">Support</a>
       </div>
       <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
-        Add to Chrome
+        Install Free Extension
       </a>
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero Conversion Area -->
   <header class="hero section">
     <div class="hero-content fade-in-up">
       <div class="badge">
         <span class="pulse-dot"></span>
-        Sprint v2.0 is live
+        Built by developers, for developers
       </div>
       <h1 class="hero-title">
-        The developer companion for <span class="text-gradient">LeetCode</span>.
+        Get the absolute best<span class="text-gradient"> Leetcode companion for your preparation.</span>
       </h1>
       <p class="hero-subtitle">
-        Inject premium capabilities directly into your browser. Get instant space/time complexity metrics, local debugger steps, verified company tags, and raw ELO difficulty scores.
+        Sprint injects time/space complexity estimates, verified top-tier company tags, AI debugger for insights, and raw contest ELO metrics directly into your default LeetCode canvas.
       </p>
       <div class="hero-cta">
         <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary btn-lg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-          Install Extension
+          Add to Chrome — 100% Free
         </a>
-        <a href="#features" class="btn btn-secondary btn-lg">Explore Features</a>
+        <a href="features.html" class="btn btn-secondary btn-lg">How It Works</a>
       </div>
-      <p class="hero-microcopy">No tracking. Open source. Donation-supported.</p>
+      <p class="hero-microcopy">No tracking scripts. No credentials stored. 100% verified data.</p>
     </div>
 
-    <!-- Real-time Complexity & Code Window (Light Theme GitHub/Xcode Style) -->
+    <!-- IDE Light Theme Mockup -->
     <div class="hero-visual fade-in-up" style="animation-delay: 0.1s;">
       <div class="code-window window-glass">
         <div class="window-header">
@@ -83,16 +82,16 @@
             <span class="keyword">int</span> <span class="class-name">currentNum</span> = <span class="class-name">nums</span>[<span class="class-name">i</span>];
             <span class="keyword">int</span> <span class="class-name">complement</span> = <span class="class-name">target</span> - <span class="class-name">currentNum</span>;</code></pre>
           
-          <!-- Mockup Popup: Live Code Debugger -->
+          <!-- Mockup Popup: Debug Window -->
           <div class="debugger-popup">
             <div class="debugger-header">
               <span class="error-dot"></span>
               <span>Code Debugger</span>
             </div>
             <div class="debugger-body">
-              <div class="debugger-title">Issue Found:</div>
+              <div class="debugger-title">Syntax Bug Located:</div>
               <p class="debugger-desc">
-                The variable <code class="code-inline">`current`</code> is undefined; it should be <code class="code-inline">`currentNum`</code>.
+                Variable <code class="code-inline">`current`</code> is undefined; did you mean <code class="code-inline">`currentNum`</code>?
               </p>
               <button class="debugger-btn" type="button">Dismiss</button>
             </div>
@@ -102,177 +101,58 @@
     </div>
   </header>
 
-  <!-- Features Section -->
-  <section id="features" class="section border-top">
-    <div class="container">
-      <div class="section-header scroll-trigger">
-        <h2 class="section-title">Built for high-performance loops.</h2>
-        <p class="section-subtitle">Sprint integrates clean user-interface modules directly inside the native LeetCode workspace environment.</p>
+  <!-- Value Proof Section -->
+  <section class="section border-top bg-muted-flat">
+    <div class="container text-center">
+      <div class="social-proof-grid">
+        <div class="proof-metric">
+          <h3>3800+</h3>
+          <p>questions supported on platform</p>
+        </div>
+        <div class="proof-metric">
+          <h3>O(1)</h3>
+          <p>Friction added to your native workflow</p>
+        </div>
+        <div class="proof-metric">
+          <h3>100%</h3>
+          <p>Uncensored access to Premium company datasets</p>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="bento-grid scroll-trigger">
-        
-        <!-- Feature 1: Code Complexity -->
-        <div class="bento-card col-span-2">
-          <div class="card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          </div>
-          <div class="card-body">
-            <h3>Real-time Complexity Estimates</h3>
-            <p>Sprint parses your logical iterations on-the-fly to approximate algorithmic growth bounds. Know if your structure is O(N) or O(N log N) before hitting run.</p>
-            <div class="inline-complexity-preview">
-              <span class="badge-tag">Time Complexity: <strong>O(N)</strong></span>
-              <span class="badge-tag">Space Complexity: <strong>O(N)</strong></span>
-            </div>
-          </div>
+  <!-- Dynamic Feedback Form Block (Replaces subscription block) -->
+  <section class="section border-top">
+    <div class="container">
+      <div class="lead-container window-glass">
+        <div class="lead-text-box">
+          <h2>Let's optimize Sprint</h2>
+          <p>Have a feedback? Leave us a detailed note here.</p>
         </div>
-
-        <!-- Feature 2: Premium Tags -->
-        <div class="bento-card">
-          <div class="card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-          </div>
-          <div class="card-body">
-            <h3>Verified Company Tags</h3>
-            <p>Identify target corporate questions directly from up-to-date candidate submissions and assessments.</p>
-            <div class="company-tags-preview">
-              <span class="company-tag">Microsoft</span>
-              <span class="company-tag">Apple</span>
-              <span class="company-tag">Nvidia</span>
-              <span class="company-tag">Google</span>
-              <span class="company-tag">Amazon</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Feature 3: Post-Submission Insights (Interactive Tab Interface) -->
-        <div class="bento-card col-span-3 interactive-bento">
-          <div class="interactive-grid">
-            <div class="card-body">
-              <div class="card-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              </div>
-              <h3>Post-Submission Insights</h3>
-              <p>Break down execution and spatial parameters instantly inside your active solution page. Explore code metrics dynamically.</p>
-              <p class="interactive-hint">Select tabs to view runtime evaluations.</p>
+        <div class="lead-form-box">
+          <form class="feedback-form" id="feedbackForm">
+            <!-- FormSubmit Anti-Spam configurations -->
+            <input type="text" name="_honey" style="display:none">
+            
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Enter your email address" required class="form-input" id="feedbackEmail">
             </div>
             
-            <!-- Dynamic Light UI Mockup -->
-            <div class="submission-panel-mockup">
-              <div class="submission-tabs">
-                <button class="sub-tab active" data-tab="approach">✓ Approach</button>
-                <button class="sub-tab" data-tab="efficiency">✓ Efficiency</button>
-                <button class="sub-tab" data-tab="style">✓ Code Style</button>
-              </div>
-              <div class="submission-content-wrapper">
-                <div class="submission-pane active" id="pane-approach">
-                  <div class="pane-highlight">Optimized lookup approach located.</div>
-                  <div class="pane-details">
-                    <div class="detail-row"><span>Current layout:</span> <span class="val">Hash Table / Vector Array</span></div>
-                    <div class="detail-row"><span>Suggested structure:</span> <span class="val text-success">Map / Set</span></div>
-                    <div class="detail-row"><span>Operational note:</span> <span class="val text-muted">Use map mapping to reduce iteration constraints to O(1).</span></div>
-                  </div>
-                </div>
-                <div class="submission-pane" id="pane-efficiency">
-                  <div class="pane-highlight">Minimal iteration cycle bounds achieved.</div>
-                  <div class="pane-details">
-                    <div class="detail-row"><span>Execution time:</span> <span class="val text-success">0 ms (Beats 100.00%)</span></div>
-                    <div class="detail-row"><span>Memory allocation:</span> <span class="val text-warning">14.89 MB (Beats 36.61%)</span></div>
-                  </div>
-                </div>
-                <div class="submission-pane" id="pane-style">
-                  <div class="pane-highlight">Production design compliance checks passed.</div>
-                  <div class="pane-details">
-                    <div class="detail-row"><span>Syntax styling:</span> <span class="val text-success">Consistent casing & alignment rules.</span></div>
-                    <div class="detail-row"><span>Modularity:</span> <span class="val text-muted">Single responsibility pattern matches internal style guides.</span></div>
-                  </div>
-                </div>
-              </div>
+            <div class="form-group mt-3">
+              <textarea name="message" placeholder="What can we improve? Describe bugs or feature requests..." required class="form-input form-textarea" id="feedbackMessage" rows="4"></textarea>
             </div>
-          </div>
-        </div>
-
-        <!-- Feature 4: ELO Ratings -->
-        <div class="bento-card col-span-1">
-          <div class="card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-          </div>
-          <div class="card-body">
-            <h3>True ELO Metrics</h3>
-            <p>Go beyond subjective Easy, Medium, and Hard categorizations. See precise, real-time numeric ratings corresponding to actual algorithmic complexity trends.</p>
-          </div>
-        </div>
-
-        <!-- Feature 5: Keyboard Debugger -->
-        <div class="bento-card col-span-2">
-          <div class="card-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="6" y1="8" x2="6.01" y2="8"></line><line x1="10" y1="8" x2="10.01" y2="8"></line><line x1="14" y1="8" x2="14.01" y2="8"></line><line x1="18" y1="8" x2="18.01" y2="8"></line><line x1="6" y1="12" x2="6.01" y2="12"></line><line x1="10" y1="12" x2="10.01" y2="12"></line><line x1="14" y1="12" x2="14.01" y2="12"></line><line x1="18" y1="12" x2="18.01" y2="12"></line><line x1="7" y1="16" x2="17" y2="16"></line></svg>
-          </div>
-          <div class="card-body">
-            <h3>Hotkeyed Debug Console</h3>
-            <p>Audit and compile code states locally on the page. Simply hit <kbd class="kbd">Ctrl+Shift+Z</kbd> to activate immediate debugger summaries.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="section border-top">
-    <div class="container">
-      <div class="section-header scroll-trigger">
-        <h2 class="section-title">Seamless workflow integration.</h2>
-        <p class="section-subtitle">No configuration files or complex settings interfaces are needed. Run and scale directly inside standard browser ports.</p>
-      </div>
-
-      <div class="steps-grid scroll-trigger">
-        <!-- Step 1 -->
-        <div class="step-card">
-          <div class="step-num">01</div>
-          <h3>Install extension</h3>
-          <p>Add Sprint to Chrome to connect the execution parser to your default browsing layouts.</p>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="step-card">
-          <div class="step-num">02</div>
-          <h3>Process questions</h3>
-          <p>Run your typical solutions. Utilize <kbd class="kbd">Ctrl+Shift+Z</kbd> to inspect logic structures prior to hitting submission targets.</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="step-card">
-          <div class="step-num">03</div>
-          <h3>Audit feedback</h3>
-          <p>Instantly review spatial parameters and detailed design patterns right on the submission dashboard.</p>
+            
+            <button type="submit" id="feedbackSubmitBtn" class="btn btn-primary btn-lg mt-3 w-100 justify-center">
+              Send Direct Feedback
+            </button>
+          </form>
+          <div id="formFeedback" class="form-feedback hidden">Thank you! Your feedback has been sent directly to the development team.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Support Section -->
-  <section id="support" class="section border-top text-center">
-    <div class="container">
-      <div class="support-card window-glass scroll-trigger">
-        <div class="support-icon-wrapper">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-        </div>
-        <h2>Sprint runs on community donations</h2>
-        <p class="support-description">
-          Sprint remains ad-free, secure, and privacy-respecting. Host costs and engine optimization processes are sustained completely by voluntary user support.
-        </p>
-        <div class="support-action-box">
-          <a href="https://razorpay.me/@raj9589" target="_blank" class="btn btn-primary btn-lg">
-            Support the Extension
-          </a>
-          <span class="micro-text">One-time payments supported via Razorpay</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
+  <!-- Global Footer -->
   <footer class="footer border-top">
     <div class="container footer-layout">
       <div class="footer-meta">
@@ -282,16 +162,16 @@
           </div>
           <span class="brand-text">Sprint<span class="accent">.</span></span>
         </div>
-        <p class="footer-tagline">Optimizing development flows, one iteration at a time.</p>
+        <p class="footer-tagline">Providing high-performance tools for engineers preparing for complex technical interviews.</p>
       </div>
       <div class="footer-nav">
-        <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" class="footer-link">Extension</a>
-        <a href="https://razorpay.me/@raj9589" class="footer-link">Donate</a>
-        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="features.html" class="footer-link">Features</a>
+        <a href="support.html" class="footer-link">Donate</a>
       </div>
     </div>
     <div class="footer-bottom container">
-      &copy; 2026 LeetCode Sprint. Released under open-source software licenses.
+      &copy; 2026 LeetCode Sprint
     </div>
   </footer>
 
