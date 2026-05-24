@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Sticky Navbar background on scroll
+    // 1. Sticky Navbar styling based on scroll state
     const navbar = document.getElementById('navbar');
     
     window.addEventListener('scroll', () => {
@@ -12,45 +12,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. Intersection Observer for Scroll Animations
-    // Elements fade in elegantly as they enter the viewport
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.15
+        threshold: 0.08
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: stop observing once it's visible so it doesn't animate out
                 observer.unobserve(entry.target); 
             }
         });
     }, observerOptions);
 
-    // Grab all elements that need the scroll trigger
     const scrollElements = document.querySelectorAll('.scroll-trigger');
-    
-    scrollElements.forEach(el => {
-        observer.observe(el);
-    });
+    scrollElements.forEach(el => observer.observe(el));
 
-    // 3. Smooth scrolling for anchor links (Navigation)
+    // 3. Perfect Smooth Scroll targeting with dynamic offset height adjustments
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = this.getAttribute('href');
             
+            // If the hash is just "#", scroll gracefully to top
+            if (targetId === '#') {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                return;
+            }
+
+            const target = document.querySelector(targetId);
             if (target) {
-                // Accounting for the fixed navbar height
                 const navHeight = navbar.offsetHeight;
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight + 50;
+                // Calculate position relative to document, accounting for the persistent header height plus a comfortable vertical buffer
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 12;
                 
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
+            }
+        });
+    });
+
+    // 4. Custom Mockup Tab Interactions (Post-Submission Feature Mockup)
+    const subTabs = document.querySelectorAll('.sub-tab');
+    const subPanes = document.querySelectorAll('.submission-pane');
+
+    subTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            subTabs.forEach(t => t.classList.remove('active'));
+            subPanes.forEach(p => p.classList.remove('active'));
+
+            tab.classList.add('active');
+            const targetPaneId = `pane-${tab.getAttribute('data-tab')}`;
+            const targetPane = document.getElementById(targetPaneId);
+            if (targetPane) {
+                targetPane.classList.add('active');
             }
         });
     });
