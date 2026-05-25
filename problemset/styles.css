@@ -157,6 +157,21 @@ body {
     overflow-y: auto;
 }
 
+/* Custom Scrollbar for suggestions */
+.suggestions-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.suggestions-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+.suggestions-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+}
+.suggestions-dropdown::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.24);
+}
+
 .suggestion-item {
     padding: 12px 16px;
     font-size: 14px;
@@ -399,6 +414,24 @@ body {
 }
 
 .sprint-icon {
-    text-align: center;
-    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.sprint-icon img {
+    object-fit: contain;
+}
+
+footer {
+    padding: 24px 0;
+}
+
+.footer-text {
+    font-size: 13px !important;
+    opacity: 0.85;
 }

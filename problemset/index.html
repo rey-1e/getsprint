@@ -11,7 +11,9 @@
     <!-- Minimal Navbar -->
     <nav class="navbar">
         <div class="nav-brand">
-            <div class="sprint-icon"><img src = "resources/icon.png" height="30px" width="30px"></div>
+            <div class="sprint-icon">
+                <img src="resources/icon.png" alt="Sprint Icon" height="24px" width="24px">
+            </div>
             <span class="brand-text">Powered by Sprint</span>
         </div>
 
@@ -21,7 +23,6 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14L21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
             </a>
         </div>
-
     </nav>
 
     <main class="container">
@@ -53,9 +54,9 @@
                     <span class="filter-label">Difficulty:</span>
                     <div class="filter-pills">
                         <button class="filter-pill active" data-difficulty="All">All</button>
-                        <button class="filter-pill" data-difficulty="All">Easy</button>
-                        <button class="filter-pill" data-difficulty="All">Medium</button>
-                        <button class="filter-pill" data-difficulty="All">Hard</button>
+                        <button class="filter-pill" data-difficulty="Easy">Easy</button>
+                        <button class="filter-pill" data-difficulty="Medium">Medium</button>
+                        <button class="filter-pill" data-difficulty="Hard">Hard</button>
                     </div>
                 </div>
             </div>
@@ -86,14 +87,13 @@
 
         <!-- Initial Blank State -->
         <div id="blank-state" class="blank-card">
-            <p> Search for a company in the input above to begin exploring problems.</p>
+            <p>Search for a company in the input above to begin exploring problems.</p>
         </div>
     </main>
     
     <footer>
-        <p class ="hero">Bookmark this webpage to come here easily next time :)</p>
+        <p class="hero footer-text">Bookmark this webpage to come here easily next time :)</p>
     </footer>
-
 
     <script src="script.js"></script>
 </body>
