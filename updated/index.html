@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sprint - Extension Updated</title>
-  <meta name="description" content="LeetCode Sprint has been updated successfully. Review the latest minimal style optimizations.">
+  <meta name="description" content="LeetCode Sprint has been updated successfully. Review the latest workspace background theme customizer and structural optimizations.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,7 @@
         <span class="brand-text">Sprint<span class="accent">.</span></span>
       </div>
       <div class="nav-links">
-        <span class="version-pill" id="version-badge">v2.4</span>
+        <span class="version-pill" id="version-badge">v2.5</span>
       </div>
     </div>
   </nav>
@@ -37,32 +37,99 @@
   <main class="container">
     <div class="hero">
       <h1>Sprint has been successfully updated</h1>
-      <p>Enjoy the latest refined layout and styling optimizations designed directly for your LeetCode session.</p>
+      <p>Enjoy the brand new custom workspace theme customizer along with refined layout and AI debugger optimizations designed for your LeetCode session.</p>
     </div>
+
+    <!-- LIVE THEME PREVIEW SHOWROOM (Only Backgrounds/Borders Shift) -->
+    <section class="showroom-card window-glass">
+      <div class="showroom-header">
+        <span class="badge">LIVE DEMO</span>
+        <h2>Workspace Background Shifts</h2>
+        <p>Select a preset swatch below to see how our theme layers shift your workspace panels, headers, and borders without overriding default code coloring.</p>
+      </div>
+      
+      <div class="showroom-display" id="showroom-display">
+        <!-- Header Panel (Mimicking Layer 1) -->
+        <div class="mock-editor-header" id="mock-header">
+          <div class="mock-dots">
+            <span class="mock-dot red"></span>
+            <span class="mock-dot yellow"></span>
+            <span class="mock-dot green"></span>
+          </div>
+          <span class="mock-title">Solution.cpp</span>
+        </div>
+        
+        <!-- Code Content Panel (Mimicking Layer 2) -->
+        <div class="mock-editor-body" id="mock-body">
+          <div class="mock-code">
+            <span class="keyword">class</span> <span class="identifier">Solution</span> {<br>
+            <span class="keyword">public</span>:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="type">vector</span>&lt;<span class="type">int</span>&gt; <span class="function">twoSum</span>(<span class="type">vector</span>&lt;<span class="type">int</span>&gt;&amp; <span class="param">nums</span>) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Shifting background layers & borders...</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+            };
+          </div>
+        </div>
+      </div>
+
+      <div class="showroom-swatches">
+        <button class="s-dot active" data-theme="amethyst" style="background:#9d4edd;" title="Amethyst Nebula"></button>
+        <button class="s-dot" data-theme="forest" style="background:#10b981;" title="Emerald Aurora"></button>
+        <button class="s-dot" data-theme="sunset" style="background:#ff6b6b;" title="Sunset Horizon"></button>
+        <button class="s-dot" data-theme="space" style="background:#3b82f6;" title="Midnight Abyss"></button>
+        <button class="s-dot" data-theme="gruvbox" style="background:#fe8019;" title="Gruvbox Dark"></button>
+      </div>
+    </section>
+
+    <!-- INSTRUCTIONS CARD: HOW TO USE THEMES -->
+    <section class="instructions-card window-glass">
+      <div class="instructions-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+      </div>
+      <h2>How to Customize Your Workspace</h2>
+      <ol class="instructions-list">
+        <li>
+          <span class="step-num">1</span>
+          <p>Click the <strong>Puzzle/Extension icon</strong> in your browser's toolbar and pin <strong>LeetCode Sprint</strong>.</p>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <p>Open the extension popup while viewing any page on <strong>leetcode.com</strong> or <strong>leetcode.cn</strong>.</p>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <p>Click on any palette color dot inside the <strong>Select Theme</strong> grid. The background layers, borders, and margins of your workspace will transform instantly.</p>
+        </li>
+      </ol>
+    </section>
 
     <!-- Changelog Glass Card -->
     <section class="changelog-card window-glass">
       <h2>What's New</h2>
       <ul class="changelog-list">
         <li>
-          <span class="bullet">✨</span>
+          <span class="bullet">🎨</span>
           <div class="changelog-text">
-            <strong>Streamlined AI Debugger</strong>
-            <p>Completely reconstructed the debugger overlay to prevent screen dimming, and lowered overall interface contrast for an easier reading experience.</p>
+            <strong>20 Premium Dark Themes</strong>
+            <p>Personalize your workspace panels, headers, and margins with 20 professional visual configurations. Fully designed to maintain default syntax and interface contrast without overrides.</p>
           </div>
         </li>
         <li>
-          <span class="bullet">🎨</span>
+          <span class="bullet">✨</span>
           <div class="changelog-text">
-            <strong>Red Layout Accent</strong>
-            <p>Introduced a subtle Red theme for post-submission metrics, balancing visual hierarchy without disrupting your dark mode workspace.</p>
+            <strong>Streamlined AI Debugger</strong>
+            <p>Completely reconstructed the debugger overlay layout to prevent background screen dimming and optimized overall interface contrast for an easier late-night reading experience.</p>
           </div>
         </li>
         <li>
           <span class="bullet">⚡</span>
           <div class="changelog-text">
             <strong>Optimized Structural Alignment</strong>
-            <p>Enlarged button paddings and standardized component alignment offsets to maintain pixel-perfect integration with modern LeetCode controls.</p>
+            <p>Refined button offsets, standardized padding elements, and updated the positioning of custom ELO rating elements to maintain a pixel-perfect integration with modern LeetCode controls.</p>
           </div>
         </li>
       </ul>

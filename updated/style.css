@@ -13,6 +13,12 @@
     /* Typography */
     --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --mono-stack: 'JetBrains Mono', monospace;
+
+    /* Interactive variables for dynamic layering shifts (initially Amethyst) */
+    --mock-bg-1: #131124;
+    --mock-bg-2: #1a1631;
+    --mock-border: #2a254c;
+    --swatch-accent: #9d4edd;
 }
 
 * {
@@ -122,7 +128,7 @@ body {
 
 /* --- MAIN CONTAINER --- */
 .container {
-    max-width: 700px; /* Snug formatting width for text focus */
+    max-width: 700px;
     margin: 0 auto;
     padding: 48px 20px;
 }
@@ -155,6 +161,203 @@ body {
     padding: 24px;
     margin-bottom: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* --- THEME SHOWROOM DISPLAY --- */
+.showroom-card {
+    text-align: center;
+    padding: 28px;
+}
+
+.showroom-header {
+    margin-bottom: 18px;
+}
+
+.showroom-header .badge {
+    font-family: var(--mono-stack);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: rgba(205, 92, 92, 0.1);
+    color: var(--accent-color);
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.showroom-header h2 {
+    color: var(--text-main);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.showroom-header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.showroom-display {
+    border: 1px solid var(--mock-border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mock-editor-header {
+    background-color: var(--mock-bg-1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--mock-border);
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mock-editor-body {
+    background-color: var(--mock-bg-2);
+    padding: 18px;
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.editor-mock {
+    text-align: left;
+    font-family: var(--mono-stack);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.mock-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.mock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.mock-dot.red { background-color: #ff5f56; }
+.mock-dot.yellow { background-color: #ffbd2e; }
+.mock-dot.green { background-color: #27c93f; }
+
+.mock-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: 6px;
+}
+
+.mock-code {
+    color: #e3e3e3;
+}
+
+/* STATIC Syntax Highlighting (Matching default Monaco styling, no dynamically altered copy) */
+.mock-code .keyword { color: #ff79c6; }
+.mock-code .identifier { color: #f8f8f2; }
+.mock-code .type { color: #8be9fd; }
+.mock-code .function { color: #50fa7b; }
+.mock-code .param { color: #ffb86c; }
+.mock-code .comment { color: #6272a4; opacity: 0.85; }
+
+.showroom-swatches {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.s-dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--card-color);
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.s-dot:hover {
+    transform: translateY(-2px);
+}
+
+.s-dot.active {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--swatch-accent);
+}
+
+/* --- DETAILED STEP-BY-STEP INSTRUCTIONS CARD --- */
+.instructions-card {
+    text-align: left;
+    padding: 28px;
+}
+
+.instructions-icon {
+    color: var(--accent-color);
+    background-color: rgba(205, 92, 92, 0.08);
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.instructions-card h2 {
+    color: var(--text-main);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+}
+
+.instructions-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.instructions-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.instructions-list .step-num {
+    font-family: var(--mono-stack);
+    font-size: 11px;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.instructions-list p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    padding-top: 1px;
+}
+
+.instructions-list strong {
+    color: var(--text-main);
 }
 
 /* --- CHANGELOG MODULE --- */
