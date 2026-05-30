@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sprint - Extension Updated</title>
   <link rel="icon" type="image/png" href="../icon.png">
-  <meta name="description" content="LeetCode Sprint has been updated successfully. Review the latest workspace background theme customizer and structural optimizations.">
+  <meta name="description" content="LeetCode Sprint has been updated successfully to version 2.8. Explore our supercharged workspace background themes and new zero-lag caching optimizations.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
         <span class="brand-text">Sprint<span class="accent">.</span></span>
       </div>
       <div class="nav-links">
-        <span class="version-pill" id="version-badge">v2.7</span>
+        <span class="version-pill" id="version-badge">v2.8</span>
       </div>
     </div>
   </nav>
@@ -38,10 +38,10 @@
   <main class="container">
     <div class="hero">
       <h1>Sprint has been successfully updated</h1>
-      <p>Enjoy the brand new custom workspace theme customizer along with refined layout and AI debugger optimizations designed for your LeetCode session.</p>
+      <p>Enjoy our supercharged premium workspace themes alongside non-blocking local API caching and debounced UI observers designed for an uninterrupted LeetCode flow.</p>
     </div>
 
-    <!-- LIVE THEME PREVIEW SHOWROOM (Only Backgrounds/Borders Shift) -->
+    <!-- LIVE THEME PREVIEW SHOWROOM -->
     <section class="showroom-card window-glass">
       <div class="showroom-header">
         <span class="badge">LIVE DEMO</span>
@@ -78,37 +78,38 @@
         <button class="s-dot" data-theme="forest" style="background:#10b981;" title="Emerald Aurora"></button>
         <button class="s-dot" data-theme="sunset" style="background:#ff6b6b;" title="Sunset Horizon"></button>
         <button class="s-dot" data-theme="space" style="background:#3b82f6;" title="Midnight Abyss"></button>
+        <button class="s-dot" data-theme="dracula" style="background:#ff79c6;" title="Dracula Grave"></button>
         <button class="s-dot" data-theme="gruvbox" style="background:#fe8019;" title="Gruvbox Dark"></button>
       </div>
     </section>
     
-        <!-- Changelog Glass Card -->
-        <section class="changelog-card window-glass">
-          <h2>What's New</h2>
-          <ul class="changelog-list">
-            <li>
-              <span class="bullet">🎨</span>
-              <div class="changelog-text">
-                <strong>Fixed inaccurate theme application</strong>
-                <p>theme customizer now handles code selection highlights on problems page & tranparent buttons properly, special thanks to u/Nuthin-g on Reddit :)</p>
-              </div>
-            </li>
-            <li>
-              <span class="bullet">✨</span>
-              <div class="changelog-text">
-                <strong>AI Debugger</strong>
-                <p>AI Debugger now outputs bullet points instead of one sentence</p>
-              </div>
-            </li>
-            <li>
-              <span class="bullet">⚡</span>
-              <div class="changelog-text">
-                <strong>UI Enhancements</strong>
-                <p>Refined button offsets, standardized padding elements, and properly positioned company specific problemset button on problem pages.</p>
-              </div>
-            </li>
-          </ul>
-        </section>
+    <!-- Changelog Glass Card -->
+    <section class="changelog-card window-glass">
+      <h2>What's New in v2.8</h2>
+      <ul class="changelog-list">
+        <li>
+          <span class="bullet">🎨</span>
+          <div class="changelog-text">
+            <strong>Supercharged 39 Premium Themes</strong>
+            <p>Features ultra-thin semi-invisible scrollbars, unified selection overlays, and cleaner layout integrations that preserve default text editor coloring.</p>
+          </div>
+        </li>
+        <li>
+          <span class="bullet">⚡</span>
+          <div class="changelog-text">
+            <strong>Zero-Lag Problems API Caching</strong>
+            <p>Added a localized 24-hour database caching layer for problem information. This avoids hitting LeetCode servers repeatedly and speeds up workspace loads.</p>
+          </div>
+        </li>
+        <li>
+          <span class="bullet">🧠</span>
+          <div class="changelog-text">
+            <strong>Debounced Observers & SPA Support</strong>
+            <p>Mutation Observers are now debounced [content.js]. Heavy UI parsing calculations are decoupled from active typing sessions to keep your editor fluid.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
 
     <!-- INSTRUCTIONS CARD: HOW TO USE THEMES -->
     <section class="instructions-card window-glass">
@@ -131,7 +132,7 @@
         </li>
         <li>
           <span class="step-num">3</span>
-          <p>Click on any palette color dot inside the <strong>Select Theme</strong> grid. The background layers, borders, and margins of your workspace will transform instantly.</p>
+          <p>Click on any palette color dot inside the <strong>Select Theme</strong> grid. The background layers, borders, and scrollbars of your workspace will update instantly.</p>
         </li>
       </ol>
     </section>

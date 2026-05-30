@@ -15,9 +15,9 @@
     --mono-stack: 'JetBrains Mono', monospace;
 
     /* Interactive variables for dynamic layering shifts (initially Amethyst) */
-    --mock-bg-1: #131124;
+    --mock-bg-1: #0d0b18;
     --mock-bg-2: #1a1631;
-    --mock-border: #2a254c;
+    --mock-border: #231e42;
     --swatch-accent: #9d4edd;
 }
 
@@ -258,7 +258,7 @@ body {
     color: #e3e3e3;
 }
 
-/* STATIC Syntax Highlighting (Matching default Monaco styling, no dynamically altered copy) */
+/* Syntax Highlighting presets */
 .mock-code .keyword { color: #ff79c6; }
 .mock-code .identifier { color: #f8f8f2; }
 .mock-code .type { color: #8be9fd; }

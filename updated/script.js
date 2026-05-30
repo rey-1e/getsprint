@@ -4,10 +4,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Dynamically retrieve the extension version if executed in Chrome environment
     const versionBadge = document.getElementById('version-badge');
-    if (versionBadge && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) {
+    if (versionBadge && typeof chrome !== 'undefined' && chrome.runtime?.getManifest) {
         try {
             const manifest = chrome.runtime.getManifest();
-            if (manifest && manifest.version) {
+            if (manifest?.version) {
                 versionBadge.textContent = `v${manifest.version}`;
             }
         } catch (error) {
@@ -15,14 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Gentle scroll indicator animation (optional interaction tracking)
+    // Gentle scroll indicator animation for entrance transitions
     const changelogItems = document.querySelectorAll('.changelog-list li');
     changelogItems.forEach((item, index) => {
         item.style.opacity = '0';
         item.style.transform = 'translateY(10px)';
         item.style.transition = `opacity 0.4s ease ${index * 0.1}s, transform 0.4s ease ${index * 0.1}s`;
         
-        // Quick deferred execution to trigger entrance transitions smoothly
         setTimeout(() => {
             item.style.opacity = '1';
             item.style.transform = 'translateY(0)';
@@ -30,25 +29,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ── Live Interactive Theme Showroom ──
-    const headerElement = document.getElementById('mock-header');
-    const bodyElement = document.getElementById('mock-body');
     const displayContainer = document.getElementById('showroom-display');
     const swatches = document.querySelectorAll('.s-dot');
     
     // Config states mapping matching standard stylesheet layers exactly
     const themeConfigs = {
-        amethyst: { bg1: '#131124', bg2: '#1a1631', border: '#2a254c', accent: '#9d4edd' },
-        forest:   { bg1: '#0c1b12', bg2: '#12271a', border: '#1a3b26', accent: '#10b981' },
-        sunset:   { bg1: '#1c1414', bg2: '#281d1d', border: '#3b2929', accent: '#ff6b6b' },
-        space:    { bg1: '#0a1120', bg2: '#0f1a30', border: '#1a2d52', accent: '#3b82f6' },
-        gruvbox:  { bg1: '#282828', bg2: '#3c3836', border: '#32302f', accent: '#fe8019' }
+        amethyst: { bg1: '#0d0b18', bg2: '#1a1631', border: '#231e42', accent: '#9d4edd' },
+        forest:   { bg1: '#07100b', bg2: '#12271a', border: '#1a3625', accent: '#10b981' },
+        sunset:   { bg1: '#120d0d', bg2: '#281d1d', border: '#342525', accent: '#ff6b6b' },
+        space:    { bg1: '#050a12', bg2: '#0f1a30', border: '#162545', accent: '#3b82f6' },
+        dracula:  { bg1: '#1e1f29', bg2: '#343746', border: '#3e4254', accent: '#ff79c6' },
+        gruvbox:  { bg1: '#1d2021', bg2: '#3c3836', border: '#504945', accent: '#fe8019' }
     };
 
     if (displayContainer && swatches.length > 0) {
         // Initialize default loaded Amethyst variables
-        document.documentElement.style.setProperty('--mock-bg-1', '#131124');
+        document.documentElement.style.setProperty('--mock-bg-1', '#0d0b18');
         document.documentElement.style.setProperty('--mock-bg-2', '#1a1631');
-        document.documentElement.style.setProperty('--mock-border', '#2a254c');
+        document.documentElement.style.setProperty('--mock-border', '#231e42');
         document.documentElement.style.setProperty('--swatch-accent', '#9d4edd');
 
         swatches.forEach(swatch => {
@@ -58,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (!config) return;
 
-                // Deactivate previous active dots
                 swatches.forEach(s => s.classList.remove('active'));
                 swatch.classList.add('active');
 
