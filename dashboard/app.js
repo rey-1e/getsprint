@@ -54,52 +54,75 @@ async function performUserSync(user, retryCount = 0) {
 
 auth.onAuthStateChanged(async (user) => {
   if (user) {
-    // Render dynamic text properties
+    // Populate profile card basics instantly
     userEmailEl.textContent = user.email;
     userEmailEl.setAttribute('title', user.email);
     avatarEl.textContent = user.email.charAt(0).toUpperCase();
 
+    let syncData = null;
     try {
-      const syncData = await performUserSync(user);
-      const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
-      const userData = userDoc.data() || {};
-      const usage = userData.usage || { complexity: 0, detailed: 0, bug: 0 };
-
-      if (syncData.isPremium) {
-        tierPill.textContent = "Premium Member";
-        tierPill.className = "tier-pill premium";
-        
-        const expiry = userData.premiumUntil ? userData.premiumUntil.toDate() : new Date();
-        expiryDateEl.textContent = expiry.toLocaleDateString(undefined, { dateStyle: 'long' });
-
-        complexityUsed.textContent = "Unlimited";
-        complexityBar.style.width = "100%";
-        detailedUsed.textContent = "Unlimited";
-        detailedBar.style.width = "100%";
-        bugUsed.textContent = "Unlimited";
-        bugBar.style.width = "100%";
-        ctaArea.classList.add('hidden');
-      } else {
-        tierPill.textContent = "Free Tier";
-        tierPill.className = "tier-pill free";
-        expiryDateEl.textContent = "Never (Free Account)";
-
-        const compCount = usage.complexity || 0;
-        complexityUsed.textContent = `${compCount} / 5`;
-        complexityBar.style.width = `${Math.min((compCount / 5) * 100, 100)}%`;
-
-        const detCount = usage.detailed || 0;
-        detailedUsed.textContent = `${detCount} / 5`;
-        detailedBar.style.width = `${Math.min((detCount / 5) * 100, 100)}%`;
-
-        const bugCount = usage.bug || 0;
-        bugUsed.textContent = `${bugCount} / 3`;
-        bugBar.style.width = `${Math.min((bugCount / 3) * 100, 100)}%`;
-
-        ctaArea.classList.remove('hidden');
-      }
+      syncData = await performUserSync(user);
     } catch (e) {
-      console.error("Dashboard profile sync error:", e);
+      console.warn("Dashboard: Cloud function sync failed, falling back to local credentials.", e);
+    }
+
+    // Determine Premium tier with a robust local fallback
+    const isPremium = (syncData && syncData.isPremium) || (localStorage.getItem('isPremium') === 'true');
+
+    // Fetch Firestore usage inside a safe, isolated block to prevent silent crashes
+    let usage = { complexity: 0, detailed: 0, bug: 0 };
+    let userData = {};
+    try {
+      const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
+      if (userDoc.exists) {
+        userData = userDoc.data() || {};
+        usage = userData.usage || { complexity: 0, detailed: 0, bug: 0 };
+      }
+    } catch (fsError) {
+      console.warn("Dashboard: Firestore query blocked or deferred. Proceeding with sync state.", fsError);
+    }
+
+    // Render exact layout based on Premium tier resolution
+    if (isPremium) {
+      tierPill.textContent = "Premium Member";
+      tierPill.className = "tier-pill premium";
+      
+      let expiryText = "Active Session / Pass";
+      if (userData.premiumUntil) {
+        const expiry = userData.premiumUntil.toDate();
+        expiryText = expiry.toLocaleDateString(undefined, { dateStyle: 'long' });
+      } else if (syncData && syncData.premiumUntil) {
+        const expiry = new Date(syncData.premiumUntil);
+        expiryText = expiry.toLocaleDateString(undefined, { dateStyle: 'long' });
+      }
+      expiryDateEl.textContent = expiryText;
+
+      complexityUsed.textContent = "Unlimited (Premium)";
+      complexityBar.style.width = "100%";
+      detailedUsed.textContent = "Unlimited (Premium)";
+      detailedBar.style.width = "100%";
+      bugUsed.textContent = "Unlimited (Premium)";
+      bugBar.style.width = "100%";
+      
+      ctaArea.classList.add('hidden');
+    } else {
+      tierPill.textContent = "Free Tier";
+      tierPill.className = "tier-pill free";
+      expiryDateEl.textContent = "Never (Free Account)";
+
+      const compCount = usage.complexity || 0;
+      complexityUsed.textContent = `${compCount} / 5 used`;
+      complexityBar.style.width = `${Math.min((compCount / 5) * 100, 100)}%`;
+
+      const detCount = usage.detailed || 0;
+      detailedUsed.textContent = `${detCount} / 5 used`;
+      detailedBar.style.width = `${Math.min((detCount / 5) * 100, 100)}%`;
+
+      const bugCount = usage.bug || 0;
+      bugUsed.textContent = `${bugCount} / 3 used`;
+      bugBar.style.width = `${Math.min((bugCount / 3) * 100, 100)}%`;
+
+      ctaArea.classList.remove('hidden');
     }
   } else {
     clearSessionTokenFromExtension();
