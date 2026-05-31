@@ -10,6 +10,72 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Continuous updates visual blocks */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .tier-card {
+      background-color: rgba(255, 255, 255, 0.015);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .tier-card.premium-border {
+      border-color: var(--accent-color);
+      background-color: rgba(205, 92, 92, 0.02);
+      box-shadow: 0 4px 20px rgba(205, 92, 92, 0.03);
+    }
+    .tier-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+    .tier-header h3 {
+      color: var(--text-main);
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .tier-price {
+      font-family: var(--mono-stack);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .tier-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tier-features li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+      padding-bottom: 6px;
+    }
+    .tier-features li span {
+      color: var(--text-muted);
+    }
+    .tier-features li strong {
+      color: var(--text-main);
+    }
+    @media (max-width: 640px) {
+      .tiers-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body class="page-updated">
 
@@ -20,16 +86,17 @@
   <!-- Minimal Navigation -->
   <nav id="navbar">
     <div class="nav-container">
-      <div class="brand">
+      <a href="../index.html" class="brand">
         <div class="logo-box">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
           </svg>
         </div>
         <span class="brand-text">Sprint<span class="accent">.</span></span>
-      </div>
-      <div class="nav-links">
-        <span class="version-pill" id="version-badge">v3.1</span>
+      </a>
+      <div class="nav-links" style="display: flex; align-items: center; gap: 16px;">
+        <a href="../index.html" class="brand-text" style="text-decoration: none; font-size: 13px; font-weight: 500; color: var(--text-muted);">Main Website</a>
+        <span class="version-pill" id="version-badge">v3.0</span>
       </div>
     </div>
   </nav>
@@ -38,48 +105,56 @@
   <main class="container">
     <div class="hero">
       <h1>Sprint has been successfully updated</h1>
-      <p>Enjoy our supercharged premium workspace themes alongside non-blocking local API caching and debounced UI observers designed for an uninterrupted LeetCode flow.</p>
+      <p>Welcome to version 3.1. We are continuously improving our companion tools to optimize your study workflow. This update introduces daily Free Tier usage quotas alongside our structured Premium plans for unlimited access.</p>
+      <div style="margin-top: 18px;">
+        <a href="../index.html" class="btn btn-secondary" style="border: 1px solid var(--border-color); color: var(--text-main);">
+          Visit getsprint.me Home
+        </a>
+      </div>
     </div>
 
-    <!-- LIVE THEME PREVIEW SHOWROOM -->
-    <section class="showroom-card window-glass">
-      <div class="showroom-header">
-        <span class="badge">LIVE DEMO</span>
-        <h2>Workspace Background Shifts</h2>
-        <p>Select a preset swatch below to see how our theme layers shift your workspace panels, headers, and borders without overriding default code coloring.</p>
-      </div>
-      
-      <div class="showroom-display" id="showroom-display">
-        <!-- Header Panel (Mimicking Layer 1) -->
-        <div class="mock-editor-header" id="mock-header">
-          <div class="mock-dots">
-            <span class="mock-dot red"></span>
-            <span class="mock-dot yellow"></span>
-            <span class="mock-dot green"></span>
-          </div>
-          <span class="mock-title">Solution.cpp</span>
-        </div>
-        
-        <!-- Code Content Panel (Mimicking Layer 2) -->
-        <div class="mock-editor-body" id="mock-body">
-          <div class="mock-code">
-            <span class="keyword">class</span> <span class="identifier">Solution</span> {<br>
-            <span class="keyword">public</span>:<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="type">vector</span>&lt;<span class="type">int</span>&gt; <span class="function">twoSum</span>(<span class="type">vector</span>&lt;<span class="type">int</span>&gt;&amp; <span class="param">nums</span>) {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Shifting background layers & borders...</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
-            };
-          </div>
-        </div>
+    <!-- TIERS & QUOTAS COMPARISON -->
+    <section class="showroom-card window-glass" style="text-align: left;">
+      <div class="showroom-header" style="text-align: center; margin-bottom: 24px;">
+        <span class="badge">ACCESS PLANS</span>
+        <h2>Quotas & Capability Comparisons</h2>
+        <p>Sprint receives regular automatic compatibility updates to consistently match LeetCode platform revisions.</p>
       </div>
 
-      <div class="showroom-swatches">
-        <button class="s-dot active" data-theme="amethyst" style="background:#9d4edd;" title="Amethyst Nebula"></button>
-        <button class="s-dot" data-theme="forest" style="background:#10b981;" title="Emerald Aurora"></button>
-        <button class="s-dot" data-theme="sunset" style="background:#ff6b6b;" title="Sunset Horizon"></button>
-        <button class="s-dot" data-theme="space" style="background:#3b82f6;" title="Midnight Abyss"></button>
-        <button class="s-dot" data-theme="dracula" style="background:#ff79c6;" title="Dracula Grave"></button>
-        <button class="s-dot" data-theme="gruvbox" style="background:#fe8019;" title="Gruvbox Dark"></button>
+      <div class="tiers-grid">
+        <!-- Free Tier Card -->
+        <div class="tier-card">
+          <div class="tier-header">
+            <h3>Free Tier</h3>
+            <span class="tier-price">$0 / month</span>
+          </div>
+          <ul class="tier-features">
+            <li><span>Complexity Analyzer</span> <strong>5 checks / day</strong></li>
+            <li><span>Submissions Summary</span> <strong>5 checks / day</strong></li>
+            <li><span>AI Logic Debugger</span> <strong>3 checks / day</strong></li>
+            <li><span>Verified Company Tags</span> <strong>Included</strong></li>
+            <li><span>Contest ELO Difficulty</span> <strong>Included</strong></li>
+            <li><span>Workspace Themes</span> <strong>Default Gray Only</strong></li>
+            <li><span>Compatibility Updates</span> <strong>Included</strong></li>
+          </ul>
+        </div>
+
+        <!-- Premium Tier Card -->
+        <div class="tier-card premium-border">
+          <div class="tier-header">
+            <h3>Sprint Premium</h3>
+            <span class="tier-price" style="color: var(--accent-color);">From $0.50</span>
+          </div>
+          <ul class="tier-features">
+            <li><span>Complexity Analyzer</span> <strong style="color: var(--accent-color);">Unlimited</strong></li>
+            <li><span>Submissions Summary</span> <strong style="color: var(--accent-color);">Unlimited</strong></li>
+            <li><span>AI Logic Debugger</span> <strong style="color: var(--accent-color);">Unlimited</strong></li>
+            <li><span>Verified Company Tags</span> <strong style="color: var(--accent-color);">Included</strong></li>
+            <li><span>Contest ELO Difficulty</span> <strong style="color: var(--accent-color);">Included</strong></li>
+            <li><span>Workspace Themes</span> <strong style="color: var(--accent-color);">All 39+ Themes</strong></li>
+            <li><span>Compatibility Updates</span> <strong style="color: var(--accent-color);">Included</strong></li>
+          </ul>
+        </div>
       </div>
     </section>
     
@@ -88,17 +163,17 @@
       <h2>What's New in v3.1</h2>
       <ul class="changelog-list">
         <li>
-          <span class="bullet">🎨</span>
+          <span class="bullet">⭐</span>
           <div class="changelog-text">
-            <strong>Supercharged 39 Premium Themes</strong>
-            <p>Features ultra-thin semi-invisible scrollbars, unified selection overlays, and cleaner layout integrations that preserve default text editor coloring.</p>
+            <strong>Structured Quota Systems</strong>
+            <p>To support high hosting and model API maintenance overhead, we have structured our features into Free Tier daily check limits and unlimited Premium access plans.</p>
           </div>
         </li>
         <li>
-          <span class="bullet">⚡</span>
+          <span class="bullet">🎨</span>
           <div class="changelog-text">
-            <strong>Zero-Lag Problems API Caching</strong>
-            <p>Added a localized 24-hour database caching layer for problem information. This avoids hitting LeetCode servers repeatedly and speeds up workspace loads.</p>
+            <strong>Supercharged 39 Workspace Themes</strong>
+            <p>Features ultra-thin semi-invisible scrollbars, unified selection overlays, and cleaner layout integrations that preserve default text editor coloring.</p>
           </div>
         </li>
         <li>
@@ -132,26 +207,28 @@
         </li>
         <li>
           <span class="step-num">3</span>
-          <p>Click on any palette color dot inside the <strong>Select Theme</strong> grid. The background layers, borders, and scrollbars of your workspace will update instantly.</p>
+          <p>Sign in with your Google account to sync your active premium subscription and configure custom themes instantly.</p>
         </li>
       </ol>
     </section>
 
-    <!-- Support and Donation Block -->
+    <!-- Premium Upgrade CTA -->
     <section class="support-card window-glass">
-      <div class="support-icon-wrapper">
+      <div class="support-icon-wrapper" style="background-color: rgba(205, 92, 92, 0.08); border: 1px solid rgba(205, 92, 92, 0.15);">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          <polygon points="12 2 2 7 12 12 22 7 12 2z"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
         </svg>
       </div>
-      <h2>Sprint requires community support</h2>
+      <h2>Upgrade to Sprint Premium</h2>
       <p class="support-description">
-        Sprint remains ad-free, completely open-source, and private. If these workflow tools help you prepare, please consider supporting our server maintenance costs.
+        Ensure zero-lag complexity checking, unlimited AI debugging, and access to all 39+ custom themes across all future LeetCode revisions.
       </p>
       
       <div class="support-action-box">
-        <a href="https://razorpay.me/@raj9589" target="_blank" class="btn btn-primary">
-          Donate to Keep Sprint Free
+        <a href="../payments/index.html" class="btn btn-primary">
+          Upgrade to Premium ⚡
         </a>
         <span class="micro-text">Processed securely via Razorpay</span>
       </div>
