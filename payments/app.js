@@ -61,10 +61,8 @@ auth.onAuthStateChanged(async (user) => {
       if (syncData.isPremium) {
         statusText.innerHTML = `✔️ Active Premium Member: <strong>${user.email}</strong>`;
         
-        // Show the Premium Confirmation Card above plans
         premiumBanner.classList.remove('hidden');
 
-        // Render visual lock to show they already own premium access
         if (card1Day) card1Day.classList.add('plan-disabled');
         if (card1Month) card1Month.classList.add('plan-disabled');
 
@@ -76,7 +74,6 @@ auth.onAuthStateChanged(async (user) => {
         return;
       }
 
-      // Normal Free user layout rendering
       premiumBanner.classList.add('hidden');
       if (card1Day) card1Day.classList.remove('plan-disabled');
       if (card1Month) card1Month.classList.remove('plan-disabled');
@@ -114,12 +111,21 @@ async function initiateCheckout(planType, buttonEl) {
     buttonEl.innerHTML = "Creating Secure Order...";
     buttonEl.setAttribute('disabled', 'true');
 
+    // Authentication enforcement: pass dynamic ID token to verify order initiator
     const orderRes = await fetch('https://createrazorpayorder-i6ptizncma-uc.a.run.app', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${currentUserToken}`,
+        'X-Client-Version': '3.0'
+      },
       body: JSON.stringify({ planType })
     });
     const order = await orderRes.json();
+
+    if (!orderRes.ok) {
+        throw new Error(order.message || "Failed to establish payment session.");
+    }
 
     const options = {
       "key": "rzp_live_SvG5sgcyDBqn0V",
@@ -177,8 +183,7 @@ async function initiateCheckout(planType, buttonEl) {
     const rzp = new Razorpay(options);
     rzp.open();
   } catch (err) {
-    console.error(err);
-    alert("Billing connection interrupted. Please check your network and try again.");
+    alert("Billing connection interrupted: " + err.message);
     buttonEl.innerHTML = originalBtnText;
     buttonEl.removeAttribute('disabled');
   }
