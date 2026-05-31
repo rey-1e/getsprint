@@ -16,6 +16,37 @@ const authLoading = document.getElementById('auth-loading');
 const authSuccess = document.getElementById('auth-success');
 const successMessage = document.getElementById('success-message');
 
+/**
+ * Resilient sync helper — retries on failure to handle Cloud Functions cold-starts.
+ */
+async function syncWithRetry(token, maxRetries = 2) {
+  let lastError = null;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'X-Client-Version': '3.0'
+        }
+      });
+      const syncData = await syncRes.json();
+      
+      if (syncRes.ok && syncData.success && syncData.sessionToken) {
+        return syncData;
+      }
+      lastError = new Error(syncData.error || "Sync returned unsuccessful response");
+    } catch (e) {
+      lastError = e;
+    }
+    if (attempt < maxRetries) {
+      await new Promise(r => setTimeout(r, 1500));
+    }
+  }
+  throw lastError;
+}
+
 auth.onAuthStateChanged(async (user) => {
   if (user) {
     loginBtn.classList.add('hidden');
@@ -23,30 +54,15 @@ auth.onAuthStateChanged(async (user) => {
     
     try {
       const idToken = await user.getIdToken();
+      const syncData = await syncWithRetry(idToken);
       
-      // Request long-lived session token exchange
-      const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${idToken}`,
-          'X-Client-Version': '3.0'
-        }
-      });
+      // Broadcast long-lived session token to local extension
+      localStorage.setItem('sprint_authToken', syncData.sessionToken);
+      document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
       
-      const syncData = await syncRes.json();
-      
-      if (syncRes.ok && syncData.success && syncData.sessionToken) {
-        // Broadcast long-lived session token to local extension
-        localStorage.setItem('sprint_authToken', syncData.sessionToken);
-        document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
-        
-        authLoading.classList.add('hidden');
-        authSuccess.classList.remove('hidden');
-        successMessage.innerHTML = `Signed in as <strong style="color:#cd5c5c">${user.email}</strong>. Extension is active.`;
-      } else {
-        throw new Error(syncData.error || "Failed to exchange session key");
-      }
+      authLoading.classList.add('hidden');
+      authSuccess.classList.remove('hidden');
+      successMessage.innerHTML = `Signed in as <strong style="color:#cd5c5c">${user.email}</strong>. Extension is active.<br><span style="font-size:0.78rem;color:#71717a;margin-top:4px;display:inline-block;">You can now close this tab and return to LeetCode.</span>`;
     } catch (e) {
       console.error(e);
       authLoading.classList.add('hidden');

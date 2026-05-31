@@ -20,33 +20,74 @@ const payButtons = document.querySelectorAll('.pay-btn');
 
 let currentUserToken = null;
 
-auth.onAuthStateChanged(async (user) => {
-  if (user) {
-    currentUserToken = await user.getIdToken();
-    
+/**
+ * Resilient sync helper — retries on failure to handle Cloud Functions cold-starts.
+ * Returns { success, sessionToken } or throws after all retries exhausted.
+ */
+async function syncWithRetry(token, maxRetries = 2) {
+  let lastError = null;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
-      statusText.innerHTML = "Verifying profile synchronization...";
       const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${currentUserToken}`,
+          'Authorization': `Bearer ${token}`,
           'X-Client-Version': '3.0'
         }
       });
       const syncData = await syncRes.json();
       
       if (syncRes.ok && syncData.success && syncData.sessionToken) {
-        statusText.innerHTML = `✔️ Validated: <strong style="color:#cd5c5c">${user.email}</strong>`;
-        // Sync robust long-lived token
-        localStorage.setItem('sprint_authToken', syncData.sessionToken);
-        document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
-      } else {
-        statusText.textContent = "Profile sync error. Try refreshing.";
+        return syncData;
       }
+      lastError = new Error(syncData.error || "Sync returned unsuccessful response");
+    } catch (e) {
+      lastError = e;
+    }
+    // Wait before retrying (skip wait on last attempt)
+    if (attempt < maxRetries) {
+      await new Promise(r => setTimeout(r, 1500));
+    }
+  }
+  throw lastError;
+}
+
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    currentUserToken = await user.getIdToken();
+    
+    try {
+      statusText.innerHTML = "Verifying profile synchronization...";
+      const syncData = await syncWithRetry(currentUserToken);
+      
+      statusText.innerHTML = `✔️ Validated: <strong style="color:#cd5c5c">${user.email}</strong>`;
+      // Sync robust long-lived token
+      localStorage.setItem('sprint_authToken', syncData.sessionToken);
+      document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
     } catch (e) {
       console.error(e);
-      statusText.textContent = "Authentication sync failed.";
+      statusText.innerHTML = `Profile sync error. <button id="retry-sync-btn" style="background:none;border:1px solid #cd5c5c;color:#cd5c5c;padding:2px 10px;border-radius:4px;cursor:pointer;font-size:0.75rem;margin-left:8px;">Retry</button>`;
+      
+      // Attach retry handler
+      const retryBtn = document.getElementById('retry-sync-btn');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', async () => {
+          retryBtn.textContent = 'Retrying...';
+          retryBtn.disabled = true;
+          try {
+            const freshToken = await user.getIdToken(true);
+            currentUserToken = freshToken;
+            const syncData = await syncWithRetry(freshToken, 1);
+            statusText.innerHTML = `✔️ Validated: <strong style="color:#cd5c5c">${user.email}</strong>`;
+            localStorage.setItem('sprint_authToken', syncData.sessionToken);
+            document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
+          } catch (retryErr) {
+            console.error(retryErr);
+            statusText.textContent = "Sync failed. Please sign out and sign in again.";
+          }
+        });
+      }
     }
 
     loginBtn.classList.add('hidden');
@@ -122,20 +163,16 @@ payButtons.forEach(btn => {
              alert("Upgrade complete! Premium features are now unlocked.");
              const freshToken = await auth.currentUser.getIdToken(true);
              
-             // Sync refreshed profile
-             const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${freshToken}`,
-                  'X-Client-Version': '3.0'
-                }
-              });
-              const syncData = await syncRes.json();
-              if (syncRes.ok && syncData.success && syncData.sessionToken) {
-                localStorage.setItem('sprint_authToken', syncData.sessionToken);
-                document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
-              }
+             // Sync refreshed profile with retry
+             try {
+               const syncData = await syncWithRetry(freshToken);
+               localStorage.setItem('sprint_authToken', syncData.sessionToken);
+               document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
+             } catch (syncErr) {
+               console.error("Post-payment sync failed:", syncErr);
+               // Payment succeeded but sync failed — user needs to refresh
+               statusText.innerHTML = `✔️ Payment successful! Please <a href="" onclick="location.reload();return false;" style="color:#cd5c5c;font-weight:600;">refresh this page</a> to sync your premium status.`;
+             }
            } else {
              alert("Payment verification error: " + verification.error);
            }
