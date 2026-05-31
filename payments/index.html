@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sprint Premium — Upgrade Your Workspace</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  
+  <!-- Razorpay Checkout Integration -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+  <div class="pricing-container">
+    <h2>LeetCode Sprint <span>Premium</span></h2>
+    <p id="auth-status">Checking login state...</p>
+    <button id="login-btn" class="btn hidden">Login with Google</button>
+    <button id="logout-btn" class="btn hidden">Sign Out</button>
+
+    <div class="plans-grid">
+      <div class="card">
+        <h3>1 Day Access</h3>
+        <p class="price">$1 <span>(~₹85)</span></p>
+        <button class="pay-btn btn" data-plan="1day" disabled>Buy Now</button>
+      </div>
+
+      <div class="card premium">
+        <h3>1 Month Access</h3>
+        <p class="price">$7 <span>(~₹595)</span></p>
+        <button class="pay-btn btn" data-plan="1month" disabled>Buy Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
