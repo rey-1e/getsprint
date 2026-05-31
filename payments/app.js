@@ -1,15 +1,3 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyAg1tPoejGGXcJMe9MwMWTWhnCjZOpRt7g",
-  authDomain: "sprint-87863.firebaseapp.com",
-  projectId: "sprint-87863",
-  storageBucket: "sprint-87863.firebasestorage.app",
-  messagingSenderId: "549425279249",
-  appId: "1:549425279249:web:ce3d25457977bec5915cb0",
-  measurementId: "G-PCKD965D95"
-};
-
-firebase.initializeApp(firebaseConfig);
-
 const auth = firebase.auth();
 const statusText = document.getElementById('auth-status');
 const payButtons = document.querySelectorAll('.pay-btn');
