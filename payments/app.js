@@ -60,7 +60,7 @@ auth.onAuthStateChanged(async (user) => {
     payButtons.forEach(btn => btn.setAttribute('disabled', 'true'));
 
     localStorage.removeItem('sprint_authToken');
-    document.documentElement.removeAttribute('data-sprint-auth');
+    document.documentElement.setAttribute('data-sprint-auth', 'logout');
   }
 });
 
