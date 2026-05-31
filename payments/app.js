@@ -79,7 +79,7 @@ payButtons.forEach(btn => {
       e.target.setAttribute('disabled', 'true');
 
       // Create Order ID
-      const orderRes = await fetch('https://us-central1-sprint-87863.cloudfunctions.net/createRazorpayOrder', {
+      const orderRes = await fetch('https://createrazorpayorder-i6ptizncma-uc.a.run.app', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ planType })
@@ -98,7 +98,7 @@ payButtons.forEach(btn => {
            e.target.innerHTML = "Verifying Transaction...";
            
            // Step 3: Verify execution legitimacy on backend
-           const verifyRes = await fetch('https://us-central1-sprint-87863.cloudfunctions.net/verifyPayment', {
+           const verifyRes = await fetch('https://verifypayment-i6ptizncma-uc.a.run.app', {
              method: 'POST',
              headers: { 
                'Content-Type': 'application/json',
