@@ -165,7 +165,7 @@ async function initiateCheckout(planType, buttonEl) {
            if (currentUser) {
              try {
                await performUserSync(currentUser);
-               window.location.reload();
+               window.location.href = '../dashboard/index.html';
              } catch (syncErr) {
                console.error("Post-payment sync error:", syncErr);
              }

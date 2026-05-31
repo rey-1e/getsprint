@@ -79,11 +79,13 @@ auth.onAuthStateChanged(async (user) => {
       await performSync(user);
       showSuccess(user.email);
 
-      // Automated redirect - bypasses click actions cleanly
+      // Automated redirect to the new dedicated dashboard path
       const redirect = new URLSearchParams(window.location.search).get('redirect');
-      let targetUrl = '../authorize/index.html';
+      let targetUrl = '../dashboard/index.html';
       if (redirect === 'payments') {
         targetUrl = '../payments/index.html';
+      } else if (redirect === 'dashboard') {
+        targetUrl = '../dashboard/index.html';
       }
       setTimeout(() => { window.location.href = targetUrl; }, 600);
     } catch (err) {

@@ -14,29 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set up robust routing relative path prefixes
   let prefix = '';
   if (
-    window.location.pathname.includes('/authorize/') || 
+    window.location.pathname.includes('/dashboard/') || 
     window.location.pathname.includes('/login/') || 
     window.location.pathname.includes('/payments/')
   ) {
     prefix = '../';
-  }
-
-  // Inject or verify stable navigation links on the fly
-  const navLinks = navContainer.querySelector('.nav-links');
-  if (navLinks) {
-    let dashLink = navLinks.querySelector('.nav-link-dashboard');
-    if (!dashLink) {
-      dashLink = document.createElement('a');
-      dashLink.className = 'nav-link nav-link-dashboard';
-      dashLink.textContent = 'Dashboard';
-      // Safe insertion order: locate Features to insert beside
-      const featuresLink = Array.from(navLinks.children).find(el => el.textContent.trim() === 'Features');
-      if (featuresLink) {
-        featuresLink.after(dashLink);
-      } else {
-        navLinks.appendChild(dashLink);
-      }
-    }
   }
 
   // Setup actions container
@@ -69,16 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   auth.onAuthStateChanged(async (user) => {
-    const dashLink = navContainer.querySelector('.nav-link-dashboard');
     if (user) {
-      // User is verified: dashboard link goes direct, nav actions shows sleek signout
-      if (dashLink) {
-        dashLink.href = prefix + 'authorize/index.html';
-        if (window.location.pathname.includes('/authorize/')) {
-          dashLink.classList.add('active');
-        }
-      }
-
+      // User is verified: update nav actions to show Sign Out
       authNavBtn.textContent = 'Sign Out';
       authNavBtn.href = '#';
       authNavBtn.className = 'btn btn-secondary nav-btn';
@@ -105,14 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Sprint navbar auth sync failed:', e);
       }
     } else {
-      // User is signed out: dashboard redirecting to login page cleanly
-      if (dashLink) {
-        dashLink.href = prefix + 'login/index.html?redirect=authorize';
-        if (window.location.pathname.includes('/authorize/')) {
-          dashLink.classList.remove('active');
-        }
-      }
-
+      // User is signed out: update nav actions to show Sign In
       authNavBtn.textContent = 'Sign In';
       authNavBtn.href = prefix + 'login/index.html';
       authNavBtn.className = 'btn btn-secondary nav-btn';
