@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Dashboard — LeetCode Sprint</title>
+  <link rel="icon" type="image/png" href="../icon.png">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <div class="bg-glow blob-top"></div>
+  <div class="bg-glow blob-middle"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="brand">
+        <div class="logo-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <span class="brand-text">Sprint<span class="accent">.</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="index.html" class="nav-link active">Dashboard</a>
+        <a href="../features.html" class="nav-link">Features</a>
+        <a href="../payments/index.html" class="nav-link">Upgrade</a>
+        <a href="../support.html" class="nav-link">Support</a>
+      </div>
+      <div class="nav-actions">
+        <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
+          Install Free
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Grid -->
+  <section class="section header-offset">
+    <div class="container dashboard-grid">
+
+      <!-- Profile Area -->
+      <div class="dash-card window-glass profile-box">
+        <div class="profile-header">
+          <div class="avatar" id="avatar-initials">U</div>
+          <div>
+            <h2 id="user-email">Loading account…</h2>
+            <div class="tier-pill free" id="tier-pill">Free Tier</div>
+          </div>
+        </div>
+        <div class="subscription-details" style="margin-top:14px;">
+          <div class="detail-row">
+            <span>Billing Expiry</span>
+            <strong id="expiry-date">Never (Free Account)</strong>
+          </div>
+          <div class="detail-row">
+            <span>Extension Sync</span>
+            <strong class="text-success" id="sync-status">Verified</strong>
+          </div>
+        </div>
+        <button id="logout-btn" class="btn btn-secondary w-100 justify-center mt-3">Sign Out</button>
+      </div>
+
+      <!-- Feature Metrics Area -->
+      <div class="dash-card window-glass feature-details-box">
+        <h3>Unlocked Extension Capabilities</h3>
+        <p class="desc-text">Your usage tracking limits across Sprint's diagnostic engine tools.</p>
+
+        <div class="limits-matrix">
+          <div class="limit-item">
+            <div class="limit-info">
+              <span>Time / Space Complexity Analyzer</span>
+              <strong id="complexity-used">Checking…</strong>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="complexity-bar"></div></div>
+          </div>
+          <div class="limit-item">
+            <div class="limit-info">
+              <span>Post-Submission Expert Summary</span>
+              <strong id="detailed-used">Checking…</strong>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="detailed-bar"></div></div>
+          </div>
+          <div class="limit-item">
+            <div class="limit-info">
+              <span>AI Logic Debugger</span>
+              <strong id="bug-used">Checking…</strong>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="bug-bar"></div></div>
+          </div>
+        </div>
+
+        <div id="dashboard-cta-area" class="hidden" style="margin-top:20px;">
+          <a href="../payments/index.html" class="btn btn-primary w-100 justify-center">Upgrade to Premium — Unlimited Access</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer border-top">
+    <div class="container footer-layout">
+      <div class="footer-meta">
+        <a href="../index.html" class="brand">
+          <div class="logo-box small">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <span class="brand-text">Sprint<span class="accent">.</span></span>
+        </a>
+        <p class="footer-tagline">High-performance tools for engineers preparing for complex technical interviews.</p>
+      </div>
+      <div class="footer-nav">
+        <a href="../index.html" class="footer-link">Home</a>
+        <a href="index.html" class="footer-link">Dashboard</a>
+        <a href="../features.html" class="footer-link">Features</a>
+        <a href="../payments/index.html" class="footer-link">Upgrade</a>
+        <a href="../support.html" class="footer-link">Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 LeetCode Sprint. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
