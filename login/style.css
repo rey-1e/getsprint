@@ -3,30 +3,30 @@
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - var(--nav-height) - 120px);
-  padding: 24px;
+  padding: 20px;
 }
 
 .login-card {
   width: 100%;
-  max-width: 440px;
-  padding: 40px 36px;
+  max-width: 400px;
+  padding: 32px 28px;
   text-align: center;
   border-radius: var(--radius-xl);
 }
 
 .login-card h1 {
-  font-size: 1.75rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   letter-spacing: -0.03em;
   color: var(--text-primary);
 }
 
 .login-subtitle {
   color: var(--text-muted);
-  font-size: 0.85rem;
-  line-height: 1.6;
-  margin-bottom: 28px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
 }
 
 .auth-action-area {
@@ -39,30 +39,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  font-size: 0.85rem;
+  gap: 10px;
+  font-size: 0.8rem;
   color: var(--text-muted);
-  padding: 16px 0;
+  padding: 12px 0;
 }
 
 .spinner {
-  width: 26px;
-  height: 26px;
-  border: 3px solid var(--accent-muted);
-  border-top-color: var(--accent);
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(0,0,0,0.05);
+  border-top-color: var(--text-primary);
   border-radius: 50%;
-  animation: spin 0.75s linear infinite;
+  animation: spin 0.6s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .success-icon {
-  font-size: 2.2rem;
-  margin-bottom: 8px;
+  font-size: 1.8rem;
+  margin-bottom: 4px;
 }
 
 #auth-success p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
-  margin-bottom: 4px;
-  line-height: 1.5;
+  line-height: 1.4;
 }

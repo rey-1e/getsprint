@@ -1,81 +1,112 @@
-/* payments/style.css — local overrides only */
+/* Payments System Local Overrides (Sharp & Clean) */
 
 #auth-status {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  background: rgba(0,0,0,0.025);
+  font-size: 0.68rem;
+  background: rgba(0,0,0,0.03);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   display: inline-block;
-  padding: 4px 10px;
+  padding: 3px 8px;
   color: var(--text-muted);
 }
 
 .plans-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
 }
 
 .card-plan {
   background: #ffffff;
-  border: 1.5px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   position: relative;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.12s, box-shadow 0.12s;
 }
 .card-plan:hover { border-color: var(--border-hover); }
 
 .card-plan.featured {
-  border-color: var(--accent);
-  box-shadow: 0 4px 24px rgba(205,92,92,0.08);
+  border-color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .premium-badge {
   position: absolute;
-  top: -11px;
-  right: 14px;
-  background: var(--accent);
+  top: -9px;
+  right: 12px;
+  background: var(--text-primary);
   color: #ffffff;
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: 99px;
-  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.04em;
 }
 
 .plan-header h3 {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 .plan-meta {
   font-size: 0.72rem;
   color: var(--text-muted);
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
-.price-box { margin: 4px 0; }
+.price-box { margin: 2px 0; }
 .price {
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.04em;
   display: flex;
   align-items: baseline;
-  gap: 7px;
+  gap: 6px;
 }
 .local-est {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   font-weight: 400;
+}
+
+/* Premium Banner Component (Sharp Layout) */
+.premium-status-banner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 20px;
+  text-align: left;
+}
+.status-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: #166534;
+}
+.status-badge-container span {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.premium-status-banner p {
+  font-size: 0.75rem;
+  color: #166534;
+  line-height: 1.45;
+}
+
+/* Dynamic State Styling */
+.card-plan.plan-disabled {
+  opacity: 0.5;
 }
 
 @media (max-width: 560px) {

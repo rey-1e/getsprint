@@ -53,7 +53,7 @@ async function performUserSync(user, retryCount = 0) {
   const syncData = await syncRes.json().catch(() => ({}));
 
   if (syncRes.status === 500 && retryCount < 2) {
-    await new Promise(r => setTimeout(r, 2500));
+    await new Promise(r => setTimeout(r, 2000));
     return performUserSync(user, retryCount + 1);
   }
 
@@ -71,8 +71,6 @@ auth.onAuthStateChanged(async (user) => {
 
     try {
       const syncData = await performUserSync(user);
-      
-      // Fetch fresh document reference for real-time Firestore usage arrays
       const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
       const userData = userDoc.data() || {};
       const usage = userData.usage || { complexity: 0, detailed: 0, bug: 0 };
@@ -96,7 +94,6 @@ auth.onAuthStateChanged(async (user) => {
         tierPill.className = "tier-pill free";
         expiryDateEl.textContent = "Never (Free Account)";
 
-        // Set visual usage metrics
         const compCount = usage.complexity || 0;
         complexityUsed.textContent = `${compCount} / 5 used`;
         complexityBar.style.width = `${Math.min((compCount / 5) * 100, 100)}%`;
@@ -112,11 +109,10 @@ auth.onAuthStateChanged(async (user) => {
         ctaArea.classList.remove('hidden');
       }
     } catch (e) {
-      console.error("Dashboard synchronization error:", e);
+      console.error("Dashboard profile sync error:", e);
     }
   } else {
     clearSessionTokenFromExtension();
-    // Redirect instantly to avoid stale dashboard viewing
     window.location.href = '../login/index.html?redirect=authorize';
   }
 });
@@ -124,4 +120,3 @@ auth.onAuthStateChanged(async (user) => {
 logoutBtn.addEventListener('click', () => {
   auth.signOut();
 });
-

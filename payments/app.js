@@ -13,6 +13,10 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const statusText = document.getElementById('auth-status');
 const payButtons = document.querySelectorAll('.pay-btn');
+const premiumBanner = document.getElementById('premium-status-banner');
+
+const card1Day = document.getElementById('plan-card-1day');
+const card1Month = document.getElementById('plan-card-1month');
 
 let currentUserToken = null;
 
@@ -46,7 +50,7 @@ async function performUserSync(user, retryCount = 0) {
   const syncData = await syncRes.json().catch(() => ({}));
 
   if (syncRes.status === 500 && retryCount < 2) {
-    await new Promise(r => setTimeout(r, 2500));
+    await new Promise(r => setTimeout(r, 2000));
     return performUserSync(user, retryCount + 1);
   }
 
@@ -68,24 +72,43 @@ auth.onAuthStateChanged(async (user) => {
 
       if (syncData.isPremium) {
         statusText.innerHTML = `✔️ Active Premium Member: <strong>${user.email}</strong>`;
-        // Redirect premium members instantly to avoid double-purchase mistakes
-        window.location.href = '../authorize/index.html';
+        
+        // Show the Premium Confirmation Card above plans
+        premiumBanner.classList.remove('hidden');
+
+        // Render visual lock to show they already own premium access
+        if (card1Day) card1Day.classList.add('plan-disabled');
+        if (card1Month) card1Month.classList.add('plan-disabled');
+
+        payButtons.forEach(btn => {
+          btn.setAttribute('disabled', 'true');
+          btn.innerHTML = `<span>✓ Plan Activated</span>`;
+          btn.onclick = null;
+        });
         return;
       }
+
+      // Normal Free user layout rendering
+      premiumBanner.classList.add('hidden');
+      if (card1Day) card1Day.classList.remove('plan-disabled');
+      if (card1Month) card1Month.classList.remove('plan-disabled');
 
       statusText.innerHTML = `✔️ Logged in as: <strong>${user.email}</strong>`;
       payButtons.forEach(btn => {
         btn.removeAttribute('disabled');
         btn.textContent = btn.getAttribute('data-plan') === '1day' ? 'Upgrade for 24h' : 'Unlock Monthly Pass';
-        // Clean event triggers
         btn.onclick = () => initiateCheckout(btn.getAttribute('data-plan'), btn);
       });
     } catch (e) {
-      console.error("Sprint: Auth sync error:", e);
+      console.error("Auth sync error:", e);
       statusText.innerHTML = `Sync error: <code style="font-size:11px;">${e.message}</code>`;
     }
   } else {
     currentUserToken = null;
+    premiumBanner.classList.add('hidden');
+    if (card1Day) card1Day.classList.remove('plan-disabled');
+    if (card1Month) card1Month.classList.remove('plan-disabled');
+
     statusText.innerHTML = `<a href="../login/index.html?redirect=payments" style="color:#cd5c5c; font-weight:700; text-decoration:underline;">Click here to Sign In and unlock pricing</a>`;
     payButtons.forEach(btn => {
       btn.setAttribute('disabled', 'true');
@@ -142,9 +165,9 @@ async function initiateCheckout(planType, buttonEl) {
            if (currentUser) {
              try {
                await performUserSync(currentUser);
-               window.location.href = '../authorize/index.html';
+               window.location.reload();
              } catch (syncErr) {
-               console.error("Sprint: Post-payment sync failed:", syncErr);
+               console.error("Post-payment sync error:", syncErr);
              }
            }
          } else {
@@ -160,7 +183,7 @@ async function initiateCheckout(planType, buttonEl) {
           buttonEl.removeAttribute('disabled');
         }
       },
-      "theme": { "color": "#cd5c5c" }
+      "theme": { "color": "#09090b" }
     };
     
     const rzp = new Razorpay(options);
