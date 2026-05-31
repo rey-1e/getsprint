@@ -6,6 +6,7 @@
   <title>Upgrade to Sprint Premium — LeetCode Sprint</title>
   <link rel="icon" type="image/png" href="../icon.png">
   <meta name="description" content="Unlock real-time complexity calculations, full corporate query logs, AI debug limits, and true ELO ratings.">
+  <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,39 +59,34 @@
   </section>
 
   <!-- Step-by-Step Checkout Framework -->
-  <section class="section">
+  <section class="section" style="padding-top: 10px;">
     <div class="container pricing-split-layout">
       
       <!-- LEFT COLUMN: Verification & Selection -->
       <div class="main-checkout-flow">
         
-        <!-- STEP 1: Authentication State -->
+        <!-- Account Verification Banner -->
         <div class="checkout-step-card window-glass">
           <div class="step-num">1</div>
           <div class="step-content">
             <div class="step-header">
-              <h2>Account Verification</h2>
+              <h2>Account Status</h2>
               <p id="auth-status">Checking login state...</p>
             </div>
-            <div class="auth-action-area">
-              <button id="login-btn" class="btn btn-primary hidden">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
-                Sign In with Google
-              </button>
-              <button id="logout-btn" class="btn btn-secondary hidden">
-                Sign Out
-              </button>
+            <div class="auth-action-area" style="margin-top: 12px;">
+              <a href="/login/index.html?redirect=payments" id="login-redirect-btn" class="btn btn-primary hidden">Sign In to Continue</a>
+              <button id="logout-btn" class="btn btn-secondary hidden">Sign Out</button>
             </div>
           </div>
         </div>
 
-        <!-- STEP 2: Choose Plan -->
+        <!-- Choose Plan -->
         <div class="checkout-step-card window-glass mt-4">
           <div class="step-num">2</div>
           <div class="step-content">
             <div class="step-header">
-              <h2>Choose Your Access Plan</h2>
-              <p>Verify your account status above to enable payment buttons.</p>
+              <h2>Choose Your Plan</h2>
+              <p>Sign in above to enable subscription upgrade flows.</p>
             </div>
 
             <div class="plans-grid">
@@ -134,7 +130,7 @@
             <h3>How does local sync work?</h3>
           </div>
           <p class="sync-desc">
-            When you authenticate via Google above, Firebase generates a secure authorization token. Upon payment completion, this page automatically syncs your fresh key directly down to your local <strong>LeetCode Sprint Extension</strong> via secure background messaging. No passwords or private profiles are accessed.
+            Upon payment completion, our server automatically registers your account as Premium. The LeetCode Sprint extension will securely pull your premium authorization key to unlock unlimited AI diagnostics and custom themes.
           </p>
         </div>
 
@@ -156,17 +152,17 @@
             </div>
             <div class="matrix-row">
               <span>On-the-spot Space/Time Estimates</span>
-              <span>5 per account</span>
+              <span>5 total</span>
               <span class="text-accent font-bold">Unlimited</span>
             </div>
             <div class="matrix-row">
               <span>Post-Submission AI Analysis</span>
-              <span>5 per account</span>
+              <span>5 total</span>
               <span class="text-accent font-bold">Unlimited</span>
             </div>
             <div class="matrix-row">
               <span>AI Debugger / Bug Finder</span>
-              <span>3 per account</span>
+              <span>3 total</span>
               <span class="text-accent font-bold">Unlimited</span>
             </div>
             <div class="matrix-row">
@@ -182,7 +178,7 @@
             <div class="matrix-row">
               <span>Personalized Visual Canvas Themes</span>
               <span>Default Only</span>
-              <span class="text-accent font-bold">All 39 Custom Themes</span>
+              <span class="text-accent font-bold">All 39 Themes</span>
             </div>
           </div>
         </div>
@@ -220,7 +216,7 @@
       <div class="footer-nav">
         <a href="../index.html" class="footer-link">Home</a>
         <a href="../features.html" class="footer-link">Features</a>
-        <a href="../support.html" class="footer-link">Donate</a>
+        <a href="../support.html" class="footer-link">Support</a>
       </div>
     </div>
     <div class="footer-bottom container">

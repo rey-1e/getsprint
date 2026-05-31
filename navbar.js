@@ -16,14 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     targetParent.appendChild(authNavBtn);
   }
 
-  /**
-   * FIX: Sync the sessionToken directly into chrome.storage.local.
-   * This is the ONLY storage that content scripts and background.js can read.
-   * localStorage on the website page is completely invisible to the extension.
-   */
   async function syncSessionTokenToExtension(sessionToken) {
     try {
-      await chrome.storage.local.set({ authToken: sessionToken });
+      if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+        await chrome.storage.local.set({ authToken: sessionToken });
+      }
     } catch (e) {
       console.error("Sprint navbar: Failed to sync token to extension storage:", e);
     }
@@ -31,7 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function clearSessionTokenFromExtension() {
     try {
-      await chrome.storage.local.remove('authToken');
+      if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+        await chrome.storage.local.remove('authToken');
+      }
     } catch (e) {
       console.error("Sprint navbar: Failed to clear token from extension storage:", e);
     }
@@ -44,9 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       authNavBtn.className = 'btn btn-secondary nav-btn';
 
       try {
-        // FIX: Always force-refresh the ID token to prevent stale-token rejections
         const idToken = await user.getIdToken(true);
-        
         const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
           method: 'POST',
           headers: {
@@ -58,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const syncData = await syncRes.json();
 
         if (syncRes.ok && syncData.success && syncData.sessionToken) {
-          // FIX: Write to chrome.storage.local — not localStorage
           await syncSessionTokenToExtension(syncData.sessionToken);
         }
       } catch (e) {
@@ -68,8 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
       authNavBtn.textContent = 'Sign In';
       authNavBtn.href = '/login/index.html';
       authNavBtn.className = 'btn btn-primary nav-btn';
-      
-      // FIX: Clear from chrome.storage.local on logout
       await clearSessionTokenFromExtension();
     }
   });

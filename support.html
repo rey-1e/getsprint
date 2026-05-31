@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sprint-Support</title>
+  <title>Help & Support — LeetCode Sprint</title>
   <link rel="icon" type="image/png" href="icon.png">
-  <meta name="description" content="Sprint remains open-source, private, and ad-free because of user donations. Help us maintain our server and parse structures.">
+  <meta name="description" content="Reach out to the LeetCode Sprint support team. Get help with your subscription, extension installation, or report bugs.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,48 +36,39 @@
     </div>
   </nav>
 
-  <!-- Support Detail Card (Screen 5 representation) -->
+  <!-- Support Detail Card -->
   <section class="section border-top header-offset">
-    <div class="container">
-      <div class="support-card window-glass">
-        <div class="support-icon-wrapper">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    <div class="container" style="max-width: 600px;">
+      <div class="support-card window-glass" style="margin-bottom: 0px; padding: 24px;">
+        <div class="support-icon-wrapper" style="margin-bottom: 12px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
         </div>
-        <h1>Sprint requires community support</h1>
-        <p class="support-description">
-          We need your help to keep this extension free for everyone.   
+        <h1 style="font-size: 1.5rem; margin-bottom: 6px;">Need Help or Found a Bug?</h1>
+        <p class="support-description" style="font-size: 0.8rem; margin-bottom: 16px;">
+          Submit your query or issue below. Our support engineering team will get back to you directly.
         </p>
 
-
-        <div class="support-action-box">
-          <a href="https://razorpay.me/@raj9589" target="_blank" class="btn btn-primary btn-lg">
-            Donate - It Matters
-          </a>
-          <span class="micro-text">Supported via Razorpay</span>
-        </div>
+        <form class="feedback-form" id="supportForm" style="text-align: left;">
+          <input type="text" name="_honey" style="display:none">
+          
+          <div class="form-group">
+            <label style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">Email Address</label>
+            <input type="email" name="email" placeholder="you@example.com" required class="form-input" id="supportEmail" style="width: 100%;">
+          </div>
+          
+          <div class="form-group mt-3">
+            <label style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 4px;">Describe Your Problem</label>
+            <textarea name="message" placeholder="Please provide details about your issue, extension behavior, or billing query..." required class="form-input form-textarea" id="supportMessage" rows="5" style="width: 100%;"></textarea>
+          </div>
+          
+          <button type="submit" id="supportSubmitBtn" class="btn btn-primary btn-lg mt-3 w-100 justify-center">
+            Submit Support Request
+          </button>
+        </form>
+        <div id="supportFeedback" class="form-feedback hidden" style="margin-top: 10px;">Your ticket has been logged successfully. We'll contact you shortly.</div>
       </div>
     </div>
   </section>
-
-  <!-- Trust Framework -->
-  <!-- <section class="section border-top">
-    <div class="container">
-      <div class="trust-grid">
-        <div class="trust-item">
-          <h4>No Telemetry</h4>
-          <p>We do not capture your solution scripts, keyboard actions, or profile details. Everything is processed locally in your active tab session.</p>
-        </div>
-        <div class="trust-item">
-          <h4>Fully Open Source</h4>
-          <p>Review every line of code inside our extension script on GitHub. We believe critical developer tools should be transparently audited.</p>
-        </div>
-        <div class="trust-item">
-          <h4>Direct Tooling Optimization</h4>
-          <p>Donation proceeds go directly toward hosting optimized parse systems, running automated regression specs, and maintaining target metadata arrays.</p>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
   <!-- Global Footer -->
   <footer class="footer border-top">
@@ -94,7 +85,7 @@
       <div class="footer-nav">
         <a href="index.html" class="footer-link">Home</a>
         <a href="features.html" class="footer-link">Features</a>
-        <a href="support.html" class="footer-link">Donate</a>
+        <a href="support.html" class="footer-link">Support</a>
       </div>
     </div>
     <div class="footer-bottom container">
@@ -123,4 +114,3 @@
   <script src="/navbar.js"></script>
 </body>
 </html>
-

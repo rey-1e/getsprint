@@ -1,26 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // 1. Mail Delivery & Feedback Engine
-  const feedbackForm = document.getElementById('feedbackForm');
-  const feedbackEmail = document.getElementById('feedbackEmail');
-  const feedbackMessage = document.getElementById('feedbackMessage');
-  const feedbackSubmitBtn = document.getElementById('feedbackSubmitBtn');
-  const formFeedback = document.getElementById('formFeedback');
+  const supportForm = document.getElementById('supportForm') || document.getElementById('feedbackForm');
+  const supportEmail = document.getElementById('supportEmail') || document.getElementById('feedbackEmail');
+  const supportMessage = document.getElementById('supportMessage') || document.getElementById('feedbackMessage');
+  const supportSubmitBtn = document.getElementById('supportSubmitBtn') || document.getElementById('feedbackSubmitBtn');
+  const supportFeedback = document.getElementById('supportFeedback') || document.getElementById('formFeedback');
 
-  if (feedbackForm && feedbackEmail && feedbackMessage && formFeedback) {
-    feedbackForm.addEventListener('submit', (e) => {
+  if (supportForm && supportEmail && supportMessage && supportFeedback) {
+    supportForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const emailVal = feedbackEmail.value.trim();
-      const messageVal = feedbackMessage.value.trim();
+      const emailVal = supportEmail.value.trim();
+      const messageVal = supportMessage.value.trim();
 
       if (emailVal && messageVal) {
-        // Change button state to signify network transmission activity
-        const originalBtnText = feedbackSubmitBtn.textContent;
-        feedbackSubmitBtn.textContent = "Sending Feedback...";
-        feedbackSubmitBtn.disabled = true;
+        const originalBtnText = supportSubmitBtn.textContent;
+        supportSubmitBtn.textContent = "Sending Request...";
+        supportSubmitBtn.disabled = true;
 
-        // AJAX Delivery via FormSubmit
         fetch("https://formsubmit.co/ajax/kanaderaj1216@gmail.com", {
           method: "POST",
           headers: {
@@ -30,21 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify({
             email: emailVal,
             message: messageVal,
-            _subject: "Sprint extension — New User Feedback"
+            _subject: "Sprint - Help Desk Support Request"
           })
         })
         .then(response => {
           if (response.ok) {
-            // Success State handling
-            formFeedback.classList.remove('hidden');
-            feedbackForm.reset();
+            supportFeedback.classList.remove('hidden');
+            supportForm.reset();
             
-            // Revert feedback message toast after 5 seconds
             setTimeout(() => {
-              formFeedback.classList.add('hidden');
+              supportFeedback.classList.add('hidden');
             }, 5000);
           } else {
-            alert("Unable to route form submission. Please try again.");
+            alert("Unable to route support ticket. Please try again.");
           }
         })
         .catch(err => {
@@ -52,9 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
           alert("Network failure. Please review your internet connection and try again.");
         })
         .finally(() => {
-          // Revert button text and interactive state
-          feedbackSubmitBtn.textContent = originalBtnText;
-          feedbackSubmitBtn.disabled = false;
+          supportSubmitBtn.textContent = originalBtnText;
+          supportSubmitBtn.disabled = false;
         });
       }
     });
@@ -67,11 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (subTabs.length > 0 && subPanes.length > 0) {
     subTabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        // Reset active structures
         subTabs.forEach(t => t.classList.remove('active'));
         subPanes.forEach(p => p.classList.remove('active'));
 
-        // Assign active values to target tab
         tab.classList.add('active');
         const targetPaneId = `pane-${tab.getAttribute('data-tab')}`;
         const targetPane = document.getElementById(targetPaneId);
