@@ -58,7 +58,7 @@ auth.onAuthStateChanged(async (user) => {
     authSuccess.classList.add('hidden');
     authLoading.classList.add('hidden');
     localStorage.removeItem('sprint_authToken');
-    document.documentElement.removeAttribute('data-sprint-auth');
+    document.documentElement.setAttribute('data-sprint-auth', 'logout');
   }
 });
 

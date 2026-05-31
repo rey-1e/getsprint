@@ -1,4 +1,3 @@
-// Global Navbar Authentication State Handler
 document.addEventListener('DOMContentLoaded', () => {
   const auth = firebase.auth();
   const navContainer = document.querySelector('.nav-container');
@@ -12,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     authNavBtn.id = 'nav-auth-btn';
     authNavBtn.className = 'btn btn-secondary nav-btn';
     authNavBtn.style.marginLeft = '12px';
+    
     // Append beside primary CTA in the navbar layout
     const targetParent = navContainer.querySelector('.nav-links')?.parentNode || navContainer;
     targetParent.appendChild(authNavBtn);
@@ -20,12 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       authNavBtn.textContent = 'Account Dashboard';
-      authNavBtn.href = '/payments/index.html'; // Go directly to dashboard
+      authNavBtn.href = '/payments/index.html'; 
       authNavBtn.className = 'btn btn-secondary nav-btn';
       
       const idToken = await user.getIdToken();
       
-      // Silently keep their local extension token completely synced in background
       try {
         const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
           method: 'POST',
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
         const syncData = await syncRes.json();
-        if (syncData.success && syncData.sessionToken) {
+        if (syncRes.ok && syncData.success && syncData.sessionToken) {
           localStorage.setItem('sprint_authToken', syncData.sessionToken);
           document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
         }
@@ -47,6 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
       authNavBtn.textContent = 'Sign In';
       authNavBtn.href = '/login/index.html';
       authNavBtn.className = 'btn btn-primary nav-btn';
+      
+      localStorage.removeItem('sprint_authToken');
+      document.documentElement.setAttribute('data-sprint-auth', 'logout');
     }
   });
 });
