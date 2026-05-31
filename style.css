@@ -1,22 +1,22 @@
 /* ==========================================================================
-   LeetCode Sprint — Global Design System (Minimalist & Sharp)
+   LeetCode Sprint — Global Design System (Sharp & Redindian Accent)
    ========================================================================== */
 
 /* --- Reset & Base --- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* Colors - High-contrast professional palette */
+  /* Colors - Redindian signature theme with sharp high contrast */
   --accent:         #cd5c5c;
   --accent-hover:   #b84b4b;
-  --accent-muted:   rgba(205, 92, 92, 0.05);
+  --accent-muted:   rgba(205, 92, 92, 0.06);
   --bg:             #ffffff;
   --bg-muted:       #fafafa;
-  --text-primary:   #09090b;
-  --text-secondary: #27272a;
+  --text-primary:   #18181b;
+  --text-secondary: #3f3f46;
   --text-muted:     #71717a;
   --border:         #e4e4e7;
-  --border-hover:   #a1a1aa;
+  --border-hover:   #d4d4d8;
   
   --shadow-sm:      0 1px 2px rgba(0,0,0,0.05);
   --shadow-md:      0 4px 12px rgba(0,0,0,0.03);
@@ -48,7 +48,7 @@ body {
 }
 
 /* ==========================================================================
-   Ambient Background Glows (Refined & Low Opacity)
+   Ambient Background Glows (Refined & Low Opacity Redindian Blur)
    ========================================================================== */
 .bg-glow {
   position: fixed;
@@ -56,21 +56,21 @@ body {
   pointer-events: none;
   z-index: 0;
   filter: blur(100px);
-  opacity: 0.15;
+  opacity: 0.22;
 }
 .blob-top {
   width: 450px; height: 450px;
   top: -150px; right: -50px;
-  background: radial-gradient(circle, rgba(205,92,92,0.15) 0%, transparent 75%);
+  background: radial-gradient(circle, rgba(205,92,92,0.18) 0%, transparent 75%);
 }
 .blob-middle {
   width: 350px; height: 350px;
   top: 45%; left: -100px;
-  background: radial-gradient(circle, rgba(205,92,92,0.08) 0%, transparent 75%);
+  background: radial-gradient(circle, rgba(205,92,92,0.10) 0%, transparent 75%);
 }
 
 /* ==========================================================================
-   Navigation (Clean & Flat)
+   Navigation (Clean & Sharp)
    ========================================================================== */
 #navbar {
   position: fixed;
@@ -102,7 +102,7 @@ body {
 }
 .logo-box {
   width: 24px; height: 24px;
-  background: var(--text-primary);
+  background: var(--accent);
   border-radius: var(--radius-sm);
   display: flex; align-items: center; justify-content: center;
   color: #fff;
@@ -138,7 +138,7 @@ body {
   white-space: nowrap;
 }
 .nav-link:hover { color: var(--text-primary); background: rgba(0,0,0,0.03); }
-.nav-link.active { color: var(--text-primary); font-weight: 600; }
+.nav-link.active { color: var(--accent); font-weight: 600; }
 
 /* Actions */
 .nav-actions {
@@ -163,7 +163,7 @@ body {
 }
 
 /* ==========================================================================
-   Buttons (Sharp Corners)
+   Buttons (Sharp Corners & Redindian Accents)
    ========================================================================== */
 .btn {
   display: inline-flex;
@@ -174,7 +174,7 @@ body {
   font-weight: 600;
   font-size: 0.8rem;
   border-radius: var(--radius-md);
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.1s ease;
@@ -184,13 +184,13 @@ body {
 }
 
 .btn-primary {
-  background: var(--text-primary);
+  background: var(--accent);
   color: #fff;
-  border-color: var(--text-primary);
+  border-color: var(--accent);
 }
 .btn-primary:hover {
-  background: #27272a;
-  border-color: #27272a;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .btn-secondary {
@@ -264,7 +264,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--text-primary) 0%, #52525b 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, #e07b7b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -275,7 +275,7 @@ body {
 .text-muted   { color: var(--text-muted); }
 
 /* ==========================================================================
-   Badge / Pill
+   Badge / Pill (Redindian Accented)
    ========================================================================== */
 .badge {
   display: inline-flex;
@@ -285,9 +285,9 @@ body {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  background: var(--bg-muted);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
+  background: var(--accent-muted);
+  color: var(--accent);
+  border: 1px solid rgba(205, 92, 92, 0.15);
   padding: 3px 10px;
   border-radius: var(--radius-sm);
 }
@@ -393,9 +393,9 @@ body {
 .meta-pill {
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  background: var(--bg);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
+  background: var(--accent-muted);
+  color: var(--accent-hover);
+  border: 1px solid rgba(205, 92, 92, 0.15);
   padding: 2px 6px;
   border-radius: var(--radius-sm);
 }
@@ -447,19 +447,19 @@ body {
   border-bottom: 1px solid #fee2e2;
   font-size: 0.68rem;
   font-weight: 600;
-  color: #991b1b;
+  color: var(--accent);
 }
 .error-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: #ef4444;
+  background: var(--accent);
   flex-shrink: 0;
 }
 .debugger-body { padding: 8px 10px; }
 .debugger-title {
   font-size: 0.65rem;
   font-weight: 700;
-  color: #991b1b;
+  color: var(--accent-hover);
   margin-bottom: 4px;
 }
 .debugger-desc {
@@ -479,15 +479,15 @@ body {
   font-family: var(--font-sans);
   font-size: 0.62rem;
   font-weight: 600;
-  background: #f4f4f5;
-  color: #27272a;
-  border: 1px solid var(--border);
+  background: var(--accent-muted);
+  color: var(--accent-hover);
+  border: 1px solid rgba(205, 92, 92, 0.15);
   border-radius: var(--radius-sm);
   padding: 3px 8px;
   cursor: pointer;
   transition: background 0.1s;
 }
-.debugger-btn:hover { background: #e4e4e7; }
+.debugger-btn:hover { background: rgba(205, 92, 92, 0.22); }
 
 /* ==========================================================================
    Social Proof Metrics
@@ -501,7 +501,7 @@ body {
   font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.04em;
-  color: var(--text-primary);
+  color: var(--accent);
   margin-bottom: 2px;
 }
 .proof-metric p {
@@ -553,8 +553,8 @@ body {
 }
 .form-input::placeholder { color: var(--text-muted); }
 .form-input:focus {
-  border-color: var(--text-primary);
-  box-shadow: 0 0 0 2px rgba(9, 9, 11, 0.05);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(205, 92, 92, 0.08);
 }
 .form-textarea { min-height: 80px; }
 
@@ -594,11 +594,11 @@ body {
 
 .card-icon {
   width: 32px; height: 32px;
-  background: var(--bg-muted);
-  border: 1px solid var(--border);
+  background: var(--accent-muted);
+  border: 1px solid rgba(205, 92, 92, 0.15);
   border-radius: var(--radius-md);
   display: flex; align-items: center; justify-content: center;
-  color: var(--text-primary);
+  color: var(--accent);
   margin-bottom: 12px;
 }
 
@@ -624,9 +624,9 @@ body {
 .badge-tag {
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  background: var(--bg-muted);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+  background: var(--accent-muted);
+  color: var(--accent-hover);
+  border: 1px solid rgba(205, 92, 92, 0.15);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
 }
@@ -689,9 +689,9 @@ body {
 }
 .sub-tab:hover { color: var(--text-primary); }
 .sub-tab.active {
-  color: var(--text-primary);
-  border-bottom-color: var(--text-primary);
-  background: #ffffff;
+  color: var(--accent-hover);
+  border-bottom-color: var(--accent);
+  background: var(--accent-muted);
 }
 .submission-content-wrapper { padding: 12px; }
 .submission-pane { display: none; }
@@ -725,11 +725,11 @@ body {
 .support-card { border-radius: var(--radius-xl); }
 .support-icon-wrapper {
   width: 36px; height: 36px;
-  background: var(--bg-muted);
-  border: 1px solid var(--border);
+  background: var(--accent-muted);
+  border: 1px solid rgba(205, 92, 92, 0.15);
   border-radius: var(--radius-md);
   display: flex; align-items: center; justify-content: center;
-  color: var(--text-primary);
+  color: var(--accent);
   margin-bottom: 12px;
 }
 .support-description { color: var(--text-muted); }

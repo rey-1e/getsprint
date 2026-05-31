@@ -183,7 +183,7 @@ async function initiateCheckout(planType, buttonEl) {
           buttonEl.removeAttribute('disabled');
         }
       },
-      "theme": { "color": "#09090b" }
+      "theme": { "color": "#cd5c5c" }
     };
     
     const rzp = new Razorpay(options);

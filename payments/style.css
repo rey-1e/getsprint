@@ -1,14 +1,14 @@
-/* Payments System Local Overrides (Sharp & Clean) */
+/* Payments System Local Overrides (Sharp & Redindian Accents) */
 
 #auth-status {
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  background: rgba(0,0,0,0.03);
-  border: 1px solid var(--border);
+  background: var(--accent-muted);
+  border: 1px solid rgba(205, 92, 92, 0.15);
   border-radius: var(--radius-sm);
   display: inline-block;
   padding: 3px 8px;
-  color: var(--text-muted);
+  color: var(--accent);
 }
 
 .plans-grid {
@@ -32,15 +32,15 @@
 .card-plan:hover { border-color: var(--border-hover); }
 
 .card-plan.featured {
-  border-color: var(--text-primary);
-  box-shadow: var(--shadow-sm);
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(205, 92, 92, 0.05);
 }
 
 .premium-badge {
   position: absolute;
   top: -9px;
   right: 12px;
-  background: var(--text-primary);
+  background: var(--accent);
   color: #ffffff;
   font-size: 0.58rem;
   font-weight: 700;
