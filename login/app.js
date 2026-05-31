@@ -63,13 +63,13 @@ async function performUserSync(user, retryCount = 0) {
     }
   });
 
-  if (!syncRes.ok && retryCount < 2) {
-    // FIX: Retry on cold-start failures (Firebase Functions can take ~3s to warm up)
-    await new Promise(r => setTimeout(r, 2000));
+  const syncData = await syncRes.json().catch(() => ({}));
+
+  // Retry on 500 (infrastructure/cold-start errors) up to 2 times
+  if (syncRes.status === 500 && retryCount < 2) {
+    await new Promise(r => setTimeout(r, 2500));
     return performUserSync(user, retryCount + 1);
   }
-
-  const syncData = await syncRes.json();
 
   if (syncRes.ok && syncData.success && syncData.sessionToken) {
     // FIX: Write to chrome.storage.local — the only storage accessible to the extension
@@ -77,7 +77,10 @@ async function performUserSync(user, retryCount = 0) {
     return syncData;
   }
 
-  throw new Error(syncData.error || "Sync failed");
+  // Surface the real server error — visible in the UI and browser console
+  const errDetail = syncData.detail || syncData.error || `HTTP ${syncRes.status}`;
+  console.error("Sprint syncUser failed:", syncRes.status, syncData);
+  throw new Error(errDetail);
 }
 
 auth.onAuthStateChanged(async (user) => {
@@ -93,7 +96,9 @@ auth.onAuthStateChanged(async (user) => {
       payButtons.forEach(btn => btn.removeAttribute('disabled'));
     } catch (e) {
       console.error("Sprint: Auth sync error:", e);
-      statusText.textContent = "Profile sync error. Try refreshing.";
+      // FIX: Show the ACTUAL error — not a generic message. This lets you see
+      // in the UI exactly what the server is rejecting (IAM, Firestore rules, etc.)
+      statusText.innerHTML = `Sync error: <code style="font-size:11px;background:#f3f3f3;padding:2px 5px;border-radius:3px;">${e.message}</code><br><small>Check Firebase Console → Functions logs</small>`;
       // Still show logged-in UI state — the user IS authenticated via Firebase
       loginBtn.classList.add('hidden');
       logoutBtn.classList.remove('hidden');
