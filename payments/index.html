@@ -37,7 +37,7 @@
       <div class="nav-links">
         <a href="../index.html" class="nav-link">Home</a>
         <a href="../features.html" class="nav-link">Features</a>
-        <a href="index.html" class="nav-link active">Upgrade</a>
+        <a href="/payments/index.html" class="nav-link active">Upgrade</a>
         <a href="../support.html" class="nav-link">Support</a>
       </div>
       <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
@@ -60,33 +60,16 @@
 
   <!-- Step-by-Step Checkout Framework -->
   <section class="section" style="padding-top: 10px;">
-    <div class="container pricing-split-layout">
+    <div class="container" style="max-width: 900px;">
       
-      <!-- LEFT COLUMN: Verification & Selection -->
+      <!-- Checkout Plan Selection Panel -->
       <div class="main-checkout-flow">
-        
-        <!-- Account Verification Banner -->
-        <div class="checkout-step-card window-glass">
-          <div class="step-num">1</div>
+        <div class="checkout-step-card window-glass" style="border-radius: 12px; padding: 32px;">
           <div class="step-content">
-            <div class="step-header">
-              <h2>Account Status</h2>
-              <p id="auth-status">Checking login state...</p>
-            </div>
-            <div class="auth-action-area" style="margin-top: 12px;">
-              <a href="/login/index.html?redirect=payments" id="login-redirect-btn" class="btn btn-primary hidden">Sign In to Continue</a>
-              <button id="logout-btn" class="btn btn-secondary hidden">Sign Out</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Choose Plan -->
-        <div class="checkout-step-card window-glass mt-4">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <div class="step-header">
-              <h2>Choose Your Plan</h2>
-              <p>Sign in above to enable subscription upgrade flows.</p>
+            <div class="step-header text-center" style="margin-bottom: 24px;">
+              <h2 style="font-size: 1.4rem;">Select Your Access Plan</h2>
+              <p style="font-size: 0.85rem; margin-top: 4px;">Billing verified via secure Firebase sessions. Upgrade instantly.</p>
+              <div id="auth-status" style="font-size: 0.72rem; margin-top: 8px;">Checking authentication state...</div>
             </div>
 
             <div class="plans-grid">
@@ -99,7 +82,7 @@
                 <div class="price-box">
                   <p class="price">$1 <span class="local-est">~ ₹85 INR</span></p>
                 </div>
-                <button class="pay-btn btn btn-secondary w-100 justify-center" data-plan="1day" disabled>
+                <button class="pay-btn btn btn-secondary w-100 justify-center" id="pay-1day" data-plan="1day" disabled>
                   Upgrade for 24h
                 </button>
               </div>
@@ -114,7 +97,7 @@
                 <div class="price-box">
                   <p class="price">$7 <span class="local-est">~ ₹595 INR</span></p>
                 </div>
-                <button class="pay-btn btn btn-primary w-100 justify-center" data-plan="1month" disabled>
+                <button class="pay-btn btn btn-primary w-100 justify-center" id="pay-1month" data-plan="1month" disabled>
                   Unlock Monthly Pass
                 </button>
               </div>
@@ -123,77 +106,12 @@
           </div>
         </div>
 
-        <!-- How secure syncing works -->
-        <div class="sync-info-box window-glass mt-4">
-          <div class="sync-header">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
-            <h3>How does local sync work?</h3>
-          </div>
-          <p class="sync-desc">
-            Upon payment completion, our server automatically registers your account as Premium. The LeetCode Sprint extension will securely pull your premium authorization key to unlock unlimited AI diagnostics and custom themes.
+        <!-- Secure transaction footer -->
+        <div class="sync-info-box window-glass mt-4" style="text-align: center; border-color: rgba(0, 0, 0, 0.05); background: #ffffff;">
+          <p class="sync-desc" style="font-size: 0.75rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Payments are secured and processed using 256-bit bank-grade encryption over Razorpay networks.
           </p>
-        </div>
-
-      </div>
-
-      <!-- RIGHT COLUMN: Insight Comparison & Trust Checklist -->
-      <div class="checkout-sidebar">
-        
-        <!-- Feature Comparison Matrix -->
-        <div class="matrix-card window-glass">
-          <h3>Sizing Up Your Value</h3>
-          <p class="matrix-subtitle">See what you unlock with premium access</p>
-          
-          <div class="matrix-table">
-            <div class="matrix-row header">
-              <span>Metric Capability</span>
-              <span>Free</span>
-              <span class="text-accent">Premium</span>
-            </div>
-            <div class="matrix-row">
-              <span>On-the-spot Space/Time Estimates</span>
-              <span>5 total</span>
-              <span class="text-accent font-bold">Unlimited</span>
-            </div>
-            <div class="matrix-row">
-              <span>Post-Submission AI Analysis</span>
-              <span>5 total</span>
-              <span class="text-accent font-bold">Unlimited</span>
-            </div>
-            <div class="matrix-row">
-              <span>AI Debugger / Bug Finder</span>
-              <span>3 total</span>
-              <span class="text-accent font-bold">Unlimited</span>
-            </div>
-            <div class="matrix-row">
-              <span>Verified Corporate Company Tags</span>
-              <span>✔️ Included</span>
-              <span class="text-accent font-bold">✔️ Included</span>
-            </div>
-            <div class="matrix-row">
-              <span>Contest ELO Difficulty Metrics</span>
-              <span>✔️ Included</span>
-              <span class="text-accent font-bold">✔️ Included</span>
-            </div>
-            <div class="matrix-row">
-              <span>Personalized Visual Canvas Themes</span>
-              <span>Default Only</span>
-              <span class="text-accent font-bold">All 39 Themes</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Secure Billing Elements -->
-        <div class="billing-trust-card window-glass mt-4">
-          <h4>Payment Protection Assured</h4>
-          <div class="trust-pill">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Processed securely through Razorpay API Gateway.</span>
-          </div>
-          <div class="trust-pill">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>Encrypted validation via secure Firebase Cloud Functions.</span>
-          </div>
         </div>
 
       </div>
