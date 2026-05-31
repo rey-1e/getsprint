@@ -268,6 +268,21 @@ nav {
   border-radius: var(--radius-md);
 }
 
+.btn-primary:disabled {
+  background: #e4e4e7;
+  color: #a1a1aa;
+  cursor: not-allowed;
+  box-shadow: none;
+  border-color: #e4e4e7;
+}
+
+.btn-secondary:disabled {
+  background: #f4f4f5;
+  color: #a1a1aa;
+  border-color: #e4e4e7;
+  cursor: not-allowed;
+}
+
 /* ==========================================================================
    Home Landing Layout System
    ========================================================================== */
@@ -955,6 +970,10 @@ pre {
   .nav-links, .nav-btn { display: none; }
   .section { padding: 36px 20px; }
   .hero-cta { flex-direction: column; }
+  .login-wrapper { min-height: 40vh; }
+  .login-card { padding: 24px; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .footer-layout { flex-direction: column; gap: 20px; }
 }
 
 /* ==========================================================================
@@ -981,6 +1000,10 @@ pre {
   margin-top: 12px !important;
 }
 
+.mt-4 {
+  margin-top: 16px !important;
+}
+
 .w-100 {
   width: 100% !important;
 }
@@ -989,6 +1012,15 @@ pre {
   justify-content: center !important;
 }
 
-.support-card {
-  margin-bottom : 320px;
+.text-center {
+  text-align: center;
+}
+
+/* Reusable Form Label */
+.form-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
 }
