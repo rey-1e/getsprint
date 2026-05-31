@@ -1,273 +1,83 @@
-/* ==========================================================================
-   Payments Page — Local Overrides & Unique Components
-   Base styles inherited from ../style.css
-   ========================================================================== */
-
-/* ==========================================================================
-   Checkout Step Cards
-   ========================================================================== */
-.checkout-step-card {
-  padding: 24px;
-  display: flex;
-  gap: 20px;
-  position: relative;
-}
-
-.step-num {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--accent-muted);
-  border: 1.5px solid var(--accent);
-  color: var(--accent);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 0.9rem;
-}
-
-.step-content {
-  flex: 1;
-}
-
-.step-header h2 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 4px;
-}
-
-.step-header p {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-}
+/* payments/style.css — local overrides only */
 
 #auth-status {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  background: rgba(0, 0, 0, 0.02);
-  padding: 4px 8px;
+  font-size: 0.72rem;
+  background: rgba(0,0,0,0.025);
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   display: inline-block;
-  margin-top: 6px;
-  border: 1px solid var(--border);
+  padding: 4px 10px;
+  color: var(--text-muted);
 }
 
-.auth-action-area {
-  margin-top: 16px;
-}
-
-/* ==========================================================================
-   Plans Grid & Cards
-   ========================================================================== */
 .plans-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  margin-top: 20px;
 }
 
 .card-plan {
   background: #ffffff;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 16px;
   position: relative;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-
-.card-plan:hover {
-  border-color: var(--border-hover);
-}
+.card-plan:hover { border-color: var(--border-hover); }
 
 .card-plan.featured {
   border-color: var(--accent);
-  background: rgba(205, 92, 92, 0.01);
-  box-shadow: 0 4px 20px rgba(205, 92, 92, 0.05);
+  box-shadow: 0 4px 24px rgba(205,92,92,0.08);
 }
 
 .premium-badge {
   position: absolute;
-  top: -10px;
+  top: -11px;
   right: 14px;
   background: var(--accent);
   color: #ffffff;
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 10px;
-  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 99px;
+  letter-spacing: 0.06em;
 }
 
 .plan-header h3 {
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
-
 .plan-meta {
   font-size: 0.72rem;
-  color: var(--text-muted);
-  line-height: 1.35;
-}
-
-.price-box {
-  margin: 8px 0;
-}
-
-.price {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.03em;
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-}
-
-.local-est {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  font-weight: 400;
-  font-family: var(--font-sans);
-}
-
-/* ==========================================================================
-   Extension Sync Info Card
-   ========================================================================== */
-.sync-info-box {
-  padding: 20px;
-  background: var(--accent-muted);
-  border-color: rgba(205, 92, 92, 0.15);
-}
-
-.sync-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--accent-hover);
-  margin-bottom: 6px;
-}
-
-.sync-header h3 {
-  font-size: 0.88rem;
-  font-weight: 700;
-}
-
-.sync-desc {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-
-/* ==========================================================================
-   Comparison Matrix & Trust Cards
-   ========================================================================== */
-.matrix-card {
-  padding: 24px;
-}
-
-.matrix-card h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.matrix-subtitle {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-}
-
-.matrix-table {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.matrix-row {
-  display: grid;
-  grid-template-columns: 1.8fr 1fr 1fr;
-  padding: 8px 0;
-  font-size: 0.72rem;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
-}
-
-.matrix-row.header {
-  font-weight: 700;
-  border-bottom: 1.5px solid var(--border);
-  color: var(--text-primary);
-}
-
-.matrix-row span:not(:first-child) {
-  text-align: right;
-}
-
-.text-accent {
-  color: var(--accent-hover);
-}
-
-.font-bold {
-  font-weight: 700;
-}
-
-.billing-trust-card {
-  padding: 20px;
-  background: #f4f4f5;
-}
-
-.billing-trust-card h4 {
-  font-size: 0.82rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: var(--text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.trust-pill {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.7rem;
   color: var(--text-muted);
   line-height: 1.4;
 }
 
-.trust-pill:not(:last-child) {
-  margin-bottom: 8px;
+.price-box { margin: 4px 0; }
+.price {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+.local-est {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
-.trust-pill svg {
-  color: var(--accent);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* ==========================================================================
-   Payments Footer Override
-   ========================================================================== */
-.page-pricing .footer {
-  margin-top: 64px;
-}
-
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
-@media (max-width: 992px) {
-  .pricing-split-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 560px) {
   .plans-grid { grid-template-columns: 1fr; }
 }

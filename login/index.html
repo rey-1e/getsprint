@@ -10,23 +10,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
-  <!-- Soft Ambient Glows -->
   <div class="bg-glow blob-top"></div>
   <div class="bg-glow blob-middle"></div>
 
-  <!-- Main Navigation -->
+  <!-- Navigation -->
   <nav id="navbar">
     <div class="nav-container">
       <a href="../index.html" class="brand">
         <div class="logo-box">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <span class="brand-text">Sprint<span class="accent">.</span></span>
       </a>
@@ -36,57 +33,61 @@
         <a href="../payments/index.html" class="nav-link">Upgrade</a>
         <a href="../support.html" class="nav-link">Support</a>
       </div>
-      <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
-        Install Free Extension
-      </a>
+      <div class="nav-actions">
+        <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
+          Install Free
+        </a>
+      </div>
     </div>
   </nav>
 
-  <!-- Login Card Layout -->
+  <!-- Login Card -->
   <section class="section header-offset">
     <div class="container login-wrapper">
       <div class="login-card window-glass">
-        <div class="brand" style="justify-content: center; margin-bottom: 16px;">
-          <div class="logo-box" style="width: 32px; height: 32px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <a href="../index.html" class="brand" style="justify-content:center;margin-bottom:20px;">
+          <div class="logo-box" style="width:34px;height:34px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
-          <span class="brand-text" style="font-size: 1.3rem;">LeetCode Sprint</span>
-        </div>
-        
+          <span class="brand-text" style="font-size:1.2rem;">LeetCode Sprint</span>
+        </a>
+
         <h1>Welcome Back</h1>
-        <p class="login-subtitle">Sign in to sync your active premium subscription and unlimited metrics directly to your local browser extension.</p>
+        <p class="login-subtitle">Sign in to sync your active premium subscription and unlock unlimited metrics in your browser extension.</p>
 
         <div class="auth-action-area">
+          <!-- Default state: show the button immediately, NO spinner on load -->
+          <button id="login-btn" class="btn btn-primary btn-lg w-100 justify-center">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;flex-shrink:0;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
+            Continue with Google
+          </button>
+
           <div id="auth-loading" class="hidden">
             <div class="spinner"></div>
-            <p>Syncing secure developer profile...</p>
+            <p>Syncing your account…</p>
           </div>
-          
-          <button id="login-btn" class="btn btn-primary btn-lg w-100 justify-center">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
-            Sign In with Google
-          </button>
-          
+
           <div id="auth-success" class="hidden">
             <div class="success-icon">✔️</div>
             <p id="success-message">Successfully authenticated!</p>
-            <a href="../payments/index.html" class="btn btn-primary btn-lg w-100 justify-center mt-3">Go to Billing & Settings</a>
+            <a href="../authorize/index.html" class="btn btn-primary btn-lg w-100 justify-center mt-3">Go to Dashboard</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer border-top">
     <div class="container footer-layout">
       <div class="footer-meta">
-        <div class="brand">
+        <a href="../index.html" class="brand">
           <div class="logo-box small">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
           <span class="brand-text">Sprint<span class="accent">.</span></span>
-        </div>
-        <p class="footer-tagline">Providing high-performance tools for engineers preparing for complex technical interviews.</p>
+        </a>
+        <p class="footer-tagline">High-performance tools for engineers preparing for complex technical interviews.</p>
       </div>
       <div class="footer-nav">
         <a href="../index.html" class="footer-link">Home</a>
@@ -95,8 +96,8 @@
         <a href="../support.html" class="footer-link">Support</a>
       </div>
     </div>
-    <div class="footer-bottom container">
-      &copy; 2026 LeetCode Sprint
+    <div class="footer-bottom">
+      &copy; 2026 LeetCode Sprint. All rights reserved.
     </div>
   </footer>
 

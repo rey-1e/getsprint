@@ -11,135 +11,125 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  
-  <!-- Razorpay Checkout Integration -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body class="page-pricing">
 
-  <!-- Soft Ambient Glows -->
   <div class="bg-glow blob-top"></div>
   <div class="bg-glow blob-middle"></div>
 
-  <!-- Persistent Global Navigation -->
+  <!-- Navigation -->
   <nav id="navbar">
     <div class="nav-container">
       <a href="../index.html" class="brand">
         <div class="logo-box">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <span class="brand-text">Sprint<span class="accent">.</span></span>
       </a>
       <div class="nav-links">
         <a href="../index.html" class="nav-link">Home</a>
         <a href="../features.html" class="nav-link">Features</a>
-        <a href="/payments/index.html" class="nav-link active">Upgrade</a>
+        <a href="index.html" class="nav-link active">Upgrade</a>
         <a href="../support.html" class="nav-link">Support</a>
       </div>
-      <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
-        Install Free Extension
-      </a>
+      <div class="nav-actions">
+        <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
+          Install Free
+        </a>
+      </div>
     </div>
   </nav>
 
-  <!-- Section Header -->
-  <section class="section border-top header-offset text-center">
+  <!-- Header -->
+  <section class="section header-offset border-top text-center">
     <div class="container">
       <span class="badge">
         <span class="pulse-dot"></span>
-        Sprint Premium Billing Portal
+        Sprint Premium
       </span>
-      <h1 class="page-title">Supercharge your tech interview preparation.</h1>
-      <p class="page-subtitle">Access raw company data sets, on-the-spot complexity calculators, and automated AI assistance.</p>
+      <h1 class="page-title">Supercharge your interview preparation.</h1>
+      <p class="page-subtitle">Unlock raw company datasets, on-the-spot complexity analysis, and unlimited AI assistance.</p>
     </div>
   </section>
 
-  <!-- Step-by-Step Checkout Framework -->
-  <section class="section" style="padding-top: 10px;">
-    <div class="container" style="max-width: 900px;">
-      
-      <!-- Checkout Plan Selection Panel -->
-      <div class="main-checkout-flow">
-        <div class="checkout-step-card window-glass" style="border-radius: 12px; padding: 32px;">
-          <div class="step-content">
-            <div class="step-header text-center" style="margin-bottom: 24px;">
-              <h2 style="font-size: 1.4rem;">Select Your Access Plan</h2>
-              <p style="font-size: 0.85rem; margin-top: 4px;">Billing verified via secure Firebase sessions. Upgrade instantly.</p>
-              <div id="auth-status" style="font-size: 0.72rem; margin-top: 8px;">Checking authentication state...</div>
+  <!-- Checkout -->
+  <section class="section" style="padding-top:16px;padding-bottom:80px;">
+    <div class="container" style="max-width:820px;">
+
+      <div class="window-glass" style="border-radius:16px;padding:36px;">
+        <div style="text-align:center;margin-bottom:28px;">
+          <h2 style="font-size:1.25rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Select Your Access Plan</h2>
+          <p style="font-size:0.82rem;color:var(--text-muted);">Billing verified via secure Firebase sessions. Upgrade instantly.</p>
+          <div id="auth-status" style="margin-top:10px;">Checking authentication…</div>
+        </div>
+
+        <div class="plans-grid">
+          <!-- 1 Day -->
+          <div class="card-plan">
+            <div class="plan-header">
+              <h3>1-Day Full Sprint</h3>
+              <p class="plan-meta">Ideal for rapid, last-minute interview refreshers.</p>
             </div>
-
-            <div class="plans-grid">
-              <!-- 1 Day Trial -->
-              <div class="card-plan">
-                <div class="plan-header">
-                  <h3>1-Day Full Sprint</h3>
-                  <p class="plan-meta">Ideal for rapid, last-minute interview refreshers.</p>
-                </div>
-                <div class="price-box">
-                  <p class="price">$1 <span class="local-est">~ ₹85 INR</span></p>
-                </div>
-                <button class="pay-btn btn btn-secondary w-100 justify-center" id="pay-1day" data-plan="1day" disabled>
-                  Upgrade for 24h
-                </button>
-              </div>
-
-              <!-- 1 Month Premium -->
-              <div class="card-plan featured">
-                <div class="premium-badge">Best Value</div>
-                <div class="plan-header">
-                  <h3>30-Day Premium</h3>
-                  <p class="plan-meta">Perfect for ongoing structured prep cycles.</p>
-                </div>
-                <div class="price-box">
-                  <p class="price">$7 <span class="local-est">~ ₹595 INR</span></p>
-                </div>
-                <button class="pay-btn btn btn-primary w-100 justify-center" id="pay-1month" data-plan="1month" disabled>
-                  Unlock Monthly Pass
-                </button>
-              </div>
+            <div class="price-box">
+              <p class="price">$1 <span class="local-est">~ ₹85 INR</span></p>
             </div>
+            <button class="pay-btn btn btn-secondary w-100 justify-center" id="pay-1day" data-plan="1day" disabled>
+              Upgrade for 24h
+            </button>
+          </div>
 
+          <!-- 1 Month -->
+          <div class="card-plan featured">
+            <div class="premium-badge">Best Value</div>
+            <div class="plan-header">
+              <h3>30-Day Premium</h3>
+              <p class="plan-meta">Perfect for ongoing structured prep cycles.</p>
+            </div>
+            <div class="price-box">
+              <p class="price">$7 <span class="local-est">~ ₹595 INR</span></p>
+            </div>
+            <button class="pay-btn btn btn-primary w-100 justify-center" id="pay-1month" data-plan="1month" disabled>
+              Unlock Monthly Pass
+            </button>
           </div>
         </div>
+      </div>
 
-        <!-- Secure transaction footer -->
-        <div class="sync-info-box window-glass mt-4" style="text-align: center; border-color: rgba(0, 0, 0, 0.05); background: #ffffff;">
-          <p class="sync-desc" style="font-size: 0.75rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: 6px;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            Payments are secured and processed using 256-bit bank-grade encryption over Razorpay networks.
-          </p>
-        </div>
-
+      <!-- Security badge -->
+      <div style="text-align:center;margin-top:16px;">
+        <p style="font-size:0.72rem;color:var(--text-muted);display:inline-flex;align-items:center;gap:6px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          Payments secured via 256-bit encryption over Razorpay networks.
+        </p>
       </div>
 
     </div>
   </section>
 
-  <!-- Global Footer -->
+  <!-- Footer -->
   <footer class="footer border-top">
     <div class="container footer-layout">
       <div class="footer-meta">
-        <div class="brand">
+        <a href="../index.html" class="brand">
           <div class="logo-box small">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
           <span class="brand-text">Sprint<span class="accent">.</span></span>
-        </div>
-        <p class="footer-tagline">Providing high-performance tools for engineers preparing for complex technical interviews.</p>
+        </a>
+        <p class="footer-tagline">High-performance tools for engineers preparing for complex technical interviews.</p>
       </div>
       <div class="footer-nav">
         <a href="../index.html" class="footer-link">Home</a>
         <a href="../features.html" class="footer-link">Features</a>
-        <a href="/payments/index.html" class="footer-link">Upgrade</a>
+        <a href="index.html" class="footer-link">Upgrade</a>
         <a href="../support.html" class="footer-link">Support</a>
       </div>
     </div>
-    <div class="footer-bottom container">
-      &copy; 2026 LeetCode Sprint
+    <div class="footer-bottom">
+      &copy; 2026 LeetCode Sprint. All rights reserved.
     </div>
   </footer>
 

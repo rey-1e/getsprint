@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Help & Support — LeetCode Sprint</title>
+  <title>Help &amp; Support — LeetCode Sprint</title>
   <link rel="icon" type="image/png" href="icon.png">
   <meta name="description" content="Reach out to the LeetCode Sprint support team. Get help with your subscription, extension installation, or report bugs.">
   <link rel="stylesheet" href="style.css">
@@ -21,87 +21,88 @@
     <div class="nav-container">
       <a href="index.html" class="brand">
         <div class="logo-box">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
         <span class="brand-text">Sprint<span class="accent">.</span></span>
       </a>
       <div class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
         <a href="features.html" class="nav-link">Features</a>
-        <a href="/payments/index.html" class="nav-link">Upgrade</a>
+        <a href="payments/index.html" class="nav-link">Upgrade</a>
         <a href="support.html" class="nav-link active">Support</a>
       </div>
-      <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
-        Install Free Extension
-      </a>
+      <div class="nav-actions">
+        <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
+          Install Free
+        </a>
+      </div>
     </div>
   </nav>
 
- <!-- Support Detail Card -->
-  <section class="section border-top header-offset">
+  <!-- Support Form -->
+  <section class="section header-offset border-top">
     <div class="container" style="max-width: 600px;">
-      <div class="support-card window-glass" style="padding: 24px;">
+      <div class="support-card window-glass" style="padding: 36px;">
         <div class="support-icon-wrapper">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
         </div>
-        <h1 style="font-size: 1.5rem; margin-bottom: 6px;">Need Help or Found a Bug?</h1>
-        <p class="support-description" style="font-size: 0.8rem; margin-bottom: 16px;">
+        <h1 style="font-size:1.6rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:8px;">Need Help or Found a Bug?</h1>
+        <p class="support-description" style="font-size:0.85rem;margin-bottom:24px;color:var(--text-muted);line-height:1.6;">
           Submit your query below. Our support engineering team will get back to you directly.
         </p>
 
-        <form class="feedback-form" id="supportForm" style="text-align: left;">
-          <input type="text" name="_honey" style="display:none">
-          
+        <form id="supportForm" style="text-align:left;">
+          <input type="text" name="_honey" style="display:none" aria-hidden="true">
+
           <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" name="email" placeholder="you@example.com" required class="form-input" id="supportEmail" style="width: 100%;">
+            <label class="form-label" for="supportEmail">Email Address</label>
+            <input type="email" name="email" id="supportEmail" placeholder="you@example.com" required class="form-input">
           </div>
-          
+
           <div class="form-group mt-3">
-            <label class="form-label">Describe Your Problem</label>
-            <textarea name="message" placeholder="Provide details about your query, extension behavior, or pricing plan..." required class="form-input form-textarea" id="supportMessage" rows="5" style="width: 100%;"></textarea>
+            <label class="form-label" for="supportMessage">Describe Your Problem</label>
+            <textarea name="message" id="supportMessage" placeholder="Provide details about your query, extension behavior, or pricing plan..." required class="form-input form-textarea" rows="5"></textarea>
           </div>
-          
+
           <button type="submit" id="supportSubmitBtn" class="btn btn-primary btn-lg mt-3 w-100 justify-center">
             Submit Support Request
           </button>
         </form>
-        <div id="supportFeedback" class="form-feedback hidden" style="margin-top: 10px;">Your ticket has been logged successfully. We'll contact you shortly.</div>
+        <div id="supportFeedback" class="form-feedback hidden" style="margin-top:12px;">
+          Your ticket has been logged successfully. We'll contact you shortly.
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Global Footer -->
+  <!-- Footer -->
   <footer class="footer border-top">
     <div class="container footer-layout">
       <div class="footer-meta">
-        <div class="brand">
+        <a href="index.html" class="brand">
           <div class="logo-box small">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
           <span class="brand-text">Sprint<span class="accent">.</span></span>
-        </div>
-        <p class="footer-tagline">Providing high-performance tools for engineers preparing for complex technical interviews.</p>
+        </a>
+        <p class="footer-tagline">High-performance tools for engineers preparing for complex technical interviews.</p>
       </div>
       <div class="footer-nav">
         <a href="index.html" class="footer-link">Home</a>
         <a href="features.html" class="footer-link">Features</a>
-        <a href="/payments/index.html" class="footer-link">Upgrade</a>
+        <a href="payments/index.html" class="footer-link">Upgrade</a>
         <a href="support.html" class="footer-link">Support</a>
       </div>
     </div>
-    <div class="footer-bottom container">
-      &copy; 2026 LeetCode Sprint 
+    <div class="footer-bottom">
+      &copy; 2026 LeetCode Sprint. All rights reserved.
     </div>
   </footer>
 
-  <script src="script.js"></script>
-
-  <!-- Firebase Core SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script>
-    const firebaseConfig = {
+    firebase.initializeApp({
       apiKey: "AIzaSyAg1tPoejGGXcJMe9MwMWTWhnCjZOpRt7g",
       authDomain: "sprint-87863.firebaseapp.com",
       projectId: "sprint-87863",
@@ -109,10 +110,9 @@
       messagingSenderId: "549425279249",
       appId: "1:549425279249:web:ce3d25457977bec5915cb0",
       measurementId: "G-PCKD965D95"
-    };
-    firebase.initializeApp(firebaseConfig);
+    });
   </script>
-  <!-- Global Dynamic Navbar Script -->
   <script src="/navbar.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

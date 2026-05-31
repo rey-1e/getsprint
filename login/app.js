@@ -1,4 +1,3 @@
-// Firebase App configuration block
 const firebaseConfig = {
   apiKey: "AIzaSyAg1tPoejGGXcJMe9MwMWTWhnCjZOpRt7g",
   authDomain: "sprint-87863.firebaseapp.com",
@@ -9,33 +8,49 @@ const firebaseConfig = {
   measurementId: "G-PCKD965D95"
 };
 
-// Initialize Firebase safely
 firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const loginBtn = document.getElementById('login-btn');
-const authLoading = document.getElementById('auth-loading');
-const authSuccess = document.getElementById('auth-success');
-const successMessage = document.getElementById('success-message');
+const auth         = firebase.auth();
+const loginBtn     = document.getElementById('login-btn');
+const authLoading  = document.getElementById('auth-loading');
+const authSuccess  = document.getElementById('auth-success');
+const successMsg   = document.getElementById('success-message');
 
-// Initialize loading state immediately on load
-authLoading.classList.remove('hidden');
-loginBtn.classList.add('hidden');
-authSuccess.classList.add('hidden');
-
-function syncSessionTokenToExtension(sessionToken) {
-  localStorage.setItem('authToken', sessionToken);
-  document.documentElement.setAttribute('data-sprint-auth', sessionToken);
+// --- State helpers ---
+function showLoading() {
+  loginBtn.classList.add('hidden');
+  authLoading.classList.remove('hidden');
+  authSuccess.classList.add('hidden');
+}
+function showButton() {
+  loginBtn.classList.remove('hidden');
+  authLoading.classList.add('hidden');
+  authSuccess.classList.add('hidden');
+}
+function showSuccess(email) {
+  loginBtn.classList.add('hidden');
+  authLoading.classList.add('hidden');
+  authSuccess.classList.remove('hidden');
+  successMsg.innerHTML = `Signed in as <strong style="color:var(--accent)">${email}</strong>`;
 }
 
-function clearSessionTokenFromExtension() {
+// --- Session sync helpers ---
+function syncSessionToken(token, isPremium) {
+  localStorage.setItem('authToken', token);
+  localStorage.setItem('isPremium', isPremium ? 'true' : 'false');
+  document.documentElement.setAttribute('data-sprint-auth', token);
+  document.documentElement.setAttribute('data-sprint-premium', isPremium ? 'true' : 'false');
+}
+function clearSession() {
   localStorage.removeItem('authToken');
+  localStorage.removeItem('isPremium');
   document.documentElement.setAttribute('data-sprint-auth', 'logout');
+  document.documentElement.setAttribute('data-sprint-premium', 'false');
 }
 
-async function performUserSync(user) {
+async function performSync(user) {
   const idToken = await user.getIdToken(true);
-  const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
+  const res = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -43,56 +58,55 @@ async function performUserSync(user) {
       'X-Client-Version': '3.0'
     }
   });
-
-  const syncData = await syncRes.json().catch(() => ({}));
-  if (syncRes.ok && syncData.success && syncData.sessionToken) {
-    syncSessionTokenToExtension(syncData.sessionToken);
-    return syncData;
+  const data = await res.json().catch(() => ({}));
+  if (res.ok && data.success && data.sessionToken) {
+    syncSessionToken(data.sessionToken, data.isPremium);
+    return data;
   }
-  throw new Error(syncData.detail || syncData.error || `HTTP ${syncRes.status}`);
+  throw new Error(data.detail || data.error || `HTTP ${res.status}`);
 }
 
-auth.onAuthStateChanged(async (user) => {
-  if (user) {
-    try {
-      await performUserSync(user);
-      
-      authLoading.classList.add('hidden');
-      loginBtn.classList.add('hidden');
-      authSuccess.classList.remove('hidden');
-      successMessage.innerHTML = `Successfully authenticated as <strong style="color:#cd5c5c">${user.email}</strong>`;
+// --- Auth state: starts showing button, not spinner ---
+// Only show spinner if firebase already has a cached session
+let resolved = false;
+const sessionCheckTimeout = setTimeout(() => {
+  // If Firebase hasn't resolved in 1.5s, just show the button
+  if (!resolved) showButton();
+}, 1500);
 
-      // Handle redirect parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('redirect') === 'payments') {
-        setTimeout(() => {
-          window.location.href = '../payments/index.html';
-        }, 800);
+auth.onAuthStateChanged(async (user) => {
+  resolved = true;
+  clearTimeout(sessionCheckTimeout);
+
+  if (user) {
+    showLoading();
+    try {
+      await performSync(user);
+      showSuccess(user.email);
+
+      // Handle redirect
+      const redirect = new URLSearchParams(window.location.search).get('redirect');
+      if (redirect === 'payments') {
+        setTimeout(() => { window.location.href = '../payments/index.html'; }, 900);
+      } else if (redirect === 'authorize') {
+        setTimeout(() => { window.location.href = '../authorize/index.html'; }, 900);
       }
-    } catch (syncErr) {
-      console.error("Auth sync error:", syncErr);
-      authLoading.classList.add('hidden');
-      loginBtn.classList.remove('hidden');
-      authSuccess.classList.add('hidden');
+    } catch (err) {
+      console.error('Sync error:', err);
+      showButton();
     }
   } else {
-    authLoading.classList.add('hidden');
-    loginBtn.classList.remove('hidden');
-    authSuccess.classList.add('hidden');
-    clearSessionTokenFromExtension();
+    clearSession();
+    showButton();
   }
 });
 
+// --- Login button ---
 loginBtn.addEventListener('click', () => {
+  showLoading();
   const provider = new firebase.auth.GoogleAuthProvider();
-  
-  loginBtn.classList.add('hidden');
-  authLoading.classList.remove('hidden');
-
-  auth.signInWithPopup(provider)
-    .catch((error) => {
-      console.error("Popup Sign-In failed:", error);
-      loginBtn.classList.remove('hidden');
-      authLoading.classList.add('hidden');
-    });
+  auth.signInWithPopup(provider).catch((err) => {
+    console.error('Sign-in failed:', err);
+    showButton();
+  });
 });

@@ -1,26 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
   const auth = firebase.auth();
   const navContainer = document.querySelector('.nav-container');
-  
   if (!navContainer) return;
-  
-  // Fast-sync tokens from localStorage on immediate document read
+
+  // Fast-sync tokens from localStorage immediately
   const cachedToken = localStorage.getItem('authToken');
   const cachedPremium = localStorage.getItem('isPremium');
   if (cachedToken) {
     document.documentElement.setAttribute('data-sprint-auth', cachedToken);
     document.documentElement.setAttribute('data-sprint-premium', cachedPremium || 'false');
   }
-  
+
+  // Inject auth button into existing .nav-actions container
+  let navActions = navContainer.querySelector('.nav-actions');
+  if (!navActions) {
+    navActions = document.createElement('div');
+    navActions.className = 'nav-actions';
+    navContainer.appendChild(navActions);
+  }
+
   let authNavBtn = document.getElementById('nav-auth-btn');
   if (!authNavBtn) {
     authNavBtn = document.createElement('a');
     authNavBtn.id = 'nav-auth-btn';
-    authNavBtn.className = 'btn btn-secondary nav-btn';
-    authNavBtn.style.marginLeft = '12px';
-    
-    const targetParent = navContainer.querySelector('.nav-links')?.parentNode || navContainer;
-    targetParent.appendChild(authNavBtn);
+    // Prepend so it appears before the Install button
+    navActions.insertBefore(authNavBtn, navActions.firstChild);
   }
 
   function syncSessionTokenToExtension(sessionToken, isPremium) {
@@ -37,10 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.setAttribute('data-sprint-premium', 'false');
   }
 
+  // Determine relative path prefix based on current page depth
+  const depth = window.location.pathname.split('/').filter(Boolean).length;
+  const prefix = depth <= 1 ? '' : '../'.repeat(depth - 1);
+
   auth.onAuthStateChanged(async (user) => {
     if (user) {
-      authNavBtn.textContent = 'Account Dashboard';
-      authNavBtn.href = '/authorize/index.html'; 
+      authNavBtn.textContent = 'Dashboard';
+      authNavBtn.href = prefix + 'authorize/index.html';
       authNavBtn.className = 'btn btn-secondary nav-btn';
 
       try {
@@ -54,17 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
         const syncData = await syncRes.json();
-
         if (syncRes.ok && syncData.success && syncData.sessionToken) {
           syncSessionTokenToExtension(syncData.sessionToken, syncData.isPremium);
         }
       } catch (e) {
-        console.error("Sprint navbar: Silent authentication sync failed:", e);
+        console.error('Sprint navbar: Silent auth sync failed:', e);
       }
     } else {
       authNavBtn.textContent = 'Sign In';
-      authNavBtn.href = '/login/index.html';
-      authNavBtn.className = 'btn btn-primary nav-btn';
+      authNavBtn.href = prefix + 'login/index.html';
+      authNavBtn.className = 'btn btn-secondary nav-btn';
       clearSessionTokenFromExtension();
     }
   });
