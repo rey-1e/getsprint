@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if (!navContainer) return;
   
+  // Fast-sync cached token from localStorage to DOM attribute on load
+  const cachedToken = localStorage.getItem('authToken');
+  if (cachedToken) {
+    document.documentElement.setAttribute('data-sprint-auth', cachedToken);
+  }
+  
   // Find or create the auth action element in the navbar
   let authNavBtn = document.getElementById('nav-auth-btn');
   if (!authNavBtn) {
@@ -16,24 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     targetParent.appendChild(authNavBtn);
   }
 
-  async function syncSessionTokenToExtension(sessionToken) {
-    try {
-      if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-        await chrome.storage.local.set({ authToken: sessionToken });
-      }
-    } catch (e) {
-      console.error("Sprint navbar: Failed to sync token to extension storage:", e);
-    }
+  function syncSessionTokenToExtension(sessionToken) {
+    localStorage.setItem('authToken', sessionToken);
+    document.documentElement.setAttribute('data-sprint-auth', sessionToken);
   }
 
-  async function clearSessionTokenFromExtension() {
-    try {
-      if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-        await chrome.storage.local.remove('authToken');
-      }
-    } catch (e) {
-      console.error("Sprint navbar: Failed to clear token from extension storage:", e);
-    }
+  function clearSessionTokenFromExtension() {
+    localStorage.removeItem('authToken');
+    document.documentElement.setAttribute('data-sprint-auth', 'logout');
   }
 
   auth.onAuthStateChanged(async (user) => {
@@ -55,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const syncData = await syncRes.json();
 
         if (syncRes.ok && syncData.success && syncData.sessionToken) {
-          await syncSessionTokenToExtension(syncData.sessionToken);
+          syncSessionTokenToExtension(syncData.sessionToken);
         }
       } catch (e) {
         console.error("Sprint navbar: Silent authentication sync failed:", e);
@@ -64,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       authNavBtn.textContent = 'Sign In';
       authNavBtn.href = '/login/index.html';
       authNavBtn.className = 'btn btn-primary nav-btn';
-      await clearSessionTokenFromExtension();
+      clearSessionTokenFromExtension();
     }
   });
 });

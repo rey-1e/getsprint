@@ -18,24 +18,14 @@ const payButtons = document.querySelectorAll('.pay-btn');
 
 let currentUserToken = null;
 
-async function syncSessionTokenToExtension(sessionToken) {
-  try {
-    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-      await chrome.storage.local.set({ authToken: sessionToken });
-    }
-  } catch (e) {
-    console.error("Sprint: Failed to sync token to extension storage:", e);
-  }
+function syncSessionTokenToExtension(sessionToken) {
+  localStorage.setItem('authToken', sessionToken);
+  document.documentElement.setAttribute('data-sprint-auth', sessionToken);
 }
 
-async function clearSessionTokenFromExtension() {
-  try {
-    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-      await chrome.storage.local.remove('authToken');
-    }
-  } catch (e) {
-    console.error("Sprint: Failed to clear token from extension storage:", e);
-  }
+function clearSessionTokenFromExtension() {
+  localStorage.removeItem('authToken');
+  document.documentElement.setAttribute('data-sprint-auth', 'logout');
 }
 
 async function performUserSync(user, retryCount = 0) {
@@ -59,7 +49,7 @@ async function performUserSync(user, retryCount = 0) {
   }
 
   if (syncRes.ok && syncData.success && syncData.sessionToken) {
-    await syncSessionTokenToExtension(syncData.sessionToken);
+    syncSessionTokenToExtension(syncData.sessionToken);
     return syncData;
   }
 
@@ -98,7 +88,7 @@ auth.onAuthStateChanged(async (user) => {
       btn.textContent = "Sign In to Upgrade";
     });
 
-    await clearSessionTokenFromExtension();
+    clearSessionTokenFromExtension();
   }
 });
 
