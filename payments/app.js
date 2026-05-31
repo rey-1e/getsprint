@@ -1,4 +1,4 @@
-// Firebase App configuration block (Exactly matching backend setup)
+// Firebase App configuration block
 const firebaseConfig = {
   apiKey: "AIzaSyAg1tPoejGGXcJMe9MwMWTWhnCjZOpRt7g",
   authDomain: "sprint-87863.firebaseapp.com",
@@ -9,7 +9,7 @@ const firebaseConfig = {
   measurementId: "G-PCKD965D95"
 };
 
-// Initialize Firebase Core Engine safely
+// Initialize Firebase safely
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
@@ -18,31 +18,49 @@ const logoutBtn = document.getElementById('logout-btn');
 const statusText = document.getElementById('auth-status');
 const payButtons = document.querySelectorAll('.pay-btn');
 
-// Published Extension ID for Chrome API Runtime Sync
-const EXTENSION_ID = "eilgpmmdpaapjbjgcjnoddnddnlagica";
-
 let currentUserToken = null;
 
 auth.onAuthStateChanged(async (user) => {
   if (user) {
     currentUserToken = await user.getIdToken();
-    statusText.innerHTML = `✔️ Validated: <strong style="color:#cd5c5c">${user.email}</strong>`;
+    
+    try {
+      statusText.innerHTML = "Verifying profile synchronization...";
+      const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${currentUserToken}`,
+          'X-Client-Version': '3.0'
+        }
+      });
+      const syncData = await syncRes.json();
+      
+      if (syncRes.ok && syncData.success && syncData.sessionToken) {
+        statusText.innerHTML = `✔️ Validated: <strong style="color:#cd5c5c">${user.email}</strong>`;
+        // Sync robust long-lived token
+        localStorage.setItem('sprint_authToken', syncData.sessionToken);
+        document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
+      } else {
+        statusText.textContent = "Profile sync error. Try refreshing.";
+      }
+    } catch (e) {
+      console.error(e);
+      statusText.textContent = "Authentication sync failed.";
+    }
+
     loginBtn.classList.add('hidden');
     logoutBtn.classList.remove('hidden');
-    
-    // Enable transactional buttons now that security token is loaded
     payButtons.forEach(btn => btn.removeAttribute('disabled'));
-
-    // Push authentication token down to the local extension store
-    sendTokenToExtension(currentUserToken);
   } else {
     currentUserToken = null;
     statusText.textContent = "Requires user authentication before pricing unlock.";
     loginBtn.classList.remove('hidden');
     logoutBtn.classList.add('hidden');
-    
-    // Force buttons to remain disabled
     payButtons.forEach(btn => btn.setAttribute('disabled', 'true'));
+
+    localStorage.removeItem('sprint_authToken');
+    document.documentElement.removeAttribute('data-sprint-auth');
   }
 });
 
@@ -55,18 +73,6 @@ logoutBtn.addEventListener('click', () => {
   auth.signOut();
 });
 
-function sendTokenToExtension(token) {
-  if (typeof chrome !== 'undefined' && chrome.runtime) {
-    chrome.runtime.sendMessage(EXTENSION_ID, { type: "SET_AUTH_TOKEN", token }, (res) => {
-      if (chrome.runtime.lastError) {
-        console.log("Extension connection offline or not active yet.");
-      } else {
-        console.log("Token securely synced with extension:", res);
-      }
-    });
-  }
-}
-
 // Checkout and Order Verification Handlers
 payButtons.forEach(btn => {
   btn.addEventListener('click', async (e) => {
@@ -74,7 +80,6 @@ payButtons.forEach(btn => {
     const originalBtnText = e.target.innerHTML;
     
     try {
-      // Step 1: Loading visual indicator to prevent repetitive payment initialization calls
       e.target.innerHTML = "Creating Secure Order...";
       e.target.setAttribute('disabled', 'true');
 
@@ -86,7 +91,7 @@ payButtons.forEach(btn => {
       });
       const order = await orderRes.json();
 
-      // Step 2: Open Razorpay Popup Screen
+      // Open Razorpay Popup Screen
       const options = {
         "key": "rzp_live_SvG5sgcyDBqn0V",
         "amount": order.amount,
@@ -97,7 +102,7 @@ payButtons.forEach(btn => {
         "handler": async function (paymentResponse) {
            e.target.innerHTML = "Verifying Transaction...";
            
-           // Step 3: Verify execution legitimacy on backend
+           // Verify execution legitimacy on backend
            const verifyRes = await fetch('https://verifypayment-i6ptizncma-uc.a.run.app', {
              method: 'POST',
              headers: { 
@@ -116,18 +121,30 @@ payButtons.forEach(btn => {
            if (verification.success) {
              alert("Upgrade complete! Premium features are now unlocked.");
              const freshToken = await auth.currentUser.getIdToken(true);
-             sendTokenToExtension(freshToken);
+             
+             // Sync refreshed profile
+             const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${freshToken}`,
+                  'X-Client-Version': '3.0'
+                }
+              });
+              const syncData = await syncRes.json();
+              if (syncRes.ok && syncData.success && syncData.sessionToken) {
+                localStorage.setItem('sprint_authToken', syncData.sessionToken);
+                document.documentElement.setAttribute('data-sprint-auth', syncData.sessionToken);
+              }
            } else {
              alert("Payment verification error: " + verification.error);
            }
            
-           // Re-enable and reset button
            e.target.innerHTML = originalBtnText;
            e.target.removeAttribute('disabled');
         },
         "modal": {
           "ondismiss": function() {
-            // Re-enable button if user exits checkout window
             e.target.innerHTML = originalBtnText;
             e.target.removeAttribute('disabled');
           }
@@ -140,8 +157,6 @@ payButtons.forEach(btn => {
     } catch (err) {
       console.error(err);
       alert("Billing connection interrupted. Please check your network and try again.");
-      
-      // Re-enable button on fetch errors
       e.target.innerHTML = originalBtnText;
       e.target.removeAttribute('disabled');
     }
