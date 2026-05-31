@@ -1,4 +1,4 @@
-// Firebase App configuration block
+// Firebase App configuration block (Exactly matching backend setup)
 const firebaseConfig = {
   apiKey: "AIzaSyAg1tPoejGGXcJMe9MwMWTWhnCjZOpRt7g",
   authDomain: "sprint-87863.firebaseapp.com",
@@ -9,6 +9,7 @@ const firebaseConfig = {
   measurementId: "G-PCKD965D95"
 };
 
+// Initialize Firebase Core Engine safely
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
@@ -17,7 +18,7 @@ const logoutBtn = document.getElementById('logout-btn');
 const statusText = document.getElementById('auth-status');
 const payButtons = document.querySelectorAll('.pay-btn');
 
-// Replace this with your actual published Extension ID
+// Published Extension ID for Chrome API Runtime Sync
 const EXTENSION_ID = "eilgpmmdpaapjbjgcjnoddnddnlagica";
 
 let currentUserToken = null;
@@ -25,18 +26,22 @@ let currentUserToken = null;
 auth.onAuthStateChanged(async (user) => {
   if (user) {
     currentUserToken = await user.getIdToken();
-    statusText.textContent = `Logged in as: ${user.email}`;
+    statusText.innerHTML = `✔️ Validated: <strong style="color:#cd5c5c">${user.email}</strong>`;
     loginBtn.classList.add('hidden');
     logoutBtn.classList.remove('hidden');
+    
+    // Enable transactional buttons now that security token is loaded
     payButtons.forEach(btn => btn.removeAttribute('disabled'));
 
     // Push authentication token down to the local extension store
     sendTokenToExtension(currentUserToken);
   } else {
     currentUserToken = null;
-    statusText.textContent = "Please sign in to proceed with upgrades.";
+    statusText.textContent = "Requires user authentication before pricing unlock.";
     loginBtn.classList.remove('hidden');
     logoutBtn.classList.add('hidden');
+    
+    // Force buttons to remain disabled
     payButtons.forEach(btn => btn.setAttribute('disabled', 'true'));
   }
 });
@@ -66,9 +71,14 @@ function sendTokenToExtension(token) {
 payButtons.forEach(btn => {
   btn.addEventListener('click', async (e) => {
     const planType = e.target.getAttribute('data-plan');
+    const originalBtnText = e.target.innerHTML;
     
     try {
-      // Step 1: Create Order ID
+      // Step 1: Loading visual indicator to prevent repetitive payment initialization calls
+      e.target.innerHTML = "Creating Secure Order...";
+      e.target.setAttribute('disabled', 'true');
+
+      // Create Order ID
       const orderRes = await fetch('https://us-central1-sprint-87863.cloudfunctions.net/createRazorpayOrder', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -83,8 +93,10 @@ payButtons.forEach(btn => {
         "currency": "INR",
         "order_id": order.id,
         "name": "LeetCode Sprint",
-        "description": `Upgrade to ${planType} Premium`,
+        "description": `Upgrade to ${planType === '1day' ? '1 Day' : '1 Month'} Premium`,
         "handler": async function (paymentResponse) {
+           e.target.innerHTML = "Verifying Transaction...";
+           
            // Step 3: Verify execution legitimacy on backend
            const verifyRes = await fetch('https://us-central1-sprint-87863.cloudfunctions.net/verifyPayment', {
              method: 'POST',
@@ -108,6 +120,17 @@ payButtons.forEach(btn => {
            } else {
              alert("Payment verification error: " + verification.error);
            }
+           
+           // Re-enable and reset button
+           e.target.innerHTML = originalBtnText;
+           e.target.removeAttribute('disabled');
+        },
+        "modal": {
+          "ondismiss": function() {
+            // Re-enable button if user exits checkout window
+            e.target.innerHTML = originalBtnText;
+            e.target.removeAttribute('disabled');
+          }
         },
         "theme": { "color": "#cd5c5c" }
       };
@@ -116,7 +139,11 @@ payButtons.forEach(btn => {
       rzp.open();
     } catch (err) {
       console.error(err);
-      alert("Billing connection interrupted. Please try again later.");
+      alert("Billing connection interrupted. Please check your network and try again.");
+      
+      // Re-enable button on fetch errors
+      e.target.innerHTML = originalBtnText;
+      e.target.removeAttribute('disabled');
     }
   });
 });
