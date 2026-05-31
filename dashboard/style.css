@@ -1,0 +1,183 @@
+/* ==========================================================================
+   LeetCode Sprint — Dashboard Stylesheet (Aesthetic & Minimalist)
+   ========================================================================== */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.dash-card {
+  background: #ffffff;
+  border: 1px solid var(--border, #e4e4e7);
+  border-radius: var(--radius-xl, 4px);
+  padding: 24px;
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+}
+
+/* Profile Section Card */
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm, 2px);
+  background: var(--accent, #cd5c5c);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0; /* Solves text overflow of long emails */
+}
+
+.profile-meta h2 {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary, #18181b);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tier-pill {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm, 2px);
+  letter-spacing: 0.02em;
+}
+.tier-pill.free {
+  background: rgba(0,0,0,0.05);
+  color: var(--text-muted, #71717a);
+}
+.tier-pill.premium {
+  background: var(--accent-muted, rgba(205,92,92,0.06));
+  color: var(--accent, #cd5c5c);
+  border: 1px solid rgba(205, 92, 92, 0.15);
+}
+
+.subscription-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.subscription-details .detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border, #e4e4e7);
+  gap: 12px;
+}
+.subscription-details .detail-row:last-child {
+  border-bottom: none;
+}
+.subscription-details .detail-row span {
+  color: var(--text-muted, #71717a);
+}
+.subscription-details .detail-row strong {
+  color: var(--text-primary, #18181b);
+  text-align: right;
+}
+
+/* metrics tracker card */
+.feature-details-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-details-box h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+  color: var(--text-primary, #18181b);
+}
+
+.desc-text {
+  font-size: 0.75rem;
+  color: var(--text-muted, #71717a);
+  margin-top: 4px;
+  margin-bottom: 24px;
+  line-height: 1.45;
+}
+
+.limits-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.limit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.limit-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  gap: 8px;
+}
+.limit-info span { 
+  color: var(--text-secondary, #3f3f46); 
+}
+.limit-info strong { 
+  color: var(--accent, #cd5c5c); 
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  white-space: nowrap; 
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(0,0,0,0.04);
+  border-radius: var(--radius-sm, 2px);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent, #cd5c5c);
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: var(--radius-sm, 2px);
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid { 
+    grid-template-columns: 1fr; 
+    gap: 16px;
+  }
+}
+

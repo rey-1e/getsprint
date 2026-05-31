@@ -66,7 +66,9 @@ async function performUserSync(user, retryCount = 0) {
 
 auth.onAuthStateChanged(async (user) => {
   if (user) {
+    // Render dynamic text properties
     userEmailEl.textContent = user.email;
+    userEmailEl.setAttribute('title', user.email);
     avatarEl.textContent = user.email.charAt(0).toUpperCase();
 
     try {
@@ -82,11 +84,11 @@ auth.onAuthStateChanged(async (user) => {
         const expiry = userData.premiumUntil ? userData.premiumUntil.toDate() : new Date();
         expiryDateEl.textContent = expiry.toLocaleDateString(undefined, { dateStyle: 'long' });
 
-        complexityUsed.textContent = "Unlimited (Premium)";
+        complexityUsed.textContent = "Unlimited";
         complexityBar.style.width = "100%";
-        detailedUsed.textContent = "Unlimited (Premium)";
+        detailedUsed.textContent = "Unlimited";
         detailedBar.style.width = "100%";
-        bugUsed.textContent = "Unlimited (Premium)";
+        bugUsed.textContent = "Unlimited";
         bugBar.style.width = "100%";
         ctaArea.classList.add('hidden');
       } else {
@@ -95,15 +97,15 @@ auth.onAuthStateChanged(async (user) => {
         expiryDateEl.textContent = "Never (Free Account)";
 
         const compCount = usage.complexity || 0;
-        complexityUsed.textContent = `${compCount} / 5 used`;
+        complexityUsed.textContent = `${compCount} / 5`;
         complexityBar.style.width = `${Math.min((compCount / 5) * 100, 100)}%`;
 
         const detCount = usage.detailed || 0;
-        detailedUsed.textContent = `${detCount} / 5 used`;
+        detailedUsed.textContent = `${detCount} / 5`;
         detailedBar.style.width = `${Math.min((detCount / 5) * 100, 100)}%`;
 
         const bugCount = usage.bug || 0;
-        bugUsed.textContent = `${bugCount} / 3 used`;
+        bugUsed.textContent = `${bugCount} / 3`;
         bugBar.style.width = `${Math.min((bugCount / 3) * 100, 100)}%`;
 
         ctaArea.classList.remove('hidden');
@@ -120,4 +122,3 @@ auth.onAuthStateChanged(async (user) => {
 logoutBtn.addEventListener('click', () => {
   auth.signOut();
 });
-

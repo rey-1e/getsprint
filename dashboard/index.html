@@ -48,15 +48,16 @@
     <div class="container dashboard-grid">
 
       <!-- Profile Area -->
-      <div class="dash-card window-glass profile-box">
+      <div class="dash-card profile-box">
         <div class="profile-header">
           <div class="avatar" id="avatar-initials">U</div>
-          <div>
-            <h2 id="user-email">Loading account…</h2>
+          <div class="profile-meta">
+            <h2 id="user-email" title="Loading account…">Loading account…</h2>
             <div class="tier-pill free" id="tier-pill">Free Tier</div>
           </div>
         </div>
-        <div class="subscription-details" style="margin-top:14px;">
+        
+        <div class="subscription-details">
           <div class="detail-row">
             <span>Billing Expiry</span>
             <strong id="expiry-date">Never (Free Account)</strong>
@@ -66,11 +67,12 @@
             <strong class="text-success" id="sync-status">Verified</strong>
           </div>
         </div>
-        <button id="logout-btn" class="btn btn-secondary w-100 justify-center mt-3">Sign Out</button>
+        
+        <button id="logout-btn" class="btn btn-secondary w-100 justify-center">Sign Out</button>
       </div>
 
       <!-- Feature Metrics Area -->
-      <div class="dash-card window-glass feature-details-box">
+      <div class="dash-card feature-details-box">
         <h3>Unlocked Extension Capabilities</h3>
         <p class="desc-text">Your usage tracking limits across Sprint's diagnostic engine tools.</p>
 
@@ -98,7 +100,7 @@
           </div>
         </div>
 
-        <div id="dashboard-cta-area" class="hidden" style="margin-top:20px;">
+        <div id="dashboard-cta-area" class="hidden" style="margin-top:24px;">
           <a href="../payments/index.html" class="btn btn-primary w-100 justify-center">Upgrade to Premium — Unlimited Access</a>
         </div>
       </div>
@@ -134,4 +136,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
