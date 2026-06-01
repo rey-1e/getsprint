@@ -1,155 +1,166 @@
-/* Payments System Local Overrides (Sharp & Redindian Accents) */
+/* Payments Page — Local Overrides */
 
 #auth-status {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   background: var(--accent-muted);
-  border: 1px solid rgba(205, 92, 92, 0.15);
+  border: 1px solid rgba(205, 92, 92, 0.18);
   border-radius: var(--radius-sm);
   display: inline-block;
-  padding: 3px 8px;
+  padding: 4px 10px;
   color: var(--accent);
+  letter-spacing: 0.01em;
 }
 
 .plans-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 14px;
 }
 
 .card-plan {
   background: #ffffff;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   position: relative;
-  transition: border-color 0.12s, box-shadow 0.12s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.card-plan:hover { border-color: var(--border-hover); }
+.card-plan:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}
 
 .card-plan.featured {
   border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(205, 92, 92, 0.05);
+  box-shadow: 0 4px 20px rgba(205, 92, 92, 0.08);
 }
 
 .premium-badge {
   position: absolute;
-  top: -9px;
-  right: 12px;
+  top: -10px;
+  right: 14px;
   background: var(--accent);
   color: #ffffff;
-  font-size: 0.58rem;
-  font-weight: 700;
+  font-size: 0.6rem;
+  font-weight: 800;
   text-transform: uppercase;
-  padding: 2px 7px;
+  padding: 3px 9px;
   border-radius: var(--radius-sm);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .plan-header h3 {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: 4px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+  color: var(--text-primary);
 }
 .plan-meta {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
-  line-height: 1.35;
+  line-height: 1.45;
 }
 
-.price-box { margin: 2px 0; }
+.price-box { margin: 4px 0; }
 .price {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
   display: flex;
   align-items: baseline;
   gap: 6px;
+  line-height: 1;
 }
 .local-est {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   font-weight: 400;
+  letter-spacing: 0;
 }
 
-/* Premium Banner Component (Sharp Layout) */
+/* Premium Banner */
 .premium-status-banner {
   background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  padding: 16px;
+  border: 1.5px solid #bbf7d0;
+  padding: 18px 20px;
   border-radius: var(--radius-lg);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   text-align: left;
 }
 .status-badge-container {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: 9px;
+  margin-bottom: 6px;
   color: #166534;
 }
 .status-badge-container span {
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 .premium-status-banner p {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: #166534;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
-/* Dynamic State Styling */
+/* Dynamic State */
 .card-plan.plan-disabled {
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
-/* Tier Comparison Table Styling */
+/* Tier Comparison Table */
 .comparison-container {
-  margin-top: 36px;
+  margin-top: 40px;
   text-align: left;
   border-top: 1px solid var(--border);
-  padding-top: 28px;
+  padding-top: 32px;
 }
 
 .comparison-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 4px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
   color: var(--text-primary);
   text-align: center;
 }
 
 .comparison-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
   text-align: center;
-  margin-bottom: 24px;
-  line-height: 1.45;
+  margin-bottom: 28px;
+  line-height: 1.55;
 }
 
 .comparison-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   text-align: left;
 }
 
-.comparison-table th, 
+.comparison-table th,
 .comparison-table td {
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--border);
 }
 
 .comparison-table th {
-  font-weight: 700;
-  color: var(--text-primary);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
   background-color: var(--bg-muted);
 }
 
@@ -167,9 +178,9 @@
 
 @media (max-width: 560px) {
   .plans-grid { grid-template-columns: 1fr; }
-  .comparison-table th, 
+  .comparison-table th,
   .comparison-table td {
-    padding: 8px 10px;
-    font-size: 0.72rem;
+    padding: 10px 12px;
+    font-size: 0.75rem;
   }
 }
