@@ -11,20 +11,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 versionBadge.textContent = `v${manifest.version}`;
             }
         } catch (error) {
-            console.log("Could not fetch extension manifest version, keeping default placeholder.");
+            console.log("Could not fetch extension manifest version.");
         }
     }
 
-    // Gentle scroll indicator animation for entrance transitions
-    const changelogItems = document.querySelectorAll('.changelog-list li');
-    changelogItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(10px)';
-        item.style.transition = `opacity 0.4s ease ${index * 0.1}s, transform 0.4s ease ${index * 0.1}s`;
-        
-        setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0)';
-        }, 50);
-    });
+    // Rapid visual theme switching simulation
+    const slides = document.querySelectorAll('.theme-slide');
+    const themeIndicator = document.getElementById('theme-name-indicator');
+    let currentIndex = 0;
+
+    if (slides.length > 0) {
+        setInterval(() => {
+            // Remove active state from current slide
+            slides[currentIndex].classList.remove('active');
+            
+            // Advance index
+            currentIndex = (currentIndex + 1) % slides.length;
+            
+            // Apply active state to next slide
+            slides[currentIndex].classList.add('active');
+            
+            // Dynamically update corresponding theme visual label
+            if (themeIndicator) {
+                const nextThemeName = slides[currentIndex].getAttribute('data-theme-name');
+                themeIndicator.textContent = nextThemeName || "Classic Theme";
+            }
+        }, 1100); // Dynamic swapper transition rate
+    }
 });
