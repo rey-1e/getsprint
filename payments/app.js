@@ -107,13 +107,12 @@ async function initiateCheckout(planType, buttonEl) {
     buttonEl.innerHTML = "Creating Secure Order...";
     buttonEl.setAttribute('disabled', 'true');
 
-    // Dynamically retrieve the current user on button click to guarantee clean sessions
+    // Fresh token generation to prevent session expiration issues during checkout sequence
     const user = auth.currentUser;
     if (!user) {
       throw new Error("User session not found. Please log in again.");
     }
     
-    // Refresh and fetch a fresh ID token before making the order creation call
     const activeToken = await user.getIdToken(true);
 
     const orderRes = await fetch('https://createrazorpayorder-i6ptizncma-uc.a.run.app', {

@@ -54,7 +54,6 @@ async function performUserSync(user, retryCount = 0) {
 
 auth.onAuthStateChanged(async (user) => {
   if (user) {
-    // Populate profile card basics instantly
     userEmailEl.textContent = user.email;
     userEmailEl.setAttribute('title', user.email);
     avatarEl.textContent = user.email.charAt(0).toUpperCase();
@@ -66,10 +65,9 @@ auth.onAuthStateChanged(async (user) => {
       console.warn("Dashboard: Cloud function sync failed, falling back to local credentials.", e);
     }
 
-    // Determine Premium tier with a robust local fallback
     const isPremium = (syncData && syncData.isPremium) || (localStorage.getItem('isPremium') === 'true');
 
-    // Fetch Firestore usage inside a safe, isolated block to prevent silent crashes
+    // Secure, isolated Firestore block to prevent silent page crashes from Brave Shield / Adblockers
     let usage = { complexity: 0, detailed: 0, bug: 0 };
     let userData = {};
     try {
@@ -82,7 +80,6 @@ auth.onAuthStateChanged(async (user) => {
       console.warn("Dashboard: Firestore query blocked or deferred. Proceeding with sync state.", fsError);
     }
 
-    // Render exact layout based on Premium tier resolution
     if (isPremium) {
       tierPill.textContent = "Premium Member";
       tierPill.className = "tier-pill premium";

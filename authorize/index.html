@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account Dashboard — LeetCode Sprint</title>
+  <title>Extension Authorization — LeetCode Sprint</title>
   <link rel="icon" type="image/png" href="../icon.png">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="style.css">
@@ -12,7 +12,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyAg1tPoejGGXcJMe9MwMWTWhnCjZOpRt7g",
+      authDomain: "sprint-87863.firebaseapp.com",
+      projectId: "sprint-87863",
+      storageBucket: "sprint-87863.firebasestorage.app",
+      messagingSenderId: "549425279249",
+      appId: "1:549425279249:web:ce3d25457977bec5915cb0",
+      measurementId: "G-PCKD965D95"
+    });
+  </script>
 </head>
 <body>
 
@@ -30,6 +40,7 @@
       </a>
       <div class="nav-links">
         <a href="../index.html" class="nav-link">Home</a>
+        <a href="../dashboard/index.html" class="nav-link">Dashboard</a>
         <a href="../features.html" class="nav-link">Features</a>
         <a href="../payments/index.html" class="nav-link">Upgrade</a>
         <a href="../support.html" class="nav-link">Support</a>
@@ -42,66 +53,32 @@
     </div>
   </nav>
 
-  <!-- Dashboard Grid -->
+  <!-- Authorization Container -->
   <section class="section header-offset">
-    <div class="container dashboard-grid">
+    <div class="container authorize-wrapper">
+      <div class="authorize-card window-glass">
+        <div class="auth-success-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        
+        <h1>Authorization Successful</h1>
+        <p class="auth-subtitle">Your credentials have successfully synchronized with the browser extension on this device.</p>
 
-      <!-- Profile Area -->
-      <div class="dash-card window-glass profile-box">
-        <div class="profile-header">
+        <div class="profile-preview">
           <div class="avatar" id="avatar-initials">U</div>
-          <div>
-            <h2 id="user-email">Loading account…</h2>
-            <div class="tier-pill free" id="tier-pill">Free Tier</div>
-          </div>
-        </div>
-        <div class="subscription-details" style="margin-top:14px;">
-          <div class="detail-row">
-            <span>Billing Expiry</span>
-            <strong id="expiry-date">Never (Free Account)</strong>
-          </div>
-          <div class="detail-row">
-            <span>Extension Sync</span>
-            <strong class="text-success" id="sync-status">Verified</strong>
-          </div>
-        </div>
-        <button id="logout-btn" class="btn btn-secondary w-100 justify-center mt-3">Sign Out</button>
-      </div>
-
-      <!-- Feature Metrics Area -->
-      <div class="dash-card window-glass feature-details-box">
-        <h3>Unlocked Extension Capabilities</h3>
-        <p class="desc-text">Your usage tracking limits across Sprint's diagnostic engine tools.</p>
-
-        <div class="limits-matrix">
-          <div class="limit-item">
-            <div class="limit-info">
-              <span>Time / Space Complexity Analyzer</span>
-              <strong id="complexity-used">Checking…</strong>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="complexity-bar"></div></div>
-          </div>
-          <div class="limit-item">
-            <div class="limit-info">
-              <span>Post-Submission Expert Summary</span>
-              <strong id="detailed-used">Checking…</strong>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="detailed-bar"></div></div>
-          </div>
-          <div class="limit-item">
-            <div class="limit-info">
-              <span>AI Logic Debugger</span>
-              <strong id="bug-used">Checking…</strong>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="bug-bar"></div></div>
+          <div class="profile-details">
+            <h3 id="user-email">Verifying...</h3>
+            <span class="tier-badge" id="tier-badge">Loading...</span>
           </div>
         </div>
 
-        <div id="dashboard-cta-area" class="hidden" style="margin-top:20px;">
-          <a href="../payments/index.html" class="btn btn-primary w-100 justify-center">Upgrade to Premium — Unlimited Access</a>
+        <div class="action-buttons">
+          <a href="../dashboard/index.html" class="btn btn-primary w-100 justify-center">View Profile Dashboard</a>
+          <a href="https://leetcode.com" target="_blank" class="btn btn-secondary w-100 justify-center">Return to LeetCode</a>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -119,6 +96,7 @@
       </div>
       <div class="footer-nav">
         <a href="../index.html" class="footer-link">Home</a>
+        <a href="../dashboard/index.html" class="footer-link">Dashboard</a>
         <a href="../features.html" class="footer-link">Features</a>
         <a href="../payments/index.html" class="footer-link">Upgrade</a>
         <a href="../support.html" class="footer-link">Support</a>
@@ -129,6 +107,7 @@
     </div>
   </footer>
 
+  <script src="../navbar.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

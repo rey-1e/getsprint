@@ -9,11 +9,13 @@ function showLoading() {
   authLoading.classList.remove('hidden');
   authSuccess.classList.add('hidden');
 }
+
 function showButton() {
   loginBtn.classList.remove('hidden');
   authLoading.classList.add('hidden');
   authSuccess.classList.add('hidden');
 }
+
 function showSuccess(email) {
   loginBtn.classList.add('hidden');
   authLoading.classList.add('hidden');
@@ -27,6 +29,7 @@ function syncSessionToken(token, isPremium) {
   document.documentElement.setAttribute('data-sprint-auth', token);
   document.documentElement.setAttribute('data-sprint-premium', isPremium ? 'true' : 'false');
 }
+
 function clearSession() {
   localStorage.removeItem('authToken');
   localStorage.removeItem('isPremium');
@@ -67,17 +70,21 @@ auth.onAuthStateChanged(async (user) => {
       await performSync(user);
       showSuccess(user.email);
 
-      // Automated redirect to the new dedicated dashboard path
       const redirect = new URLSearchParams(window.location.search).get('redirect');
       let targetUrl = '../dashboard/index.html';
+      
       if (redirect === 'payments') {
         targetUrl = '../payments/index.html';
+      } else if (redirect === 'authorize') {
+        targetUrl = '../authorize/index.html';
       } else if (redirect === 'dashboard') {
         targetUrl = '../dashboard/index.html';
       }
-      setTimeout(() => { window.location.href = targetUrl; }, 600);
+      
+      setTimeout(() => { window.location.href = targetUrl; }, 800);
     } catch (err) {
       console.error('Session configuration interrupted:', err);
+      alert('Authentication sync failed. Please try signing in again.');
       showButton();
     }
   } else {

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navContainer = document.querySelector('.nav-container');
   if (!navContainer) return;
 
-  // Fast-sync local storage attributes
+  // Sync state cleanly with cache
   const cachedToken = localStorage.getItem('authToken');
   const cachedPremium = localStorage.getItem('isPremium');
   if (cachedToken) {
@@ -11,17 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.setAttribute('data-sprint-premium', cachedPremium || 'false');
   }
 
-  // Set up robust routing relative path prefixes
   let prefix = '';
   if (
     window.location.pathname.includes('/dashboard/') || 
     window.location.pathname.includes('/login/') || 
-    window.location.pathname.includes('/payments/')
+    window.location.pathname.includes('/payments/') ||
+    window.location.pathname.includes('/authorize/')
   ) {
     prefix = '../';
   }
 
-  // Setup actions container
   let navActions = navContainer.querySelector('.nav-actions');
   if (!navActions) {
     navActions = document.createElement('div');
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   auth.onAuthStateChanged(async (user) => {
     if (user) {
-      // User is verified: update nav actions to show Sign Out
       authNavBtn.textContent = 'Sign Out';
       authNavBtn.href = '#';
       authNavBtn.className = 'btn btn-secondary nav-btn';
@@ -79,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Sprint navbar auth sync failed:', e);
       }
     } else {
-      // User is signed out: update nav actions to show Sign In
       authNavBtn.textContent = 'Sign In';
       authNavBtn.href = prefix + 'login/index.html';
       authNavBtn.className = 'btn btn-secondary nav-btn';

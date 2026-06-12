@@ -1,29 +1,7 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyAg1tPoejGGXcJMe9MwMWTWhnCjZOpRt7g",
-  authDomain: "sprint-87863.firebaseapp.com",
-  projectId: "sprint-87863",
-  storageBucket: "sprint-87863.firebasestorage.app",
-  messagingSenderId: "549425279249",
-  appId: "1:549425279249:web:ce3d25457977bec5915cb0",
-  measurementId: "G-PCKD965D95"
-};
-
-firebase.initializeApp(firebaseConfig);
-
 const auth = firebase.auth();
 const userEmailEl = document.getElementById('user-email');
 const avatarEl = document.getElementById('avatar-initials');
-const tierPill = document.getElementById('tier-pill');
-const expiryDateEl = document.getElementById('expiry-date');
-const logoutBtn = document.getElementById('logout-btn');
-
-const complexityUsed = document.getElementById('complexity-used');
-const complexityBar = document.getElementById('complexity-bar');
-const detailedUsed = document.getElementById('detailed-used');
-const detailedBar = document.getElementById('detailed-bar');
-const bugUsed = document.getElementById('bug-used');
-const bugBar = document.getElementById('bug-bar');
-const ctaArea = document.getElementById('dashboard-cta-area');
+const tierBadge = document.getElementById('tier-badge');
 
 function syncSessionTokenToExtension(sessionToken, isPremium) {
   localStorage.setItem('authToken', sessionToken);
@@ -71,52 +49,22 @@ auth.onAuthStateChanged(async (user) => {
 
     try {
       const syncData = await performUserSync(user);
-      const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
-      const userData = userDoc.data() || {};
-      const usage = userData.usage || { complexity: 0, detailed: 0, bug: 0 };
-
+      
       if (syncData.isPremium) {
-        tierPill.textContent = "Premium Member";
-        tierPill.className = "tier-pill premium";
-        
-        const expiry = userData.premiumUntil ? userData.premiumUntil.toDate() : new Date();
-        expiryDateEl.textContent = expiry.toLocaleDateString(undefined, { dateStyle: 'long' });
-
-        complexityUsed.textContent = "Unlimited (Premium)";
-        complexityBar.style.width = "100%";
-        detailedUsed.textContent = "Unlimited (Premium)";
-        detailedBar.style.width = "100%";
-        bugUsed.textContent = "Unlimited (Premium)";
-        bugBar.style.width = "100%";
-        ctaArea.classList.add('hidden');
+        tierBadge.textContent = "Premium Member";
+        tierBadge.className = "tier-badge premium";
       } else {
-        tierPill.textContent = "Free Tier";
-        tierPill.className = "tier-pill free";
-        expiryDateEl.textContent = "Never (Free Account)";
-
-        const compCount = usage.complexity || 0;
-        complexityUsed.textContent = `${compCount} / 5 used`;
-        complexityBar.style.width = `${Math.min((compCount / 5) * 100, 100)}%`;
-
-        const detCount = usage.detailed || 0;
-        detailedUsed.textContent = `${detCount} / 5 used`;
-        detailedBar.style.width = `${Math.min((detCount / 5) * 100, 100)}%`;
-
-        const bugCount = usage.bug || 0;
-        bugUsed.textContent = `${bugCount} / 3 used`;
-        bugBar.style.width = `${Math.min((bugCount / 3) * 100, 100)}%`;
-
-        ctaArea.classList.remove('hidden');
+        tierBadge.textContent = "Free Tier Profile";
+        tierBadge.className = "tier-badge free";
       }
     } catch (e) {
-      console.error("Dashboard profile sync error:", e);
+      console.error("Authorization sync failed, resorting to cache:", e);
+      const isPremiumCached = localStorage.getItem('isPremium') === 'true';
+      tierBadge.textContent = isPremiumCached ? "Premium Member (Cached)" : "Free Tier Profile";
+      tierBadge.className = isPremiumCached ? "tier-badge premium" : "tier-badge free";
     }
   } else {
     clearSessionTokenFromExtension();
     window.location.href = '../login/index.html?redirect=authorize';
   }
-});
-
-logoutBtn.addEventListener('click', () => {
-  auth.signOut();
 });
