@@ -4,7 +4,7 @@
   font-family: var(--font-mono);
   font-size: 0.7rem;
   background: var(--accent-muted);
-  border: 1px solid rgba(205, 92, 92, 0.18);
+  border: 1px solid rgba(205, 92, 92, 0.12);
   border-radius: var(--radius-sm);
   display: inline-block;
   padding: 4px 10px;
@@ -37,7 +37,7 @@
 
 .card-plan.featured {
   border-color: var(--accent);
-  box-shadow: 0 4px 20px rgba(205, 92, 92, 0.08);
+  box-shadow: 0 4px 20px rgba(205, 92, 92, 0.05);
 }
 
 .premium-badge {
@@ -72,12 +72,22 @@
   font-size: 2rem;
   font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
   display: flex;
   align-items: baseline;
   gap: 6px;
   line-height: 1;
 }
+
+.original-price {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-right: 8px;
+  opacity: 0.65;
+}
+
 .local-est {
   font-size: 0.72rem;
   color: var(--text-muted);
