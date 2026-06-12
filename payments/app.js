@@ -6,8 +6,6 @@ const premiumBanner = document.getElementById('premium-status-banner');
 const card1Day = document.getElementById('plan-card-1day');
 const card1Month = document.getElementById('plan-card-1month');
 
-let currentUserToken = null;
-
 function syncSessionTokenToExtension(sessionToken, isPremium) {
   localStorage.setItem('authToken', sessionToken);
   localStorage.setItem('isPremium', isPremium ? 'true' : 'false');
@@ -24,7 +22,6 @@ function clearSessionTokenFromExtension() {
 
 async function performUserSync(user, retryCount = 0) {
   const idToken = await user.getIdToken(true);
-  currentUserToken = idToken;
 
   const syncRes = await fetch('https://syncuser-i6ptizncma-uc.a.run.app', {
     method: 'POST',
@@ -89,7 +86,6 @@ auth.onAuthStateChanged(async (user) => {
       statusText.innerHTML = `Sync error: <code style="font-size:11px;">${e.message}</code>`;
     }
   } else {
-    currentUserToken = null;
     premiumBanner.classList.add('hidden');
     if (card1Day) card1Day.classList.remove('plan-disabled');
     if (card1Month) card1Month.classList.remove('plan-disabled');
@@ -111,12 +107,20 @@ async function initiateCheckout(planType, buttonEl) {
     buttonEl.innerHTML = "Creating Secure Order...";
     buttonEl.setAttribute('disabled', 'true');
 
-    // Authentication enforcement: pass dynamic ID token to verify order initiator
+    // Dynamically retrieve the current user on button click to guarantee clean sessions
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error("User session not found. Please log in again.");
+    }
+    
+    // Refresh and fetch a fresh ID token before making the order creation call
+    const activeToken = await user.getIdToken(true);
+
     const orderRes = await fetch('https://createrazorpayorder-i6ptizncma-uc.a.run.app', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${currentUserToken}`,
+        'Authorization': `Bearer ${activeToken}`,
         'X-Client-Version': '3.0'
       },
       body: JSON.stringify({ planType })
@@ -137,11 +141,13 @@ async function initiateCheckout(planType, buttonEl) {
       "handler": async function (paymentResponse) {
          buttonEl.innerHTML = "Verifying Transaction...";
          
+         const freshToken = await user.getIdToken(true);
+         
          const verifyRes = await fetch('https://verifypayment-i6ptizncma-uc.a.run.app', {
            method: 'POST',
            headers: { 
              'Content-Type': 'application/json',
-             'Authorization': `Bearer ${currentUserToken}`,
+             'Authorization': `Bearer ${freshToken}`,
              'X-Client-Version': '3.0'
            },
            body: JSON.stringify({
