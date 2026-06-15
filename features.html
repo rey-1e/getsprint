@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Features — LeetCode Sprint</title>
+  <title>Features — CodeSprint</title>
   <link rel="icon" type="image/png" href="icon.png">
-  <meta name="description" content="Explore Sprint's diagnostic engine features. Real-time complexity analysis, verified company tags, AI debugger, and true ELO difficulty ratings.">
+  <meta name="description" content="Complexity analysis, debugging, and chat.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
         <div class="logo-box">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <span class="brand-text">Sprint<span class="accent">.</span></span>
+        <span class="brand-text">CodeSprint<span class="accent">.</span></span>
       </a>
       <div class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
@@ -42,9 +42,9 @@
   <!-- Page Header -->
   <section class="section header-offset border-top text-center">
     <div class="container">
-      <span class="badge">Features Overview</span>
-      <h1 class="page-title">Clear feedback and insights to push you toward perfection.</h1>
-      <p class="page-subtitle">Sprint fixes the crucial pain-points every developer faces on their LeetCode journey.</p>
+      <span class="badge">Engine Overview</span>
+      <h1 class="page-title">Engineered for your coding routine.</h1>
+      <p class="page-subtitle">CodeSprint builds powerful developer utilities directly into your viewport.</p>
     </div>
   </section>
 
@@ -53,48 +53,83 @@
     <div class="container">
       <div class="bento-grid">
 
-        <!-- Complexity -->
+        <!-- universal sprintAI Chat -->
         <div class="bento-card col-span-2">
+          <div class="card-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="card-body">
+            <h3>Embedded sprintAI Chat</h3>
+            <p>Context-aware shadow DOM assistant. Chat about code selections, configure preset prompts, and toggle output security on the fly.</p>
+            <div class="inline-complexity-preview" style="gap:4px;">
+              <span class="badge-tag" style="background:rgba(255,255,255,0.03); border-color:var(--border);">Toggle: <strong>No Code Output</strong></span>
+              <span class="badge-tag" style="background:rgba(205,92,92,0.06);">Presets Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Presets -->
+        <div class="bento-card">
+          <div class="card-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8l-4 4h8z"/></svg>
+          </div>
+          <div class="card-body">
+            <h3>Custom Query Presets</h3>
+            <p>Instant query templates (Optimize, Explain, Complexity, Bug scan) to bypass manual typing.</p>
+          </div>
+        </div>
+
+        <!-- Complexity -->
+        <div class="bento-card">
           <div class="card-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           </div>
           <div class="card-body">
-            <h3>On-the-spot Time & Space Complexity</h3>
-            <p>Calculate space and time complexities for your code in seconds — no manual analysis needed, ever.</p>
-            <div class="inline-complexity-preview">
-              <span class="badge-tag">Time complexity: <strong>O(N)</strong></span>
-              <span class="badge-tag">Space allocation: <strong>O(N)</strong></span>
-            </div>
+            <h3>O-Notation Analyzer (Ctrl+Shift+X)</h3>
+            <p>Select any block to compute Time/Space complexities instantly inside sliding toast alerts.</p>
           </div>
         </div>
 
-        <!-- Company Tags -->
-        <div class="bento-card">
+        <!-- Logic Debugger -->
+        <div class="bento-card col-span-2">
           <div class="card-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
           <div class="card-body">
-            <h3>Verified Company Tags</h3>
-            <p>Seamlessly injected company tags inside LeetCode's own interface — know exactly who asked what.</p>
-            <div class="company-tags-preview">
-              <span class="company-tag">Apple</span>
-              <span class="company-tag">Nvidia</span>
-              <span class="company-tag">Google</span>
-              <span class="company-tag">Amazon</span>
-            </div>
+            <h3>AI Logic Debugger (Ctrl+Shift+Z)</h3>
+            <p>Locate bugs, infinite loops, and exceptions. Ask follow-up questions directly using the connected chat bridge.</p>
           </div>
         </div>
 
-        <!-- Post-Submission Diagnostics -->
+        <!-- Floating action anchors -->
         <div class="bento-card col-span-3 interactive-bento">
           <div class="interactive-grid">
             <div class="card-body">
               <div class="card-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
               </div>
-              <h3>Comprehensive Post-Submission Summaries</h3>
-              <p>Get the most important code insights that matter in real tech interviews — approach, efficiency, and style.</p>
-              <p class="interactive-hint">Click the tabs to explore runtime evaluations.</p>
+              <h3>Interactive Control Anchors</h3>
+              <p>A draggable floating sphere and an instant highlight popup. Keeps controls within reach, fully toggleable in settings.</p>
+              <p class="interactive-hint">Selection Popups can be disabled in extension settings.</p>
+            </div>
+            <div class="company-tags-preview" style="align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+              <span class="company-tag" style="background:#cd5c5c;color:#ffffff;border:1px solid rgba(255,255,255,0.1);padding:6px 12px;font-weight:600;">⚡ Floating Panel</span>
+              <span class="company-tag" style="background:#f4f4f5;color:#18181b;border:1px solid #e4e4e7;padding:6px 12px;font-weight:600;">⏱️ Complexity</span>
+              <span class="company-tag" style="background:#f4f4f5;color:#18181b;border:1px solid #e4e4e7;padding:6px 12px;font-weight:600;">💬 Chat</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Site-Specific Overrides -->
+        <div class="bento-card col-span-3 interactive-bento">
+          <div class="interactive-grid">
+            <div class="card-body">
+              <div class="card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 14.5 3.5 16.5 5.5 17.5C6 17.75 6.5 18 6.5 18.5C6.5 19 6 19.5 6 20C6 21 7 22 8.5 22H12Z"/><circle cx="7.5" cy="10.5" r="1.5"/><circle cx="11.5" cy="7.5" r="1.5"/><circle cx="16.5" cy="9.5" r="1.5"/><circle cx="15.5" cy="14.5" r="1.5"/></svg>
+              </div>
+              <h3>Domain-Specific Overrides</h3>
+              <p>Automatic overlays on supported sites like LeetCode, delivering automated submission metrics, contest ELO, and verified company tags.</p>
+              <p class="interactive-hint">Select tabs below to examine submission summarization overrides.</p>
             </div>
             <div class="submission-panel-mockup">
               <div class="submission-tabs">
@@ -104,69 +139,28 @@
               </div>
               <div class="submission-content-wrapper">
                 <div class="submission-pane active" id="pane-approach">
-                  <div class="pane-highlight">Optimized lookup approach located.</div>
+                  <div class="pane-highlight">Optimized target mappings identified.</div>
                   <div class="pane-details">
-                    <div class="detail-row"><span>Current structure:</span> <span class="val">Hash Table / Vector Array</span></div>
-                    <div class="detail-row"><span>Suggested structure:</span> <span class="val text-success">Unordered Map</span></div>
-                    <div class="detail-row"><span>Operational note:</span> <span class="val text-muted">Mapped target hash search reduces lookups to O(1).</span></div>
+                    <div class="detail-row"><span>Active structure:</span> <span class="val">Standard Array Vector</span></div>
+                    <div class="detail-row"><span>Recommended:</span> <span class="val text-success">Unordered Map Registry</span></div>
+                    <div class="detail-row"><span>Diagnostic Note:</span> <span class="val text-muted">A localized target mapping restricts element searching to O(1).</span></div>
                   </div>
                 </div>
                 <div class="submission-pane" id="pane-efficiency">
-                  <div class="pane-highlight">Minimal loop bounds reached.</div>
+                  <div class="pane-highlight">Runtime parameters evaluation completed.</div>
                   <div class="pane-details">
-                    <div class="detail-row"><span>Execution speed:</span> <span class="val text-success">0 ms (Beats 100.00%)</span></div>
-                    <div class="detail-row"><span>Heap allocation:</span> <span class="val text-warning">14.89 MB (Beats 36.61%)</span></div>
+                    <div class="detail-row"><span>Compiled execution:</span> <span class="val text-success">0 ms (Beats 100.00%)</span></div>
+                    <div class="detail-row"><span>Memory signature:</span> <span class="val text-warning">14.89 MB (Beats 36.61%)</span></div>
                   </div>
                 </div>
                 <div class="submission-pane" id="pane-style">
-                  <div class="pane-highlight">Production design compliance checks passed.</div>
+                  <div class="pane-highlight">Production compliance rules satisfied.</div>
                   <div class="pane-details">
-                    <div class="detail-row"><span>Variable naming:</span> <span class="val text-success">Descriptive camelCase used.</span></div>
-                    <div class="detail-row"><span>Complexity check:</span> <span class="val text-muted">Single-responsibility loop logic matches production standards.</span></div>
+                    <div class="detail-row"><span>Variable Naming:</span> <span class="val text-success">CamelCase strictly used.</span></div>
+                    <div class="detail-row"><span>Encapsulation:</span> <span class="val text-muted">Single-responsibility loop boundaries cleanly defined.</span></div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ELO Ratings -->
-        <div class="bento-card">
-          <div class="card-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-          </div>
-          <div class="card-body">
-            <h3>True ELO Ratings</h3>
-            <p>Get absolute numerical difficulty ratings instead of vague easy/medium/hard classifications. Know exactly where you stand.</p>
-          </div>
-        </div>
-
-        <!-- AI Debugger -->
-        <div class="bento-card col-span-2">
-          <div class="card-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="6" y1="8" x2="6.01" y2="8"></line><line x1="10" y1="8" x2="10.01" y2="8"></line><line x1="7" y1="16" x2="17" y2="16"></line></svg>
-          </div>
-          <div class="card-body">
-            <h3>AI Debugger for Insights</h3>
-            <p>Use AI inside LeetCode's native environment to understand your coding mistakes, get targeted suggestions, and learn faster with every submission.</p>
-          </div>
-        </div>
-
-        <!-- Custom Themes -->
-        <div class="bento-card col-span-3 interactive-bento">
-          <div class="interactive-grid">
-            <div class="card-body">
-              <div class="card-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 14.5 3.5 16.5 5.5 17.5C6 17.75 6.5 18 6.5 18.5C6.5 19 6 19.5 6 20C6 21 7 22 8.5 22H12Z"/><circle cx="7.5" cy="10.5" r="1.5"/><circle cx="11.5" cy="7.5" r="1.5"/><circle cx="16.5" cy="9.5" r="1.5"/><circle cx="15.5" cy="14.5" r="1.5"/></svg>
-              </div>
-              <h3>Personalized Custom Themes</h3>
-              <p>Seamlessly toggle between beautiful visual themes styled to minimize eye strain. Swap between classic light, deep dark, pitch black, and solarized palettes instantly without interrupting your focus.</p>
-            </div>
-            <div class="company-tags-preview" style="align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
-              <span class="company-tag" style="background:#ffffff;color:#18181b;border:1px solid #e4e4e7;padding:6px 12px;font-weight:600;">Light Mode</span>
-              <span class="company-tag" style="background:#18181b;color:#ffffff;border:1px solid #27272a;padding:6px 12px;font-weight:600;">Deep Dark</span>
-              <span class="company-tag" style="background:#090d16;color:#cd5c5c;border:1px solid #cd5c5c;padding:6px 12px;font-weight:600;">Indian Red</span>
-              <span class="company-tag" style="background:#fdf6e3;color:#586e75;border:1px solid #eee8d5;padding:6px 12px;font-weight:600;">Solarized</span>
             </div>
           </div>
         </div>
@@ -183,7 +177,7 @@
           <div class="logo-box small">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
-          <span class="brand-text">Sprint<span class="accent">.</span></span>
+          <span class="brand-text">CodeSprint<span class="accent">.</span></span>
         </a>
         <p class="footer-tagline">High-performance tools for engineers preparing for complex technical interviews.</p>
       </div>
@@ -196,7 +190,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 LeetCode Sprint. All rights reserved.
+      &copy; 2026 CodeSprint. All rights reserved.
     </div>
   </footer>
 

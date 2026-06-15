@@ -45,7 +45,7 @@ async function performUserSync(user, retryCount = 0) {
   }
 
   const errDetail = syncData.detail || syncData.error || `HTTP ${syncRes.status}`;
-  console.error("Sprint syncUser failed:", syncRes.status, syncData);
+  console.error("CodeSprint syncUser failed:", syncRes.status, syncData);
   throw new Error(errDetail);
 }
 
@@ -107,7 +107,6 @@ async function initiateCheckout(planType, buttonEl) {
     buttonEl.innerHTML = "Creating Secure Order...";
     buttonEl.setAttribute('disabled', 'true');
 
-    // Fresh token generation to prevent session expiration issues during checkout sequence
     const user = auth.currentUser;
     if (!user) {
       throw new Error("User session not found. Please log in again.");
@@ -135,7 +134,7 @@ async function initiateCheckout(planType, buttonEl) {
       "amount": order.amount,
       "currency": "INR",
       "order_id": order.id,
-      "name": "LeetCode Sprint",
+      "name": "CodeSprint",
       "description": `Upgrade to ${planType === '1day' ? '1 Day' : '1 Month'} Premium`,
       "handler": async function (paymentResponse) {
          buttonEl.innerHTML = "Verifying Transaction...";
