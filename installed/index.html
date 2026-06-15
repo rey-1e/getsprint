@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to CodeSprint - Setup Guide</title>
+  <link rel="icon" type="image/png" href="../icon.png">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyAg1tPoejGGXcJMe9MwMWTWhnCjZOpRt7g",
+      authDomain: "sprint-87863.firebaseapp.com",
+      projectId: "sprint-87863",
+      storageBucket: "sprint-87863.firebasestorage.app",
+      messagingSenderId: "549425279249",
+      appId: "1:549425279249:web:ce3d25457977bec5915cb0",
+      measurementId: "G-PCKD965D95"
+    });
+  </script>
+</head>
+<body class="page-installed">
+
+  <div class="bg-glow blob-top"></div>
+  <div class="bg-glow blob-middle"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="brand">
+        <div class="logo-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <span class="brand-text">CodeSprint<span class="accent">.</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../dashboard/index.html" class="nav-link">Dashboard</a>
+        <a href="../features.html" class="nav-link">Features</a>
+        <a href="../payments/index.html" class="nav-link">Upgrade</a>
+        <a href="../support.html" class="nav-link">Support</a>
+      </div>
+      <div class="nav-actions">
+        <a href="https://chromewebstore.google.com/detail/leetcode-sprint/eilgpmmdpaapjbjgcjnoddnddnlagica" target="_blank" class="btn btn-primary nav-btn">
+          Install Free
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Installed Welcome Screen -->
+  <main class="container header-offset" style="max-width: 800px;">
+    
+    <header class="installed-hero text-center">
+      <span class="badge">
+        <span class="pulse-dot"></span>
+        Setup Guide
+      </span>
+      <h1 class="page-title">You're ready to run.</h1>
+      <p class="page-subtitle">Configure these three essential steps to synchronize CodeSprint on your device.</p>
+    </header>
+
+    <!-- Onboarding Guide Cards -->
+    <div class="onboarding-steps-container">
+
+      <!-- STEP 1: PIN EXTENSION -->
+      <section class="onboarding-step-card window-glass">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Pin CodeSprint to Your Toolbar</h3>
+          <p class="step-desc">Keep CodeSprint accessible to manage workspace overrides and view daily limit quotas instantly.</p>
+          
+          <div class="step-instruction-box">
+            <ol class="step-list">
+              <li>Click the <strong>Extensions</strong> puzzle icon in the top-right corner of your browser.</li>
+              <li>Locate <strong>CodeSprint</strong> inside the dropdown.</li>
+              <li>Click the <strong>Pin</strong> pushpin icon to anchor it to your main toolbar.</li>
+            </ol>
+          </div>
+        </div>
+        <!-- pure-CSS Graphic -->
+        <div class="step-visual">
+          <div class="chrome-toolbar-mockup">
+            <div class="mockup-url-bar">
+              <span class="url-text">getsprint.me/installed</span>
+            </div>
+            <div class="mockup-extensions-area">
+              <div class="mockup-puzzle-icon animate-pulse-puzzle">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-2-2h-5l-1-3-1 3H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2z"/></svg>
+              </div>
+              <div class="mockup-pin-connector"></div>
+              <div class="mockup-pinned-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2: AUTHENTICATE AND SYNC -->
+      <section class="onboarding-step-card window-glass">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Sync Your Account Status</h3>
+          <p class="step-desc">Your daily limits, premium tier, and workspace updates require secure token matching to function.</p>
+          
+          <div class="auth-sync-status-box" id="auth-sync-status">
+            <div class="spinner inline-spinner" id="sync-spinner"></div>
+            <span id="sync-text-status">Connecting to authentication services...</span>
+          </div>
+
+          <div class="step-action-wrapper" id="auth-action-wrapper">
+            <!-- Buttons are populated dynamically by app.js based on session state -->
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3: TRY YOUR NEW POWERS -->
+      <section class="onboarding-step-card window-glass">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Test Your Setup Globally</h3>
+          <p class="step-desc">CodeSprint is active across all sites. Give the companion a test run on this page:</p>
+          
+          <div class="test-canvas-container">
+            <div class="test-editor-mock">
+              <span class="editor-row"><span class="keyword">def</span> <span class="function">sum_elements</span>(data):</span>
+              <span class="editor-row highlight-selection">    total = sum(data)</span>
+              <span class="editor-row"><span class="keyword">return</span> total</span>
+              
+              <!-- Floating popup overlay mockup -->
+              <div class="test-inline-popup">
+                <span class="popup-title">✨ Highlighted!</span>
+                <p>Press <span class="kbd-inline">Alt</span> + <span class="kbd-inline">Q</span> or use the floating control sphere in the bottom-right corner to analyze code.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer border-top">
+    <div class="container footer-layout">
+      <div class="footer-meta">
+        <a href="../index.html" class="brand">
+          <div class="logo-box small">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <span class="brand-text">CodeSprint<span class="accent">.</span></span>
+        </a>
+        <p class="footer-tagline">High-performance tools for engineers preparing for complex technical interviews.</p>
+      </div>
+      <div class="footer-nav">
+        <a href="../index.html" class="footer-link">Home</a>
+        <a href="../dashboard/index.html" class="footer-link">Dashboard</a>
+        <a href="../features.html" class="footer-link">Features</a>
+        <a href="../payments/index.html" class="footer-link">Upgrade</a>
+        <a href="../support.html" class="footer-link">Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 CodeSprint. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="../navbar.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
