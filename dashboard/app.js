@@ -11,6 +11,8 @@ const detailedUsed = document.getElementById('detailed-used');
 const detailedBar = document.getElementById('detailed-bar');
 const bugUsed = document.getElementById('bug-used');
 const bugBar = document.getElementById('bug-bar');
+const chatUsed = document.getElementById('chat-used');
+const chatBar = document.getElementById('chat-bar');
 const ctaArea = document.getElementById('dashboard-cta-area');
 
 function syncSessionTokenToExtension(sessionToken, isPremium) {
@@ -68,13 +70,13 @@ auth.onAuthStateChanged(async (user) => {
     const isPremium = (syncData && syncData.isPremium) || (localStorage.getItem('isPremium') === 'true');
 
     // Secure, isolated Firestore block to prevent silent page crashes from Brave Shield / Adblockers
-    let usage = { complexity: 0, detailed: 0, bug: 0 };
+    let usage = { complexity: 0, detailed: 0, bug: 0, chat: 0 };
     let userData = {};
     try {
       const userDoc = await firebase.firestore().collection("users").doc(user.uid).get();
       if (userDoc.exists) {
         userData = userDoc.data() || {};
-        usage = userData.usage || { complexity: 0, detailed: 0, bug: 0 };
+        usage = userData.usage || { complexity: 0, detailed: 0, bug: 0, chat: 0 };
       }
     } catch (fsError) {
       console.warn("Dashboard: Firestore query blocked or deferred. Proceeding with sync state.", fsError);
@@ -100,6 +102,8 @@ auth.onAuthStateChanged(async (user) => {
       detailedBar.style.width = "100%";
       bugUsed.textContent = "Unlimited (Premium)";
       bugBar.style.width = "100%";
+      chatUsed.textContent = "Unlimited (Premium)";
+      chatBar.style.width = "100%";
       
       ctaArea.classList.add('hidden');
     } else {
@@ -108,16 +112,19 @@ auth.onAuthStateChanged(async (user) => {
       expiryDateEl.textContent = "Never (Free Account)";
 
       const compCount = usage.complexity || 0;
-      complexityUsed.textContent = `${compCount} / 5 used`;
-      complexityBar.style.width = `${Math.min((compCount / 5) * 100, 100)}%`;
+      complexityUsed.textContent = `${compCount} / 15 used`;
+      complexityBar.style.width = `${Math.min((compCount / 15) * 100, 100)}%`;
 
-      const detCount = usage.detailed || 0;
-      detailedUsed.textContent = `${detCount} / 5 used`;
-      detailedBar.style.width = `${Math.min((detCount / 5) * 100, 100)}%`;
+      detailedUsed.textContent = "Unlimited (Free)";
+      detailedBar.style.width = "100%";
 
       const bugCount = usage.bug || 0;
-      bugUsed.textContent = `${bugCount} / 3 used`;
-      bugBar.style.width = `${Math.min((bugCount / 3) * 100, 100)}%`;
+      bugUsed.textContent = `${bugCount} / 7 used`;
+      bugBar.style.width = `${Math.min((bugCount / 7) * 100, 100)}%`;
+
+      const chatCount = usage.chat || 0;
+      chatUsed.textContent = `${chatCount} / 10 used`;
+      chatBar.style.width = `${Math.min((chatCount / 10) * 100, 100)}%`;
 
       ctaArea.classList.remove('hidden');
     }
