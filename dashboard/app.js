@@ -7,8 +7,6 @@ const logoutBtn = document.getElementById('logout-btn');
 
 const complexityUsed = document.getElementById('complexity-used');
 const complexityBar = document.getElementById('complexity-bar');
-const detailedUsed = document.getElementById('detailed-used');
-const detailedBar = document.getElementById('detailed-bar');
 const bugUsed = document.getElementById('bug-used');
 const bugBar = document.getElementById('bug-bar');
 const chatUsed = document.getElementById('chat-used');
@@ -98,8 +96,6 @@ auth.onAuthStateChanged(async (user) => {
 
       complexityUsed.textContent = "Unlimited (Premium)";
       complexityBar.style.width = "100%";
-      detailedUsed.textContent = "Unlimited (Premium)";
-      detailedBar.style.width = "100%";
       bugUsed.textContent = "Unlimited (Premium)";
       bugBar.style.width = "100%";
       chatUsed.textContent = "Unlimited (Premium)";
@@ -114,9 +110,6 @@ auth.onAuthStateChanged(async (user) => {
       const compCount = usage.complexity || 0;
       complexityUsed.textContent = `${compCount} / 15 used`;
       complexityBar.style.width = `${Math.min((compCount / 15) * 100, 100)}%`;
-
-      detailedUsed.textContent = "Unlimited (Free)";
-      detailedBar.style.width = "100%";
 
       const bugCount = usage.bug || 0;
       bugUsed.textContent = `${bugCount} / 7 used`;
